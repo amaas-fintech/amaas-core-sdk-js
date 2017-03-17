@@ -98,7 +98,7 @@ function retrieveData(_ref2, callback) {
   var url = buildURL({ AMaaSClass: AMaaSClass, AMId: AMId, resourceId: resourceId });
   // const url = resourceId ? `${baseURL}${AMaaSClass}/${AMId}/${resourceId}` : `${baseURL}${AMaaSClass}/${AMId}/`
 
-  _superagent2.default.get(url).end(function (error, response) {
+  _superagent2.default.get(url).set('Authorization', 'CHNaS6Kuk9A5wAmV86PnKQJxp0WKwwL2OgqFYYYBBxSDwIKA60ibFQDYFmPokMOl').end(function (error, response) {
     if (!error && response.status == 200) {
       callback(null, response.body);
     } else {

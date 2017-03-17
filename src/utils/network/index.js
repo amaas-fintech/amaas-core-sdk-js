@@ -70,7 +70,7 @@ export function retrieveData({ AMaaSClass, AMId, resourceId }, callback) {
   const url = buildURL({ AMaaSClass, AMId, resourceId })
   // const url = resourceId ? `${baseURL}${AMaaSClass}/${AMId}/${resourceId}` : `${baseURL}${AMaaSClass}/${AMId}/`
 
-  request.get(url).end((error, response) => {
+  request.get(url).set('Authorization', 'CHNaS6Kuk9A5wAmV86PnKQJxp0WKwwL2OgqFYYYBBxSDwIKA60ibFQDYFmPokMOl').end((error, response) => {
     if (!error && response.status == 200) {
       callback(null, response.body)
     } else {
