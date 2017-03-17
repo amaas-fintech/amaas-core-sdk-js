@@ -71,6 +71,7 @@ export function retrieveData({ AMaaSClass, AMId, resourceId }, token, callback) 
   // const url = resourceId ? `${baseURL}${AMaaSClass}/${AMId}/${resourceId}` : `${baseURL}${AMaaSClass}/${AMId}/`
 
   request.get(url).set('Authorization', token).end((error, response) => {
+
     if (!error && response.status == 200) {
       callback(null, response.body)
     } else {
