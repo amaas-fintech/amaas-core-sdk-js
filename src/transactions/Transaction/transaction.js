@@ -6,8 +6,9 @@ import {
   Code,
   Comment,
   Link,
+  Party,
   Reference,
-  Party
+  Rate
 } from '../../children'
 import * as types from '../enums'
 
@@ -41,6 +42,7 @@ class Transaction extends AMaaSModel {
    * @param {object} params.comments - Object of all comments (Comment class)
    * @param {object} params.links - Object of all links (Link class)
    * @param {object} params.parties - Object of all parties as a Transaction child (PartyChild class)
+   * @param {object} params.rates - Object of all rates (Rate class)
    * @param {object} params.references - *
    * @param {*} params.postings - *
   */
@@ -66,6 +68,7 @@ class Transaction extends AMaaSModel {
     comments={},
     links={},
     parties={},
+    rates={},
     references,
     postings,
     createdBy,
@@ -255,6 +258,22 @@ class Transaction extends AMaaSModel {
           }
         },
         enumerable: true
+      },
+      _rates: { writable: true, enumerable: false },
+      rates: {
+        get: () => this._rates,
+        set: (newRates) => {
+          if (newRates) {
+            let rates = {}
+            for (let ref in newRates) {
+              if (newRates.hasOwnProperty(ref)) {
+                rates[ref] = new Rate(Object.assign({}, newRates[ref]))
+              }
+            }
+            this._rates = rates
+          }
+        },
+        enumerable: true
       }
     })
     this.assetManagerId = assetManagerId
@@ -277,6 +296,7 @@ class Transaction extends AMaaSModel {
     this.comments = comments
     this.links = links
     this.parties = parties
+    this.rates = rates
     this.references = references
     this.postings = []
     this.asset = asset
@@ -288,7 +308,7 @@ class Transaction extends AMaaSModel {
     }
     let netCharges = new Decimal(0);
     for (let chargeType in this.charges) {
-      if (this.charges[chargeType].active && this.charges[chargeType].netAffecting) {
+      if (this.charges[chargeType].netAffecting) {
         netCharges = netCharges.plus(this.charges[chargeType].chargeValue)
       }
     }
