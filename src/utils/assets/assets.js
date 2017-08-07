@@ -190,6 +190,54 @@ export function search({ AMId, query }, callback) {
 }
 
 /**
+ * Search for Assets with specified fields
+ * @function fieldsSearch
+ * @memberof module:api.Assets
+ * @static
+ * @param {object} params - object of parameters:
+ * @param {number} [params.AMId] - Asset Manager ID of the Assets to search over. If omitted, you must send assetManagerIds in the search query with at least one value
+ * @param {number} [params.assetId] -Asset ID of the asset
+ * @param {string} [params.field] -Fields should be returned 
+ * Available fields are:
+ * <li>assetManagerIds (Required if AMId param is omitted)</li>
+ * <li>clientIds</li>
+ * <li>assetStatuses</li>
+ * <li>assetIds</li>
+ * <li>referenceTypes</li>
+ * <li>referenceValues</li>
+ * <li>assetIssuerIds</li>
+ * <li>assetClasses</li>
+ * <li>assetTypes</li>
+ * e.g. `{ AMIds: [1], assetIds: [1], fields: [assetType, description] }`
+ * @param {function} callback - Called with two arguments (error, result) on completion. `result` is an array of Assets or a single Asset instance
+ * @returns {Promise|null} If no callback supplied, returns a Promise that resolves with an array of Assets or a single Asset instance
+ */
+export function fieldsSearch({ AMIds, assetIds, fields }, callback) {
+  const params = {
+    AMaaSClass: 'assets',
+    AMIds,
+    assetIds,
+    fields
+  }
+
+  let promise = searchData (params).then(result => {
+    if (Array.isArray(result)) {
+      result = result.map(ass => _parseAsset(ass))
+    } else {
+      result = _parseAsset(result)
+    }
+    if(typeof callback === 'function'){
+       callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
  * Delete an exising Asset. This will set the Asset status to 'Inactive'.
  * @function deactivate
  * @memberof module:api.Assets
