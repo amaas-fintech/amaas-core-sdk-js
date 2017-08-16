@@ -12,17 +12,17 @@ import { Item } from '../../monitor'
  * @param {function} callback - Called with two arguments (error, result) on completion. `result` is an array of Items or a single Item instance. Omit to return Promise
  * @returns {Promise|null} - If no callback supplied, returns a Promise that resolves with an array of Items or a single Item instance
  */
-export function retrieveItems({ AMId, resourceId }, callback) {
+export function retrieveItem({ AMId, resourceId }, callback) {
   const params = {
     AMaaSClass: 'monitorItems',
     AMId,
     resourceId
   }
   let promise = retrieveData(params).then(result => {
-    if (Array.isArray(result.data)) {
-      result = result.data.map(item => _parseItem(item))
+    if (Array.isArray(result)) {
+      result = result.map(item => _parseItem(item))
     } else {
-      result = _parseItem(result.data)
+      result = _parseItem(result)
     }
     if (typeof callback === 'function') {
       callback(null, result)
@@ -129,10 +129,10 @@ export function searchItems({ AMId, query }, callback) {
     query
   }
   let promise = searchData(params).then(result => {
-    if (Array.isArray(result.data)) {
-      result = result.data.map(item => _parseItem(item))
+    if (Array.isArray(result)) {
+      result = result.map(item => _parseItem(item))
     } else {
-      result = _parseItem(result.data)
+      result = _parseItem(result)
     }
     if (typeof callback === 'function') {
       callback(null, result)

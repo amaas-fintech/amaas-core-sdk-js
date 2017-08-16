@@ -10,16 +10,16 @@ network.deleteData = jest.fn()
 
 const testItem = { assetManagerId: 1 }
 
-describe('retrieveItems', () => {
+describe('retrieveItem', () => {
   it('should return a promise if no callback is supplied', () => {
-    network.retrieveData.mockImplementation(() => Promise.resolve({ data: testItem }))
-    let result = api.retrieveItems({ AMId: 1, resourceId: 'testItemID' })
+    network.retrieveData.mockImplementation(() => Promise.resolve(testItem))
+    let result = api.retrieveItem({ AMId: 1, resourceId: 'testItemID' })
     expect(result).toBeInstanceOf(Promise)
   })
 
   it('should call callback if supplied', done => {
-    network.retrieveData.mockImplementation(() => Promise.resolve({ data: testItem }))
-    api.retrieveItems({ AMId: 1, resourceId: 'testItemID' }, (error, result) => {
+    network.retrieveData.mockImplementation(() => Promise.resolve(testItem))
+    api.retrieveItem({ AMId: 1, resourceId: 'testItemID' }, (error, result) => {
       expect(result).toBeDefined()
       done()
     })
@@ -27,7 +27,7 @@ describe('retrieveItems', () => {
 
   it('callback error', done => {
     network.retrieveData.mockImplementation(() => Promise.reject('testError'))
-    api.retrieveItems({ AMId: 1, resourceId: 'testItemID' }, (error, result) => {
+    api.retrieveItem({ AMId: 1, resourceId: 'testItemID' }, (error, result) => {
       expect(error).toBeDefined()
       done()
     })
@@ -35,8 +35,8 @@ describe('retrieveItems', () => {
 
   it('returns an Item instance', () => {
     const expectedResult = new Item({ assetManagerId: 1 })
-    network.retrieveData.mockImplementation(() => Promise.resolve({ data: testItem }))
-    api.retrieveItems({ AMId: 1, resourceId: 'testItemID' })
+    network.retrieveData.mockImplementation(() => Promise.resolve(testItem))
+    api.retrieveItem({ AMId: 1, resourceId: 'testItemID' })
       .then(result => {
         expect(result).toEqual(expectedResult)
       })
@@ -112,13 +112,13 @@ describe('resubsmit Item', () => {
 
 describe('searchItems', () => {
   it('returns a promise if no callback is supplied', () => {
-    network.searchData.mockImplementation(() => Promise.resolve({ data: testItem }))
+    network.searchData.mockImplementation(() => Promise.resolve(testItem))
     let result = api.searchItems({ AMId: 1, query: {} })
     expect(result).toBeInstanceOf(Promise)
   })
 
   it('callback if supplied', done => {
-    network.searchData.mockImplementation(() => Promise.resolve({ data: testItem }))
+    network.searchData.mockImplementation(() => Promise.resolve(testItem))
     api.searchItems({ AMId: 1, query: {} }, (error, result) => {
       expect(result).toBeDefined()
       done()
@@ -136,7 +136,7 @@ describe('searchItems', () => {
 
   it('returns an array of items if resolved with array', () => {
     const expectedResult = new Item(testItem)
-    network.searchData.mockImplementation(() => Promise.resolve({ data: [ testItem, testItem ] }))
+    network.searchData.mockImplementation(() => Promise.resolve([ testItem, testItem ]))
     api.searchItems({ AMId: 1, query: {} })
       .then(result => {
         expect(result).toBeInstanceOf(Array)
