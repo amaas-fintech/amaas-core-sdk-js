@@ -11,13 +11,14 @@ const userPool = new CognitoUserPool({
 
 export function getEndpoint({ stage, apiVersion }) {
   switch (stage) {
+    case 'dev':
     case 'staging':
-      return `${endpoint.staging}/staging`
+      return `${endpoint.dev}/${apiVersion || 'v1.0'}`
     case 'prod':
-      return `${endpoint.prod}/${apiVersion}`
+      return `${endpoint.prod}/${apiVersion || 'sg1.0'}`
     default:
-      console.warn(`Unknown stage variable: ${stage}. Defaulting to /prod`)
-      return `${endpoint.prod}/${apiVersion}`
+      console.warn(`Unknown stage variable: ${stage}. Defaulting to dev`)
+      return `${endpoint.dev}/${apiVersion || 'v1.0'}`
   }
 }
 
@@ -76,6 +77,7 @@ export function getToken(stage, credPath) {
     injectedResolve = resolve
     injectedReject = reject
     switch (stage) {
+      case 'dev':
       case 'staging':
       case 'prod':
         const cognitoUser = userPool.getCurrentUser()
@@ -160,8 +162,14 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
     case 'relationships':
       baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/asset-manager-relationships`
       break
+    case 'relatedAssetManagerID':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/asset-manager-related-amid`
+      break
     case 'relationshipRequest':
       baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/relationship-request`
+      break
+    case 'assetManagerPubSubCredentials':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/credential`
       break
     case 'transactions':
       baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/transactions`
@@ -195,6 +203,7 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
 
 export function setAuthorization(stage) {
   switch (stage) {
+    case 'dev':
     case 'staging':
     case 'prod':
     default:
