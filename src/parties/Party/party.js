@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty'
 
 import { AMaaSModel } from '../../core'
-import { Address, Email } from '../Children'
+import { Address, Email, PhoneNumber } from '../Children'
 import { Comment, Reference } from '../../children'
 import PartyLink from '../../children/Link/PartyLink'
 import { PARTY_STATUSES, PARTY_TYPES } from '../enums'
@@ -25,6 +25,7 @@ class Party extends AMaaSModel {
    * @param {string} [params.description] - Description of the Party
    * @param {object} [params.addresses] - Object of Addresses associated with the Party
    * @param {object} [params.emails] - Object of Emails associated with the Party
+   * @param {object} [params.phoneNumbers] - Object of Phone Numbers associated with the Party
    * @param {object} [params.references] - Object of References associated with the Party
    * @param {object} [params.comments] - Object of Comments associated with the Party
    * @param {object} [params.links] - Object of Links associated with this Party
@@ -43,12 +44,13 @@ class Party extends AMaaSModel {
     partyStatus = 'Active',
     partyClass = 'Party',
     baseCurrency,
-    description = '',
-    addresses = {},
-    emails = {},
-    references = {},
-    comments = {},
-    links = {},
+    description='',
+    addresses={},
+    emails={},
+    phoneNumbers = {},
+    references={},
+    comments={},
+    links={},
     legalName,
     displayName,
     url,
@@ -88,6 +90,33 @@ class Party extends AMaaSModel {
             this._emails = emails
           } else {
             this._emails = {}
+          }
+        },
+        enumerable: true
+      },
+      _phoneNumbers: { writable: true, enumerable: false },
+      phoneNumbers: {
+        get: () => this._phoneNumbers,
+        set: newPhoneNumbers => {
+          if (Object.keys(newPhoneNumbers).length > 0) {
+            let phoneNumbers = {}
+            let primaryPhoneNumber = 0
+            for (let type in newPhoneNumbers) {
+              if (newPhoneNumbers.hasOwnProperty(type)) {
+                phoneNumbers[type] = new PhoneNumber(
+                  Object.assign({}, newPhoneNumbers[type])
+                )
+                if (newPhoneNumbers[type].phoneNumberPrimary) {
+                  primaryPhoneNumber++
+                }
+              }
+            }
+            if (primaryPhoneNumber !== 1) {
+              throw new Error('Only 1 primary phoneNumber must be supplied')
+            }
+            this._phoneNumbers = phoneNumbers
+          } else {
+            this._phoneNumbers = {}
           }
         },
         enumerable: true
@@ -207,6 +236,7 @@ class Party extends AMaaSModel {
     this.description = description
     this.addresses = addresses
     this.emails = emails
+    this.phoneNumbers = phoneNumbers
     this.references = references
     this.comments = comments
     this.links = links
@@ -257,6 +287,24 @@ class Party extends AMaaSModel {
     if (!regex.test(email)) {
       throw new Error('Not a valid email')
     }
+  }
+  
+ /**
+ * Upsert an Phone Number
+ * @param {string} type - Type of Phone Number (e.g. 'Work', 'Support')
+ * @param {PhoneNumbers} phoneNumber - new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??)
+ */
+  upsertPhoneNumber(type, phoneNumber) {
+    const phoneNumbers = Object.assign({}, this.phoneNumbers)
+    if (phoneNumber.phoneNumberPrimary) {
+      for (let ref in phoneNumbers) {
+        if (phoneNumbers.hasOwnProperty(ref)) {
+          phoneNumbers[ref].phoneNumberPrimary = false
+        }
+      }
+    }
+    phoneNumbers[type] = phoneNumber
+    this.phoneNumbers = phoneNumbers
   }
 }
 

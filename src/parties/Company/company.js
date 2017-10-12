@@ -16,7 +16,6 @@ class Company extends Organisation {
    * @param {string} [params.baseCurrency] - Base Currency of the Company (e.g. SGD, USD)
    * @param {string} [params.description] - Description of the Company
    * @param {string} [params.yearOfIncorporation] - Year of incorporation
-   * @param {string} [params.contactNumber] - Contact number
    * @param {object} [params.addresses] - Object of Addresses associated with the Company
    * @param {object} [params.emails] - Object of Emails associated with the Company
    * @param {object} [params.references] - Object of References associated with the Company
@@ -39,7 +38,6 @@ class Company extends Organisation {
     baseCurrency,
     description='',
     yearOfIncorporation,
-    contactNumber,
     addresses={},
     emails={},
     references={},
@@ -76,7 +74,6 @@ class Company extends Organisation {
       version
     })
     this.yearOfIncorporation = yearOfIncorporation
-    this.contactNumber = contactNumber
   }
 }
 

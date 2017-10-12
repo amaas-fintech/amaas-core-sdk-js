@@ -19,7 +19,6 @@ class Exchange extends Company {
    * @param {string} [params.assetsUnderManagement] - Value of assets under management
    * @param {string} [params.registrationNumber] - Business registration number (if applicable)
    * @param {string} [params.yearOfIncorporation] - Year of incorporation
-   * @param {string} [params.contactNumber] - Contact number
    * @param {object} [params.addresses] - Object of Addresses associated with the Exchange
    * @param {object} [params.emails] - Object of Emails associated with the Exchange
    * @param {object} [params.references] - Object of References associated with the Exchange
@@ -41,7 +40,6 @@ class Exchange extends Company {
     baseCurrency,
     description='',
     yearOfIncorporation,
-    contactNumber,
     addresses={},
     emails={},
     references={},
@@ -63,7 +61,6 @@ class Exchange extends Company {
       baseCurrency,
       description,
       yearOfIncorporation,
-      contactNumber,
       addresses,
       emails,
       references,

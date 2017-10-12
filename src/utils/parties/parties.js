@@ -8,9 +8,6 @@ import {
 } from '../network'
 import * as PartyClasses from '../../parties'
 
-import Address from '../../parties/Children/address.js'
-import Email from '../../parties/Children/email.js'
-
 /**
  * Retrieve Party data for specified AMId and partyId
  * @function retrieve
