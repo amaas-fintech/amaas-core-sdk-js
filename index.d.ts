@@ -353,6 +353,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     description?: string
     addresses?: any
     emails?: any
+    phoneNumbers?: any
     references?: any
     comments?: any
     links?: any
@@ -372,14 +373,12 @@ declare module '@amaas/amaas-core-sdk-js' {
     title?: string
     role?: string
     department?: string
-    contactNumber?: string
   }
   export interface IOrganisation extends IParty {}
   export interface ISubFund extends IParty {}
   export interface IGovernmentAgency extends IOrganisation {}
   export interface ICompany extends IOrganisation {
     yearOfIncorporation?: string
-    contactNumber?: string
   }
   export interface IFund extends ICompany {}
   export interface IExchange extends ICompany {}
@@ -1687,6 +1686,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       description?: string
       addresses?: any
       emails?: any
+      phoneNumbers?: any
       references?: any
       comments?: any
       links?: any
@@ -1708,7 +1708,6 @@ declare module '@amaas/amaas-core-sdk-js' {
       title?: string
       role?: string
       department?: string
-      contactNumber?: string
       constructor(props: IIndividual)
     }
 
@@ -1726,7 +1725,6 @@ declare module '@amaas/amaas-core-sdk-js' {
 
     class Company extends Organisation {
       yearOfIncorporation?: string
-      contactNumber?: string
       constructor(props: ICompany)
     }
 

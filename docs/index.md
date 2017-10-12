@@ -3797,46 +3797,58 @@ Classes for the Parties service
         * [new AssetManager(params)](#new_module_parties.AssetManager_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Broker](#module_parties.Broker) ⇐ [<code>Company</code>](#module_parties.Company)
         * [new Broker(params)](#new_module_parties.Broker_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Address](#module_parties.Address) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Address(params)](#new_module_parties.Address_new)
     * [.Email](#module_parties.Email) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Email(params)](#new_module_parties.Email_new)
+    * [.PhoneNumber](#module_parties.PhoneNumber) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+        * [new PhoneNumber(params)](#new_module_parties.PhoneNumber_new)
     * [.Company](#module_parties.Company) ⇐ [<code>Organisation</code>](#module_parties.Organisation)
         * [new Company(params)](#new_module_parties.Company_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Exchange](#module_parties.Exchange) ⇐ [<code>Company</code>](#module_parties.Company)
         * [new Exchange(params)](#new_module_parties.Exchange_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Fund](#module_parties.Fund) ⇐ [<code>Company</code>](#module_parties.Company)
         * [new Fund(params)](#new_module_parties.Fund_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.GovernmentAgency](#module_parties.GovernmentAgency) ⇐ [<code>Organisation</code>](#module_parties.Organisation)
         * [new GovernmentAgency(params)](#new_module_parties.GovernmentAgency_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Individual](#module_parties.Individual) ⇐ [<code>Party</code>](#module_parties.Party)
         * [new Individual(params)](#new_module_parties.Individual_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Organisation](#module_parties.Organisation) ⇐ [<code>Party</code>](#module_parties.Party)
         * [new Organisation(params)](#new_module_parties.Organisation_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Party](#module_parties.Party) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Party(params)](#new_module_parties.Party_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.SubFund](#module_parties.SubFund) ⇐ [<code>Party</code>](#module_parties.Party)
         * [new SubFund(params)](#new_module_parties.SubFund_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="module_parties.AssetManager"></a>
 
@@ -3850,6 +3862,7 @@ Class representing an Asset Manager
     * [new AssetManager(params)](#new_module_parties.AssetManager_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.AssetManager_new"></a>
 
@@ -3870,7 +3883,6 @@ Construct a new Asset Manager instance
 | [params.assetsUnderManagement] | <code>string</code> |  | Value of assets under management |
 | [params.registrationNumber] | <code>string</code> |  | Business registration number (if applicable) |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | params.addresses | <code>object</code> |  | Object of Addresses associated with this Asset Manager |
 | params.emails | <code>object</code> |  | Object of Emails associated with this Asset Manager |
 | params.references | <code>object</code> |  | Object of References associated with this Asset Manager |
@@ -3909,6 +3921,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### assetManager.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>AssetManager</code>](#module_parties.AssetManager)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Broker"></a>
 
 ### parties.Broker ⇐ [<code>Company</code>](#module_parties.Company)
@@ -3921,6 +3945,7 @@ Class representing a Broker
     * [new Broker(params)](#new_module_parties.Broker_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Broker_new"></a>
 
@@ -3941,7 +3966,6 @@ Construct a new Broker instance
 | [params.assetsUnderManagement] | <code>string</code> |  | Value of assets under management |
 | [params.registrationNumber] | <code>string</code> |  | Business registration number (if applicable) |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Broker |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Broker |
 | [params.references] | <code>object</code> |  | Object of References associated with the Broker |
@@ -3979,6 +4003,18 @@ Upsert an Email
 | --- | --- | --- |
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
+
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### broker.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Broker</code>](#module_parties.Broker)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
 
 <a name="module_parties.Address"></a>
 
@@ -4035,6 +4071,31 @@ Construct a new Email object
 | [params.updatedTime] | <code>date</code> | Time that the Email was updated |
 | [params.version] | <code>number</code> | Version number of the Email |
 
+<a name="module_parties.PhoneNumber"></a>
+
+### parties.PhoneNumber ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+Class representing an Phone Number
+
+**Kind**: static class of [<code>parties</code>](#module_parties)  
+**Extends**: [<code>AMaaSModel</code>](#module_core.AMaaSModel)  
+<a name="new_module_parties.PhoneNumber_new"></a>
+
+#### new PhoneNumber(params)
+Construct a new phone number object
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | phone number creation options: |
+| params.phoneNumberPrimary | <code>boolean</code> | Whether the phone number is primary for its owner. If a Party has phone number, at least one must be primary |
+| params.phoneNumber | <code>string</code> | Phone Number |
+| params.active | <code>boolean</code> | Whether the phone number is active for its owner |
+| [params.createdBy] | <code>string</code> | ID of the user that created the phone number |
+| [params.updatedBy] | <code>string</code> | ID of the user that updated the phone number |
+| [params.createdTime] | <code>date</code> | Time that the phone number was created |
+| [params.updatedTime] | <code>date</code> | Time that the phone number was updated |
+| [params.version] | <code>number</code> | Version number of the phone number |
+
 <a name="module_parties.Company"></a>
 
 ### parties.Company ⇐ [<code>Organisation</code>](#module_parties.Organisation)
@@ -4047,6 +4108,7 @@ Class representing a Company
     * [new Company(params)](#new_module_parties.Company_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Company_new"></a>
 
@@ -4064,7 +4126,6 @@ Construct a new Company instance
 | [params.baseCurrency] | <code>string</code> |  | Base Currency of the Company (e.g. SGD, USD) |
 | [params.description] | <code>string</code> |  | Description of the Company |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Company |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Company |
 | [params.references] | <code>object</code> |  | Object of References associated with the Company |
@@ -4103,6 +4164,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### company.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Company</code>](#module_parties.Company)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Exchange"></a>
 
 ### parties.Exchange ⇐ [<code>Company</code>](#module_parties.Company)
@@ -4115,6 +4188,7 @@ Class representing an Exchange
     * [new Exchange(params)](#new_module_parties.Exchange_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Exchange_new"></a>
 
@@ -4135,7 +4209,6 @@ Construct a new Exchange instance
 | [params.assetsUnderManagement] | <code>string</code> |  | Value of assets under management |
 | [params.registrationNumber] | <code>string</code> |  | Business registration number (if applicable) |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Exchange |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Exchange |
 | [params.references] | <code>object</code> |  | Object of References associated with the Exchange |
@@ -4174,6 +4247,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### exchange.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Exchange</code>](#module_parties.Exchange)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Fund"></a>
 
 ### parties.Fund ⇐ [<code>Company</code>](#module_parties.Company)
@@ -4186,6 +4271,7 @@ Class representing a Fund
     * [new Fund(params)](#new_module_parties.Fund_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Fund_new"></a>
 
@@ -4206,7 +4292,6 @@ Construct a new Fund instance
 | [params.assetsUnderManagement] | <code>string</code> |  | Value of assets under management |
 | [params.registrationNumber] | <code>string</code> |  | Business registration number (if applicable) |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Fund |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Fund |
 | [params.references] | <code>object</code> |  | Object of References associated with the Fund |
@@ -4245,6 +4330,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### fund.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Fund</code>](#module_parties.Fund)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.GovernmentAgency"></a>
 
 ### parties.GovernmentAgency ⇐ [<code>Organisation</code>](#module_parties.Organisation)
@@ -4257,6 +4354,7 @@ Class representing a Government Agency
     * [new GovernmentAgency(params)](#new_module_parties.GovernmentAgency_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.GovernmentAgency_new"></a>
 
@@ -4311,6 +4409,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### governmentAgency.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>GovernmentAgency</code>](#module_parties.GovernmentAgency)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Individual"></a>
 
 ### parties.Individual ⇐ [<code>Party</code>](#module_parties.Party)
@@ -4323,6 +4433,7 @@ Class representing an Individual
     * [new Individual(params)](#new_module_parties.Individual_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Individual_new"></a>
 
@@ -4345,7 +4456,6 @@ Construct a new Individual instance
 | [params.title] | <code>string</code> |  | Individual's title (e.g. Mr, Mrs, Ms, etc.) |
 | [params.department] | <code>string</code> |  | Individual's department |
 | [params.role] | <code>string</code> |  | Individual's role |
-| [params.contactNumber] | <code>string</code> |  | Individual's contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Individual |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Individual |
 | [params.references] | <code>object</code> |  | Object of References associated with the Individual |
@@ -4384,6 +4494,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### individual.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Individual</code>](#module_parties.Individual)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Organisation"></a>
 
 ### parties.Organisation ⇐ [<code>Party</code>](#module_parties.Party)
@@ -4396,6 +4518,7 @@ Class representing an Organisation
     * [new Organisation(params)](#new_module_parties.Organisation_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Organisation_new"></a>
 
@@ -4450,6 +4573,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### organisation.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Organisation</code>](#module_parties.Organisation)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Party"></a>
 
 ### parties.Party ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
@@ -4462,6 +4597,7 @@ Class representing a Party
     * [new Party(params)](#new_module_parties.Party_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Party_new"></a>
 
@@ -4480,6 +4616,7 @@ Construct a new Party instance
 | [params.description] | <code>string</code> |  | Description of the Party |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Party |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Party |
+| [params.phoneNumbers] | <code>object</code> |  | Object of Phone Numbers associated with the Party |
 | [params.references] | <code>object</code> |  | Object of References associated with the Party |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Party |
 | [params.links] | <code>object</code> |  | Object of Links associated with this Party |
@@ -4516,6 +4653,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### party.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Party</code>](#module_parties.Party)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.SubFund"></a>
 
 ### parties.SubFund ⇐ [<code>Party</code>](#module_parties.Party)
@@ -4528,6 +4677,7 @@ Class representing a Celled Fund Structure (SubFund)
     * [new SubFund(params)](#new_module_parties.SubFund_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.SubFund_new"></a>
 
@@ -4580,6 +4730,18 @@ Upsert an Email
 | --- | --- | --- |
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
+
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### subFund.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>SubFund</code>](#module_parties.SubFund)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
 
 <a name="module_relationships"></a>
 
