@@ -3885,6 +3885,7 @@ Construct a new Asset Manager instance
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
 | params.addresses | <code>object</code> |  | Object of Addresses associated with this Asset Manager |
 | params.emails | <code>object</code> |  | Object of Emails associated with this Asset Manager |
+| params.phoneNumbers | <code>object</code> |  | Object of phoneNumbers associated with this Asset Manager |
 | params.references | <code>object</code> |  | Object of References associated with this Asset Manager |
 | params.comments | <code>object</code> |  | Object of Comments associated with the Asset Manager |
 | params.links | <code>object</code> |  | Object of Links associated with the Asset Manager |
@@ -3968,6 +3969,7 @@ Construct a new Broker instance
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Broker |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Broker |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Broker |
 | [params.references] | <code>object</code> |  | Object of References associated with the Broker |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Broker |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Broker |
@@ -4127,7 +4129,8 @@ Construct a new Company instance
 | [params.description] | <code>string</code> |  | Description of the Company |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Company |
-| [params.emails] | <code>object</code> |  | Object of Emails associated with the Company |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Company |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Company |
 | [params.references] | <code>object</code> |  | Object of References associated with the Company |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Company |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Company |
@@ -4211,6 +4214,7 @@ Construct a new Exchange instance
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Exchange |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Exchange |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Exchange |
 | [params.references] | <code>object</code> |  | Object of References associated with the Exchange |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Exchange |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Exchange |
@@ -4294,6 +4298,7 @@ Construct a new Fund instance
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Fund |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Fund |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Fund |
 | [params.references] | <code>object</code> |  | Object of References associated with the Fund |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Fund |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Fund |
@@ -4373,6 +4378,7 @@ Construct a new Government Agency instance
 | [params.description] | <code>string</code> |  | Description of the Government Agency |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Government Agency |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Government Agency |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Government Agency |
 | [params.references] | <code>object</code> |  | Object of References associated with the Government Agency |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Government Agency |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Government Agency |
@@ -4458,6 +4464,7 @@ Construct a new Individual instance
 | [params.role] | <code>string</code> |  | Individual's role |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Individual |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Individual |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Individual |
 | [params.references] | <code>object</code> |  | Object of References associated with the Individual |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Individual |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Individual |
@@ -4537,6 +4544,7 @@ Construct a new Organisation instance
 | [params.description] | <code>string</code> |  | Description of the Organisation |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Organisation |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Organisation |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Organisation |
 | [params.references] | <code>object</code> |  | Object of References associated with the Organisation |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Organisation |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Organisation |
@@ -4695,6 +4703,7 @@ Construct a new SubFund instance
 | [params.description] | <code>string</code> |  | Description of the SubFund |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the SubFund |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the SubFund |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the SubFund |
 | [params.references] | <code>object</code> |  | Object of References associated with the SubFund |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the SubFund |
 | [params.links] | <code>object</code> |  | Object of Links associated with the SubFund |
