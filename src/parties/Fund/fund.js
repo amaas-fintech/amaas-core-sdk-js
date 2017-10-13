@@ -21,6 +21,7 @@ class Fund extends Company {
    * @param {string} [params.yearOfIncorporation] - Year of incorporation
    * @param {object} [params.addresses] - Object of Addresses associated with the Fund
    * @param {object} [params.emails] - Object of Emails associated with the Fund
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Fund
    * @param {object} [params.references] - Object of References associated with the Fund
    * @param {object} [params.comments] - Object of Comments associated with the Fund
    * @param {object} [params.links] - Object of Links associated with the Fund
@@ -42,6 +43,7 @@ class Fund extends Company {
     yearOfIncorporation,
     addresses={},
     emails={},
+    phoneNumbers={},
     references={},
     comments={},
     links={},
@@ -63,6 +65,7 @@ class Fund extends Company {
       yearOfIncorporation,
       addresses,
       emails,
+      phoneNumbers,
       references,
       comments,
       links,

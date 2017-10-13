@@ -21,6 +21,7 @@ class AssetManager extends Company {
    * @param {string} [params.yearOfIncorporation] - Year of incorporation
    * @param {object} params.addresses - Object of Addresses associated with this Asset Manager
    * @param {object} params.emails - Object of Emails associated with this Asset Manager
+   * @param {object} params.phoneNumbers - Object of phoneNumbers associated with this Asset Manager
    * @param {object} params.references - Object of References associated with this Asset Manager
    * @param {object} params.comments - Object of Comments associated with the Asset Manager
    * @param {object} params.links - Object of Links associated with the Asset Manager
@@ -46,6 +47,7 @@ class AssetManager extends Company {
     yearOfIncorporation,
     addresses={},
     emails={},
+    phoneNumbers={},
     references={},
     comments={},
     links={},
@@ -67,6 +69,7 @@ class AssetManager extends Company {
       yearOfIncorporation,
       addresses,
       emails,
+      phoneNumbers,
       references,
       comments,
       links,

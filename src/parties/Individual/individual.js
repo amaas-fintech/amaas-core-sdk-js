@@ -23,6 +23,7 @@ class Individual extends Party {
    * @param {string} [params.role] - Individual's role
    * @param {object} [params.addresses] - Object of Addresses associated with the Individual
    * @param {object} [params.emails] - Object of Emails associated with the Individual
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Individual
    * @param {object} [params.references] - Object of References associated with the Individual
    * @param {object} [params.comments] - Object of Comments associated with the Individual
    * @param {object} [params.links] - Object of Links associated with the Individual
@@ -50,6 +51,7 @@ class Individual extends Party {
     role,
     addresses={},
     emails={},
+    phoneNumbers={},
     references={},
     comments={},
     links={},
@@ -71,6 +73,7 @@ class Individual extends Party {
       description: description || `${givenNames} ${surname}`,
       addresses,
       emails,
+      phoneNumbers,
       references,
       comments,
       links,

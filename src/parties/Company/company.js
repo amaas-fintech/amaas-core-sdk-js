@@ -17,7 +17,8 @@ class Company extends Organisation {
    * @param {string} [params.description] - Description of the Company
    * @param {string} [params.yearOfIncorporation] - Year of incorporation
    * @param {object} [params.addresses] - Object of Addresses associated with the Company
-   * @param {object} [params.emails] - Object of Emails associated with the Company
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Company
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Company
    * @param {object} [params.references] - Object of References associated with the Company
    * @param {object} [params.comments] - Object of Comments associated with the Company
    * @param {object} [params.links] - Object of Links associated with the Company
@@ -40,6 +41,7 @@ class Company extends Organisation {
     yearOfIncorporation,
     addresses={},
     emails={},
+    phoneNumbers={},
     references={},
     comments={},
     links={},
@@ -61,6 +63,7 @@ class Company extends Organisation {
       description,
       addresses,
       emails,
+      phoneNumbers,
       references,
       comments,
       links,
