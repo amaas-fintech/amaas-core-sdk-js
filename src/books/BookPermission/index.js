@@ -12,6 +12,7 @@ class BookPermission extends AMaaSModel {
    * @param {object} params - Book Permission creation options:
    * @param {number} params.assetManagerId - Asset Manager ID of the Book Permission
    * @param {string} params.bookId - Book ID
+   * @param {string} params.permissionId - Uniqie ID for the Permission record
    * @param {number} params.userAssetManagerId - Asset Manager ID of the User to grant the permission to
    * @param {string} params.permissionStatus - Permission status (Active or Inactive)
    * @param {string} params.permission - Permission value ('read' or 'write')
@@ -24,6 +25,7 @@ class BookPermission extends AMaaSModel {
   constructor({
     assetManagerId,
     bookId,
+    permissionId,
     userAssetManagerId,
     permissionStatus,
     permission,
@@ -34,30 +36,35 @@ class BookPermission extends AMaaSModel {
       _permissionStatus: { writable: true, enumerable: false },
       permissionStatus: {
         get: () => this._permissionStatus,
-        set: (newPermissionStatus) => {
+        set: newPermissionStatus => {
           if (newPermissionStatus) {
             if (PERMISSION_STATUSES.indexOf(newPermissionStatus) === -1) {
-              throw new Error(`Invalid permission status: ${newPermissionStatus}`)
+              throw new Error(
+                `Invalid permission status: ${newPermissionStatus}`
+              )
             }
             this._permissionStatus = newPermissionStatus
           }
-        }, enumerable: true
+        },
+        enumerable: true
       },
       _permission: { writable: true, enumerable: false },
       permission: {
         get: () => this._permission,
-        set: (newPermission) =>  {
+        set: newPermission => {
           if (newPermission) {
             if (PERMISSIONS.indexOf(newPermission) === -1) {
               throw new Error(`Invalid permission: ${newPermission}`)
             }
             this._permission = newPermission
           }
-        }, enumerable: true
+        },
+        enumerable: true
       }
     })
     this.assetManagerId = assetManagerId
     this.bookId = bookId
+    this.permissionId = permissionId
     this.userAssetManagerId = userAssetManagerId
     this.permissionStatus = permissionStatus
     this.permission = permission

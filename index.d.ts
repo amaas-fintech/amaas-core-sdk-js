@@ -77,6 +77,7 @@ declare module '@amaas/amaas-core-sdk-js' {
   export interface IBookPermission {
     assetManagerId: number
     bookId: string
+    permissionId: string
     userAssetManagerId: number
     permissionStatus: 'Active' | 'Inactive' | 'Superseded'
     permission: 'read' | 'write'
@@ -1235,6 +1236,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     class BookPermission {
       assetManagerId: number
       bookId: string
+      permissionId: string
       userAssetManagerId: number
       permissionStatus: 'Active' | 'Inactive' | 'Superseded'
       permission: 'read' | 'write'

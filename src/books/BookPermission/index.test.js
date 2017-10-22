@@ -5,7 +5,9 @@ describe('constructor', () => {
     const willThrow = () => {
       const testPerm = new BookPermission({ permissionStatus: 'NotAllowed' })
     }
-    expect(willThrow).toThrowError(new Error('Invalid permission status: NotAllowed'))
+    expect(willThrow).toThrowError(
+      new Error('Invalid permission status: NotAllowed')
+    )
   })
 
   it('throws if passing invalid permission', () => {
@@ -19,6 +21,7 @@ describe('constructor', () => {
     const params = {
       assetManagerId: 88,
       bookId: '123',
+      permissionId: 'testBookPermission',
       userAssetManagerId: 99,
       permissionStatus: 'Active',
       permission: 'write'
