@@ -756,8 +756,14 @@ declare module '@amaas/amaas-core-sdk-js' {
         {
           AMId,
           bookId,
+          permissionId,
           includeInactive
-        }: { AMId: number; bookId?: string; includeInactive?: boolean },
+        }: {
+          AMId: number
+          bookId?: string
+          permissionId?: string
+          includeInactive?: boolean
+        },
         callback?: Function
       ): Promise<books.BookPermission | books.BookPermission[]> | void
       function addPermission(
@@ -773,6 +779,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       function readPermission(
         {
           AMId,
+          permissionId,
           userAssetManagerId,
           bookId
         }: { AMId: number; userAssetManagerId: number; bookId: string },
@@ -781,17 +788,14 @@ declare module '@amaas/amaas-core-sdk-js' {
       function writePermission(
         {
           AMId,
+          permissionId,
           userAssetManagerId,
           bookId
         }: { AMId: number; userAssetManagerId: number; bookId: string },
         callback?: Function
       ): Promise<books.BookPermission> | void
       function deactivatePermission(
-        {
-          AMId,
-          userAssetManagerId,
-          bookId
-        }: { AMId: number; userAssetManagerId: number; bookId: string },
+        { AMId, permissionId }: { AMId: number; permissionId: string },
         callback?: Function
       ): Promise<books.BookPermission> | void
     }
