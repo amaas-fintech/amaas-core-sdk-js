@@ -315,6 +315,8 @@ export function readPermission(
   { AMId, permissionId, userAssetManagerId, bookId },
   callback
 ) {
+  if (!bookId || !permissionId)
+    throw new Error('Both bookId and permissionId must be passed')
   const data = new BookPermission({
     assetManagerId: AMId,
     permissionId,
@@ -323,10 +325,11 @@ export function readPermission(
     permissionStatus: 'Active',
     permission: 'read'
   })
+  const resourceId = `${bookId}/${permissionId}`
   const params = {
     AMaaSClass: 'bookPermissions',
     AMId,
-    resourceId: data.permissionId,
+    resourceId,
     data
   }
   let promise = putData(params).then(result => {
@@ -359,6 +362,8 @@ export function writePermission(
   { AMId, permissionId, userAssetManagerId, bookId },
   callback
 ) {
+  if (!bookId || !permissionId)
+    throw new Error('Both bookId and permissionId must be passed')
   const data = new BookPermission({
     assetManagerId: AMId,
     permissionId,
@@ -367,10 +372,11 @@ export function writePermission(
     permissionStatus: 'Active',
     permission: 'write'
   })
+  const resourceId = `${bookId}/${permissionId}`
   const params = {
     AMaaSClass: 'bookPermissions',
     AMId,
-    resourceId: data.permissionId,
+    resourceId,
     data
   }
   let promise = putData(params).then(result => {
@@ -394,14 +400,18 @@ export function writePermission(
  * @param {object} params - object of parameters:
  * @param {number} params.AMId - Asset Manager ID of the Company owning the Book
  * @param {number} params.permissionId - Permission ID of the Permission to deactivate
+ * @param {string} params.bookId - Book ID of the Permission to deactivate
  * @param {function} [callback] - Called with two values (error, result) on completion. `result` is the modifed Book Permission instance.
  * @returns {Promise|null} If no callback supplied, returns a Promise that resolves with the modified Book Permission
  */
-export function deactivatePermission({ AMId, permissionId }, callback) {
+export function deactivatePermission({ AMId, permissionId, bookId }, callback) {
+  if (!bookId || !permissionId)
+    throw new Error('Both bookId and permissionId must be passed')
+  const resourceId = `${bookId}/${permissionId}`
   const params = {
     AMaaSClass: 'bookPermissions',
     AMId,
-    resourceId: permissionId,
+    resourceId,
     data: { permissionStatus: 'Inactive' }
   }
   let promise = patchData(params).then(result => {

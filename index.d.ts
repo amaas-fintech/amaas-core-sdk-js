@@ -795,7 +795,11 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<books.BookPermission> | void
       function deactivatePermission(
-        { AMId, permissionId }: { AMId: number; permissionId: string },
+        {
+          AMId,
+          permissionId,
+          bookId
+        }: { AMId: number; permissionId: string; bookId: string },
         callback?: Function
       ): Promise<books.BookPermission> | void
     }
