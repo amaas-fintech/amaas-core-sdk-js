@@ -140,7 +140,7 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.amend(params, [callback])](#module_api.Books.amend) ⇒ <code>Promise</code> \| <code>null</code>
         * [.retire(params, [callback])](#module_api.Books.retire) ⇒ <code>Promise</code> \| <code>null</code>
         * [.reactivate(params, [callback])](#module_api.Books.reactivate) ⇒ <code>Promise</code> \| <code>null</code>
-        * [.getPermissions(params, [callback])](#module_api.Books.getPermissions) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.getPermissions(params, [permissionId], [callback])](#module_api.Books.getPermissions) ⇒ <code>Promise</code> \| <code>null</code>
         * [.addPermission(params, [callback])](#module_api.Books.addPermission) ⇒ <code>Promise</code> \| <code>null</code>
         * [.readPermission(params, [callback])](#module_api.Books.readPermission) ⇒ <code>Promise</code> \| <code>null</code>
         * [.writePermission(params, [callback])](#module_api.Books.writePermission) ⇒ <code>Promise</code> \| <code>null</code>
@@ -618,7 +618,7 @@ Retrieve the asset config (settlement cycle) for a particular asset class.
     * [.amend(params, [callback])](#module_api.Books.amend) ⇒ <code>Promise</code> \| <code>null</code>
     * [.retire(params, [callback])](#module_api.Books.retire) ⇒ <code>Promise</code> \| <code>null</code>
     * [.reactivate(params, [callback])](#module_api.Books.reactivate) ⇒ <code>Promise</code> \| <code>null</code>
-    * [.getPermissions(params, [callback])](#module_api.Books.getPermissions) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.getPermissions(params, [permissionId], [callback])](#module_api.Books.getPermissions) ⇒ <code>Promise</code> \| <code>null</code>
     * [.addPermission(params, [callback])](#module_api.Books.addPermission) ⇒ <code>Promise</code> \| <code>null</code>
     * [.readPermission(params, [callback])](#module_api.Books.readPermission) ⇒ <code>Promise</code> \| <code>null</code>
     * [.writePermission(params, [callback])](#module_api.Books.writePermission) ⇒ <code>Promise</code> \| <code>null</code>
@@ -717,7 +717,7 @@ Reactivate a Book. This will set the Book status to 'Active'.
 
 <a name="module_api.Books.getPermissions"></a>
 
-#### Books.getPermissions(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+#### Books.getPermissions(params, [permissionId], [callback]) ⇒ <code>Promise</code> \| <code>null</code>
 Retrieve Book Permissions for an AMID.
 
 **Kind**: static method of [<code>Books</code>](#module_api.Books)  
@@ -728,6 +728,7 @@ Retrieve Book Permissions for an AMID.
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Asset Manager ID of the Company owning the Book Permission |
 | [params.bookId] | <code>string</code> | Specific Book ID to retrieve permissions for. Omit to return all Permissions for the given AMId |
+| [permissionId] | <code>string</code> | Optional permission ID. Specify to return the unique record. Omit to return all Permissions for the given AMId/bookId combination |
 | params.includeInactive | <code>boolean</code> | Whether to show inactive Book Permissions |
 | [callback] | <code>function</code> | Called with two values (error, result) on completion. `result` is the inserted Book Permission instance. |
 
@@ -758,6 +759,7 @@ Modify a Book Permission to read (this will downgrade an existing write permissi
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Asset Manager ID of the Company owning the Book |
+| params.permissionId | <code>string</code> | Permission ID of the Permission to modify |
 | params.userAssetManagerId | <code>number</code> | Asset Manager ID of the user to grant read permission to |
 | params.bookId | <code>string</code> | Book ID |
 | [callback] | <code>function</code> | Called with two values (error, result) on completion. `result` is the modifed Book Permission instance. |
@@ -774,6 +776,7 @@ Modify a Book Permission to write (this will upgrade an existing write permissio
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Asset Manager ID of the Company owning the Book |
+| params.permissionId | <code>string</code> | Permission ID of the Permission to modify |
 | params.userAssetManagerId | <code>number</code> | Asset Manager ID of the user to grant read permission to |
 | params.bookId | <code>string</code> | Book ID |
 | [callback] | <code>function</code> | Called with two values (error, result) on completion. `result` is the modifed Book Permission instance. |
@@ -790,8 +793,8 @@ Deactivate a Book Permission (reactivation requires adding new permission)
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Asset Manager ID of the Company owning the Book |
-| params.userAssetManagerId | <code>number</code> | Asset Manager ID of the user to grant read permission to |
-| params.bookId | <code>string</code> | Book ID |
+| params.permissionId | <code>number</code> | Permission ID of the Permission to deactivate |
+| params.bookId | <code>string</code> | Book ID of the Permission to deactivate |
 | [callback] | <code>function</code> | Called with two values (error, result) on completion. `result` is the modifed Book Permission instance. |
 
 <a name="module_api.CorporateActions"></a>
@@ -3601,6 +3604,7 @@ Construct a new Book Permission instance
 | params | <code>object</code> | Book Permission creation options: |
 | params.assetManagerId | <code>number</code> | Asset Manager ID of the Book Permission |
 | params.bookId | <code>string</code> | Book ID |
+| params.permissionId | <code>string</code> | Uniqie ID for the Permission record |
 | params.userAssetManagerId | <code>number</code> | Asset Manager ID of the User to grant the permission to |
 | params.permissionStatus | <code>string</code> | Permission status (Active or Inactive) |
 | params.permission | <code>string</code> | Permission value ('read' or 'write') |
