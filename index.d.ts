@@ -77,6 +77,7 @@ declare module '@amaas/amaas-core-sdk-js' {
   export interface IBookPermission {
     assetManagerId: number
     bookId: string
+    permissionId: string
     userAssetManagerId: number
     permissionStatus: 'Active' | 'Inactive' | 'Superseded'
     permission: 'read' | 'write'
@@ -755,8 +756,14 @@ declare module '@amaas/amaas-core-sdk-js' {
         {
           AMId,
           bookId,
+          permissionId,
           includeInactive
-        }: { AMId: number; bookId?: string; includeInactive?: boolean },
+        }: {
+          AMId: number
+          bookId?: string
+          permissionId?: string
+          includeInactive?: boolean
+        },
         callback?: Function
       ): Promise<books.BookPermission | books.BookPermission[]> | void
       function addPermission(
@@ -772,6 +779,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       function readPermission(
         {
           AMId,
+          permissionId,
           userAssetManagerId,
           bookId
         }: { AMId: number; userAssetManagerId: number; bookId: string },
@@ -780,6 +788,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       function writePermission(
         {
           AMId,
+          permissionId,
           userAssetManagerId,
           bookId
         }: { AMId: number; userAssetManagerId: number; bookId: string },
@@ -788,9 +797,9 @@ declare module '@amaas/amaas-core-sdk-js' {
       function deactivatePermission(
         {
           AMId,
-          userAssetManagerId,
+          permissionId,
           bookId
-        }: { AMId: number; userAssetManagerId: number; bookId: string },
+        }: { AMId: number; permissionId: string; bookId: string },
         callback?: Function
       ): Promise<books.BookPermission> | void
     }
@@ -1235,6 +1244,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     class BookPermission {
       assetManagerId: number
       bookId: string
+      permissionId: string
       userAssetManagerId: number
       permissionStatus: 'Active' | 'Inactive' | 'Superseded'
       permission: 'read' | 'write'

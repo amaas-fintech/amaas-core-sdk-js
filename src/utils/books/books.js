@@ -229,16 +229,21 @@ export function reactivate({ AMId, resourceId }, callback) {
  * @param {object} params - object of parameters:
  * @param {number} params.AMId - Asset Manager ID of the Company owning the Book Permission
  * @param {string} [params.bookId] - Specific Book ID to retrieve permissions for. Omit to return all Permissions for the given AMId
+ * @param {string} [permissionId] - Optional permission ID. Specify to return the unique record. Omit to return all Permissions for the given AMId/bookId combination
  * @param {boolean} params.includeInactive - Whether to show inactive Book Permissions
  * @param {function} [callback] - Called with two values (error, result) on completion. `result` is the inserted Book Permission instance.
  * @returns {Promise|null} If no callback supplied, returns a Promise that resolves with the inserted Book Permission
  */
-export function getPermissions({ AMId, bookId, includeInactive }, callback) {
+export function getPermissions(
+  { AMId, bookId, permissionId, includeInactive },
+  callback
+) {
   const query = { includeInactive: includeInactive || 'false' }
+  const resourceId = `${bookId}${permissionId ? `/${permissionId}` : ''}`
   const params = {
     AMaaSClass: 'bookPermissions',
     AMId,
-    resourceId: bookId,
+    resourceId,
     query
   }
   let promise = retrieveData(params).then(result => {
@@ -300,24 +305,32 @@ export function addPermission({ AMId, bookPermission }, callback) {
  * @static
  * @param {object} params - object of parameters:
  * @param {number} params.AMId - Asset Manager ID of the Company owning the Book
+ * @param {string} params.permissionId - Permission ID of the Permission to modify
  * @param {number} params.userAssetManagerId - Asset Manager ID of the user to grant read permission to
  * @param {string} params.bookId - Book ID
  * @param {function} [callback] - Called with two values (error, result) on completion. `result` is the modifed Book Permission instance.
  * @returns {Promise|null} If no callback supplied, returns a Promise that resolves with the modified Book Permission
  */
-export function readPermission({ AMId, userAssetManagerId, bookId }, callback) {
+export function readPermission(
+  { AMId, permissionId, userAssetManagerId, bookId },
+  callback
+) {
+  if (!bookId || !permissionId)
+    throw new Error('Both bookId and permissionId must be passed')
   const data = new BookPermission({
     assetManagerId: AMId,
+    permissionId,
     userAssetManagerId,
     bookId,
     permissionStatus: 'Active',
     permission: 'read'
   })
+  const resourceId = `${bookId}/${permissionId}`
   const params = {
     AMaaSClass: 'bookPermissions',
     AMId,
-    resourceId: `${data.bookId}/modify`,
-    data: { ...data }
+    resourceId,
+    data
   }
   let promise = putData(params).then(result => {
     result = _parseBookPermission(result)
@@ -339,27 +352,32 @@ export function readPermission({ AMId, userAssetManagerId, bookId }, callback) {
  * @static
  * @param {object} params - object of parameters:
  * @param {number} params.AMId - Asset Manager ID of the Company owning the Book
+ * @param {string} params.permissionId - Permission ID of the Permission to modify
  * @param {number} params.userAssetManagerId - Asset Manager ID of the user to grant read permission to
  * @param {string} params.bookId - Book ID
  * @param {function} [callback] - Called with two values (error, result) on completion. `result` is the modifed Book Permission instance.
  * @returns {Promise|null} If no callback supplied, returns a Promise that resolves with the modified Book Permission
  */
 export function writePermission(
-  { AMId, userAssetManagerId, bookId },
+  { AMId, permissionId, userAssetManagerId, bookId },
   callback
 ) {
+  if (!bookId || !permissionId)
+    throw new Error('Both bookId and permissionId must be passed')
   const data = new BookPermission({
     assetManagerId: AMId,
+    permissionId,
     userAssetManagerId,
     bookId,
     permissionStatus: 'Active',
     permission: 'write'
   })
+  const resourceId = `${bookId}/${permissionId}`
   const params = {
     AMaaSClass: 'bookPermissions',
     AMId,
-    resourceId: `${data.bookId}/modify`,
-    data: { ...data }
+    resourceId,
+    data
   }
   let promise = putData(params).then(result => {
     result = _parseBookPermission(result)
@@ -381,29 +399,22 @@ export function writePermission(
  * @static
  * @param {object} params - object of parameters:
  * @param {number} params.AMId - Asset Manager ID of the Company owning the Book
- * @param {number} params.userAssetManagerId - Asset Manager ID of the user to grant read permission to
- * @param {string} params.bookId - Book ID
+ * @param {number} params.permissionId - Permission ID of the Permission to deactivate
+ * @param {string} params.bookId - Book ID of the Permission to deactivate
  * @param {function} [callback] - Called with two values (error, result) on completion. `result` is the modifed Book Permission instance.
  * @returns {Promise|null} If no callback supplied, returns a Promise that resolves with the modified Book Permission
  */
-export function deactivatePermission(
-  { AMId, userAssetManagerId, bookId },
-  callback
-) {
-  const data = new BookPermission({
-    assetManagerId: AMId,
-    userAssetManagerId,
-    bookId,
-    permissionStatus: 'Inactive',
-    permission: 'write'
-  })
+export function deactivatePermission({ AMId, permissionId, bookId }, callback) {
+  if (!bookId || !permissionId)
+    throw new Error('Both bookId and permissionId must be passed')
+  const resourceId = `${bookId}/${permissionId}`
   const params = {
     AMaaSClass: 'bookPermissions',
     AMId,
-    resourceId: `${data.bookId}/deactivate`,
-    data: { ...data }
+    resourceId,
+    data: { permissionStatus: 'Inactive' }
   }
-  let promise = putData(params).then(result => {
+  let promise = patchData(params).then(result => {
     result = _parseBookPermission(result)
     if (typeof callback === 'function') {
       callback(null, result)
