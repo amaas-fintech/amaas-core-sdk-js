@@ -782,7 +782,12 @@ declare module '@amaas/amaas-core-sdk-js' {
           permissionId,
           userAssetManagerId,
           bookId
-        }: { AMId: number; userAssetManagerId: number; bookId: string },
+        }: {
+          AMId: number
+          permissionId: string
+          userAssetManagerId: number
+          bookId: string
+        },
         callback?: Function
       ): Promise<books.BookPermission> | void
       function writePermission(
@@ -791,7 +796,12 @@ declare module '@amaas/amaas-core-sdk-js' {
           permissionId,
           userAssetManagerId,
           bookId
-        }: { AMId: number; userAssetManagerId: number; bookId: string },
+        }: {
+          AMId: number
+          permissionId: string
+          userAssetManagerId: number
+          bookId: string
+        },
         callback?: Function
       ): Promise<books.BookPermission> | void
       function deactivatePermission(
@@ -1686,6 +1696,21 @@ declare module '@amaas/amaas-core-sdk-js' {
       | IOrganisation
       | IParty
       | ISubFund
+
+    namespace utils {
+      const partyTypes: [
+        'AssetManager',
+        'Broker',
+        'Company',
+        'Exchange',
+        'Fund',
+        'GovernmentAgency',
+        'Individual',
+        'Organisation',
+        'Party'
+      ]
+      const partyStatuses: ['Active', 'Inactive', 'Superseded']
+    }
 
     class Party {
       assetManagerId: number
