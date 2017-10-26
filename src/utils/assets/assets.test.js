@@ -246,6 +246,31 @@ describe('utils/assets', () => {
         done()
       })
     })
+    it('allows fuzzy false', done => {
+      const params = {
+        AMId: 1,
+        query: {
+          q: 'AGMI',
+          fields: ['ticker', 'asset'],
+          includeAdditional: [1, 10],
+          fuzzy: false
+        }
+      }
+      fuzzySearch(params, (error, result) => {
+        expect(network.retrieveData).toHaveBeenCalledWith({
+          AMaaSClass: 'assets',
+          AMId: 'search',
+          resourceId: 1,
+          query: {
+            q: 'AGMI',
+            fields: ['ticker', 'asset'],
+            includeAdditional: [1, 10],
+            fuzzy: false
+          }
+        })
+        done()
+      })
+    })
   })
 
   describe('fieldsSearch', () => {

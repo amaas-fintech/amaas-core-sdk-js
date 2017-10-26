@@ -371,10 +371,8 @@ describe('retrieveActivities', () => {
 
   it('returns an Activity instance', () => {
     const expectedResult = new Activity({ assetManagerId: 1 })
-    network.retrieveData.mockImplementation(() =>
-      Promise.resolve({ data: testActivity })
-    )
-    api.retrieveActivities({ AMId: 1 }).then(result => {
+    network.retrieveData.mockImplementation(() => Promise.resolve(testActivity))
+    return api.retrieveActivities({ AMId: 1 }).then(result => {
       expect(result).toEqual(expectedResult)
     })
   })

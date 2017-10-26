@@ -215,7 +215,7 @@ export function search({ AMId, query }, callback) {
  * @returns {Promise|null} If no callback supplied, returns a Promise that resolves with the above object.
  */
 export function fuzzySearch({ AMId, query = { fuzzy: true } }, callback) {
-  query = { ...query, fuzzy: true }
+  query = { fuzzy: true, ...query }
   const params = {
     AMaaSClass: 'parties',
     AMId: 'search',
