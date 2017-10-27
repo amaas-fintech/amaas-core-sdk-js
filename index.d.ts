@@ -1672,6 +1672,19 @@ declare module '@amaas/amaas-core-sdk-js' {
     }
   }
 
+  // assetUtils
+  namespace assetUtils {
+    function getAssetTypes(): string[]
+    const OPTION_STYLES: string[]
+    const OPTION_TYPES: string[]
+    const FUND_TYPES: string[]
+    const FUTURE_SETTLEMENT_TYPES: string[]
+    const TENORS: string[]
+    const PRIVATE_INVESTMENT_CATEGORY: string[]
+    const PRIVATE_INVESTMENT_SUBCATEGORY: any
+    const PRIVATE_INVESTMENT_SHARE_TYPE: string[]
+  }
+
   // parties
   namespace parties {
     type PartiesClassType =

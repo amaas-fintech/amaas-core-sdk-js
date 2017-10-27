@@ -6,5 +6,8 @@
 // Classes
 import * as assets from '../assets'
 
+// Enums
+import * as assetUtils from '../assets/enums'
+
 // Exports
-export { assets }
+export { assets, assetUtils }
