@@ -7,7 +7,7 @@ import AssetLink from '../../../children/Link/AssetLink'
  * @extends module:ListDerivatives.Future
  */
 class CommodityFuture extends Future {
-      /**
+  /**
    * Construct a new CommodityFuture instance
    * @param {object} params - CommodityFuture creation options:
    * @param {number} params.assetManagerId - ID of Asset's Asset Manager __(required)__
@@ -35,61 +35,61 @@ class CommodityFuture extends Future {
    * @param {number} [params.version] - Version number
    */
   constructor({
-          assetManagerId,
-          assetId,
-          assetIssuerId,
-          assetStatus,
-          countryId,
-          venueId,
-          currency,
-          issueDate,
-          description,
-          displayName,
-          clientId,
-          settlementType,
-          contractSize, 
-          pointValue,
-          tickSize,
-          quoteUnit,
-          underlyingAssetId,
-          expiryDate,
-          comments,
-          links,
-          references,
-          createdBy,
-          updatedBy,
-          createdTime,
-          updatedTime,
-          version    
+    assetManagerId,
+    assetId,
+    assetIssuerId,
+    assetStatus,
+    countryId,
+    venueId,
+    currency,
+    issueDate,
+    description,
+    displayName,
+    clientId,
+    settlementType,
+    contractSize,
+    pointValue,
+    tickSize,
+    quoteUnit,
+    underlyingAssetId,
+    expiryDate,
+    comments,
+    links,
+    references,
+    createdBy,
+    updatedBy,
+    createdTime,
+    updatedTime,
+    version
   }) {
-      super({
-          assetManagerId,
-          assetId,
-          assetIssuerId,
-          assetStatus,
-          countryId,
-          venueId,
-          currency,
-          issueDate,
-          description,
-          displayName,
-          clientId,
-          settlementType,
-          contractSize,
-          pointValue,
-          tickSize,
-          quoteUnit,
-          underlyingAssetId,
-          expiryDate,
-          comments,
-          links,
-          references,
-          createdBy,
-          updatedBy,
-          createdTime,
-          updatedTime,
-          version
-      })   
+    super({
+      assetManagerId,
+      assetId,
+      assetIssuerId,
+      assetStatus,
+      countryId,
+      venueId,
+      currency,
+      issueDate,
+      description,
+      displayName,
+      clientId,
+      settlementType,
+      contractSize,
+      pointValue,
+      tickSize,
+      quoteUnit,
+      underlyingAssetId,
+      expiryDate,
+      comments,
+      links,
+      references,
+      createdBy,
+      updatedBy,
+      createdTime,
+      updatedTime,
+      version
+    })
   }
 }
 

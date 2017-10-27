@@ -67,13 +67,13 @@ class BondFuture extends Future {
     assetManagerId,
     assetId,
     assetIssuerId,
-    assetStatus='Active',
+    assetStatus = 'Active',
     countryId,
     venueId,
     currency,
     issueDate,
     expiryDate,
-    description='',
+    description = '',
     displayName,
     clientId,
     settlementType,
@@ -128,7 +128,7 @@ class BondFuture extends Future {
       _underlyingBondCoupon: { writable: true, enumerable: false },
       underlyingBondCoupon: {
         get: () => this._underlyingBondCoupon,
-        set: (newCoupon) => {
+        set: newCoupon => {
           if (!newCoupon) {
             this._underlyingBondCoupon = new Decimal(0)
           } else {
@@ -140,7 +140,7 @@ class BondFuture extends Future {
       _underlyingBondTenor: { writable: true, enumerable: false },
       underlyingBondTenor: {
         get: () => this._underlyingBondTenor,
-        set: (newUBT) => {
+        set: newUBT => {
           if (newUBT) {
             if (TENORS.indexOf(newUBT) === -1) {
               throw new Error(`Invalid tenor: ${newUBT}`)

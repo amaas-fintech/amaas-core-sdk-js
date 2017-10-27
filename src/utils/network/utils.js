@@ -170,7 +170,7 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
       baseURL = `${getEndpoint({ stage, apiVersion })}/book/books`
       break
     case 'bookPermissions':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/book/book-permission`
+      baseURL = `${getEndpoint({ stage, apiVersion })}/book/book-permissions`
       break
     case 'parties':
       baseURL = `${getEndpoint({ stage, apiVersion })}/party/parties`
