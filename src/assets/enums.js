@@ -1,7 +1,5 @@
 import forEach from 'lodash/forEach'
 
-import * as assetTypes from './'
-
 export const OPTION_STYLES = ['American', 'Bermudan', 'European']
 export const OPTION_TYPES = ['Put', 'Call']
 export const FUND_TYPES = ['Open', 'Closed', 'ETF']
@@ -97,13 +95,3 @@ export const PRIVATE_INVESTMENT_SHARE_TYPE = [
   'Convertible Note',
   'Loan'
 ]
-
-// Generate the list of types from the main asset export
-// rather than writing it out
-export const getAssetTypes = () => {
-  const assetTypeList = []
-  forEach(assetTypes, (val, key) => {
-    assetTypeList.push(key.toString())
-  })
-  return assetTypeList
-}
