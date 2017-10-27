@@ -1,3 +1,5 @@
+import forEach from 'lodash/forEach'
+
 /**
  * Classes for the Assets service
  * @module assets
