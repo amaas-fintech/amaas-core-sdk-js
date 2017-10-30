@@ -536,6 +536,54 @@ declare module '@amaas/amaas-core-sdk-js' {
     updatedTime?: string
     version?: number
   }
+
+  // Cash Transactions
+  export interface ICashTransaction {
+    assetManagerId: number
+    assetBookId?: string
+    counterpartyBookId?: string
+    transactionAction?:
+      | 'Buy'
+      | 'Sell'
+      | 'Short Sell'
+      | 'Short Cover'
+      | 'Deliver'
+      | 'Receive'
+      | 'Subscription'
+      | 'Redemption'
+      | 'Acquire'
+      | 'Remove'
+    assetId?: string
+    quantity?: any
+    transactionDate?: string
+    settlementDate?: string
+    price: number
+    transactionCurrency?: string
+    settlementCurrency?: string
+    asset?: any
+    executionTime?: string
+    transactionType?:
+      | 'Cashflow'
+      | 'Coupon'
+      | 'Dividend'
+      | 'Payment'
+    transactionId?: string
+    transactionStatus?:
+      | 'New'
+      | 'Amended'
+      | 'Superseded'
+      | 'Cancelled'
+      | 'Netted'
+      | 'Novated'
+    charges?: any
+    codes?: any
+    comments?: any
+    links?: any
+    parties?: any
+    rates?: any
+    references?: any
+  }
+
   export interface IPosition {
     assetManagerId: number
     bookId?: string
