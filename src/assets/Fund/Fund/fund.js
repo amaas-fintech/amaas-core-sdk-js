@@ -48,14 +48,14 @@ class Fund extends Asset {
   constructor({
     assetManagerId,
     assetId,
-    assetClass='Fund',
+    assetClass = 'Fund',
     fungible,
     assetIssuerId,
-    assetStatus='Active',
+    assetStatus = 'Active',
     countryId,
     venueId,
     currency,
-    description='',
+    description = '',
     displayName,
     rollPrice,
     clientId,
@@ -100,7 +100,7 @@ class Fund extends Asset {
       _creationDate: { writable: true, enumerable: false },
       creationDate: {
         get: () => this._creationDate,
-        set: (newCreationDate) => {
+        set: newCreationDate => {
           if (newCreationDate) {
             this._creationDate = newCreationDate
           } else {
@@ -112,7 +112,7 @@ class Fund extends Asset {
       _fundType: { writable: true, enumerable: false },
       fundType: {
         get: () => this._fundType,
-        set: (newFundType) => {
+        set: newFundType => {
           if (newFundType) {
             if (FUND_TYPES.indexOf(newFundType) === -1) {
               throw new Error(`Invalid Fund Type: ${newFundType}`)
@@ -125,7 +125,7 @@ class Fund extends Asset {
       _expenseRatio: { writable: true, enumerable: false },
       expenseRatio: {
         get: () => this._expenseRatio,
-        set: (newExpenseRatio) => {
+        set: newExpenseRatio => {
           if (!newExpenseRatio) {
             this._expenseRatio = new Decimal(0)
           } else {
@@ -137,7 +137,7 @@ class Fund extends Asset {
       _nav: { writable: true, enumerable: false },
       nav: {
         get: () => this._nav,
-        set: (newNav) => {
+        set: newNav => {
           if (!newNav) {
             this._nav = new Decimal(0)
           } else {

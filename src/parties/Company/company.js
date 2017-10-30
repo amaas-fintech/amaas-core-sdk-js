@@ -15,14 +15,10 @@ class Company extends Organisation {
    * @param {string} [params.partyClass=Company] - Class of the Company (a subclass of Company may define its own partyClass)
    * @param {string} [params.baseCurrency] - Base Currency of the Company (e.g. SGD, USD)
    * @param {string} [params.description] - Description of the Company
-   * @param {string} [params.licenseNumber] - Company license number (if applicable)
-   * @param {string} [params.licenseType] - Company license type
-   * @param {string} [params.assetsUnderManagement] - Value of assets under management
-   * @param {string} [params.registrationNumber] - Business registration number (if applicable)
    * @param {string} [params.yearOfIncorporation] - Year of incorporation
-   * @param {string} [params.contactNumber] - Contact number
    * @param {object} [params.addresses] - Object of Addresses associated with the Company
-   * @param {object} [params.emails] - Object of Emails associated with the Company
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Company
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Company
    * @param {object} [params.references] - Object of References associated with the Company
    * @param {object} [params.comments] - Object of Comments associated with the Company
    * @param {object} [params.links] - Object of Links associated with the Company
@@ -42,14 +38,10 @@ class Company extends Organisation {
     partyClass='Company',
     baseCurrency,
     description='',
-    licenseNumber,
-    licenseType,
-    assetsUnderManagement,
-    registrationNumber,
-    yearOfIncoporation,
-    contactNumber,
+    yearOfIncorporation,
     addresses={},
     emails={},
+    phoneNumbers={},
     references={},
     comments={},
     links={},
@@ -71,6 +63,7 @@ class Company extends Organisation {
       description,
       addresses,
       emails,
+      phoneNumbers,
       references,
       comments,
       links,
@@ -83,12 +76,7 @@ class Company extends Organisation {
       updatedTime,
       version
     })
-    this.licenseNumber = licenseNumber
-    this.licenseType = licenseType
-    this.assetsUnderManagement = assetsUnderManagement
-    this.registrationNumber = registrationNumber
-    this.yearOfIncoporation = yearOfIncoporation
-    this.contactNumber = contactNumber
+    this.yearOfIncorporation = yearOfIncorporation
   }
 }
 

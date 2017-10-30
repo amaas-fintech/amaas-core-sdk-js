@@ -17,6 +17,7 @@ class GovernmentAgency extends Organisation {
    * @param {string} [params.description] - Description of the Government Agency
    * @param {object} [params.addresses] - Object of Addresses associated with the Government Agency
    * @param {object} [params.emails] - Object of Emails associated with the Government Agency
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Government Agency
    * @param {object} [params.references] - Object of References associated with the Government Agency
    * @param {object} [params.comments] - Object of Comments associated with the Government Agency
    * @param {object} [params.links] - Object of Links associated with the Government Agency
@@ -38,6 +39,7 @@ class GovernmentAgency extends Organisation {
     description='',
     addresses={},
     emails={},
+    phoneNumbers={},
     references={},
     comments={},
     links={},
@@ -58,6 +60,7 @@ class GovernmentAgency extends Organisation {
       description,
       addresses,
       emails,
+      phoneNumbers,
       references,
       comments,
       links,

@@ -1,4 +1,11 @@
-import { retrieveData, insertData, putData, patchData, deleteData, searchData } from '../network'
+import {
+  retrieveData,
+  insertData,
+  putData,
+  patchData,
+  deleteData,
+  searchData
+} from '../network'
 import AssetManager from '../../assetManagers/AssetManager/assetManager.js'
 import Domain from '../../assetManagers/Domain/domain'
 import EODBook from '../../assetManagers/EODBook/eodBook'
@@ -180,8 +187,8 @@ export function reactivate({ AMId }, callback) {
  * @memberof module:api.AssetManagers
  * @static
  * @param {object} params - object of parameters:
+ * @param {number} params.AMId - Asset Manager ID to search domains for.
  * @param {string} params.query - search parameters for the domain search. Available keys are:
- * <li>assetManagerIds</li>
  * <li>isPrimary</li>
  * <li>domains</li>
  * <li>domainStatuses</li>
@@ -190,9 +197,10 @@ export function reactivate({ AMId }, callback) {
  * @param {function} [callback] - Called with two arguments (error, result) on completion. `result` are the matching Domain instances. Omit to return promise.
  * @returns {Promise|null} If no callback supplied, returns a promise that resolves with the matching Domain instances.
  */
-export function searchDomains({ query }, callback) {
+export function searchDomains({ AMId, query }, callback) {
   const params = {
     AMaaSClass: 'assetManagerDomains',
+    AMId,
     query
   }
   let promise = searchData(params).then(result => {
@@ -302,10 +310,10 @@ export function retrieveEODBooks({ AMId, bookID }, callback) {
     bookID
   }
   let promise = retrieveData(params).then(result => {
-    if(Array.isArray(result)) {
+    if (Array.isArray(result)) {
       result = result.map(eodBook => _parseEODBook(eodBook))
     } else {
-      result= _parseEODBook(result)
+      result = _parseEODBook(result)
     }
     if (typeof callback === 'function') {
       callback(null, result)
@@ -346,7 +354,7 @@ export function getCredentialsForPubSub({ AMId }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function _parseEODBook(object){
+export function _parseEODBook(object) {
   return new EODBook(object)
 }
 

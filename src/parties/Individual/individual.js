@@ -21,9 +21,9 @@ class Individual extends Party {
    * @param {string} [params.title] - Individual's title (e.g. Mr, Mrs, Ms, etc.)
    * @param {string} [params.department] - Individual's department
    * @param {string} [params.role] - Individual's role
-   * @param {string} [params.contactNumber] - Individual's contact number
    * @param {object} [params.addresses] - Object of Addresses associated with the Individual
    * @param {object} [params.emails] - Object of Emails associated with the Individual
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Individual
    * @param {object} [params.references] - Object of References associated with the Individual
    * @param {object} [params.comments] - Object of Comments associated with the Individual
    * @param {object} [params.links] - Object of Links associated with the Individual
@@ -49,9 +49,9 @@ class Individual extends Party {
     title,
     department,
     role,
-    contactNumber,
     addresses={},
     emails={},
+    phoneNumbers={},
     references={},
     comments={},
     links={},
@@ -73,6 +73,7 @@ class Individual extends Party {
       description: description || `${givenNames} ${surname}`,
       addresses,
       emails,
+      phoneNumbers,
       references,
       comments,
       links,
@@ -91,7 +92,6 @@ class Individual extends Party {
     this.title = title
     this.department = department
     this.role = role
-    this.contactNumber = contactNumber
   }
 }
 

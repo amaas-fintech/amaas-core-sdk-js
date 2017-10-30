@@ -1,5 +1,16 @@
 import { _parseAM, getAssetManager } from './assetManagers.js'
-import { retrieve, insert, amend, deactivate, reactivate, searchDomains, checkDomains, insertDomain, retrieveEODBooks, getCredentialsForPubSub } from './assetManagers.js'
+import {
+  retrieve,
+  insert,
+  amend,
+  deactivate,
+  reactivate,
+  searchDomains,
+  checkDomains,
+  insertDomain,
+  retrieveEODBooks,
+  getCredentialsForPubSub
+} from './assetManagers.js'
 import AssetManager from '../../assetManagers/AssetManager/assetManager.js'
 import Domain from '../../assetManagers/Domain/domain'
 import * as api from '../../exports/api'
@@ -38,19 +49,23 @@ describe('utils/assetManagers', () => {
     })
   })
 
-
   describe('retrieve', () => {
     beforeAll(() => {
-      network.retrieveData.mockImplementation(() => Promise.resolve({ assetManagerId: 1 }))
+      network.retrieveData.mockImplementation(() =>
+        Promise.resolve({ assetManagerId: 1 })
+      )
     })
     it('returns promise', () => {
-      let promise = retrieve({AMId: 1})
+      let promise = retrieve({ AMId: 1 })
       expect(promise).toBeInstanceOf(Promise)
     })
 
     it('calls retrieveData with the correct params', done => {
       retrieve({ AMId: 1 }, (error, result) => {
-        expect(network.retrieveData).toHaveBeenCalledWith({ AMaaSClass: 'assetManagers', AMId: 1 })
+        expect(network.retrieveData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagers',
+          AMId: 1
+        })
         done()
       })
     })
@@ -63,10 +78,9 @@ describe('utils/assetManagers', () => {
         })
       })
       test('with promise', () => {
-        retrieve({ AMId: 1 })
-          .then(result => {
-            expect(result).toEqual(new AssetManager({ assetManagerId: 1 }))
-          })
+        retrieve({ AMId: 1 }).then(result => {
+          expect(result).toEqual(new AssetManager({ assetManagerId: 1 }))
+        })
       })
     })
   })
@@ -75,23 +89,26 @@ describe('utils/assetManagers', () => {
     let data
     beforeAll(() => {
       data = {
-        defaultBookCloseTime: "17:30:00",
-        defaultTimezone: "UTC",
-        assetManagerType: "Accredited Investor",
+        defaultBookCloseTime: '17:30:00',
+        defaultTimezone: 'UTC',
+        assetManagerType: 'Accredited Investor',
         clientId: 1,
-        assetManagerStatus: "Active",
+        assetManagerStatus: 'Active',
         defaultBookOwnerId: 2
       }
       network.insertData.mockImplementation(() => Promise.resolve(data))
     })
     test('with promise', () => {
-      let promise = insert({AMId: 1})
+      let promise = insert({ AMId: 1 })
       expect(promise).toBeInstanceOf(Promise)
     })
 
     test('calls insertData with correct params', done => {
       insert({ assetManager: data }, (error, result) => {
-        expect(network.insertData).toHaveBeenCalledWith({ AMaaSClass: 'assetManagers', data: JSON.parse(JSON.stringify(data)) })
+        expect(network.insertData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagers',
+          data: JSON.parse(JSON.stringify(data))
+        })
         done()
       })
     })
@@ -104,10 +121,9 @@ describe('utils/assetManagers', () => {
         })
       })
       test('with promise', () => {
-        insert({ assetManager: data })
-          .then(result => {
-            expect(result).toEqual(new AssetManager(data))
-          })
+        insert({ assetManager: data }).then(result => {
+          expect(result).toEqual(new AssetManager(data))
+        })
       })
     })
   })
@@ -116,22 +132,26 @@ describe('utils/assetManagers', () => {
     let data
     beforeAll(() => {
       data = {
-        defaultBookCloseTime: "17:30:00",
-        defaultTimezone: "UTC",
-        assetManagerType: "Accredited Investor",
+        defaultBookCloseTime: '17:30:00',
+        defaultTimezone: 'UTC',
+        assetManagerType: 'Accredited Investor',
         clientId: 1,
-        assetManagerStatus: "Active",
+        assetManagerStatus: 'Active',
         defaultBookOwnerId: 2
       }
       network.putData.mockImplementation(() => Promise.resolve(data))
     })
     test('with promise', () => {
-      let promise = amend({AMId: 1})
+      let promise = amend({ AMId: 1 })
       expect(promise).toBeInstanceOf(Promise)
     })
     it('calls putData with correct params', done => {
       amend({ AMId: 1, assetManager: data }, (error, result) => {
-        expect(network.putData).toHaveBeenCalledWith({ AMaaSClass: 'assetManagers', AMId: 1, data: JSON.parse(JSON.stringify(data)) })
+        expect(network.putData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagers',
+          AMId: 1,
+          data: JSON.parse(JSON.stringify(data))
+        })
         done()
       })
     })
@@ -143,10 +163,9 @@ describe('utils/assetManagers', () => {
         })
       })
       test('with promise', () => {
-        amend({ AMId: 1, assetManager: data })
-          .then(result => {
-            expect(result).toEqual(new AssetManager(data))
-          })
+        amend({ AMId: 1, assetManager: data }).then(result => {
+          expect(result).toEqual(new AssetManager(data))
+        })
       })
     })
   })
@@ -155,22 +174,26 @@ describe('utils/assetManagers', () => {
     let data
     beforeAll(() => {
       data = {
-        defaultBookCloseTime: "17:30:00",
-        defaultTimezone: "UTC",
-        assetManagerType: "Accredited Investor",
+        defaultBookCloseTime: '17:30:00',
+        defaultTimezone: 'UTC',
+        assetManagerType: 'Accredited Investor',
         clientId: 1,
-        assetManagerStatus: "Active",
+        assetManagerStatus: 'Active',
         defaultBookOwnerId: 2
       }
       network.patchData.mockImplementation(() => Promise.resolve(data))
     })
     test('with promise', () => {
-      let promise = deactivate({AMId: 1})
+      let promise = deactivate({ AMId: 1 })
       expect(promise).toBeInstanceOf(Promise)
     })
     it('calls patchData with correctResult', done => {
       deactivate({ AMId: 1 }, (error, result) => {
-        expect(network.patchData).toHaveBeenCalledWith({ AMaaSClass: 'assetManagers', AMId: 1, data: { assetManagerStatus: 'Inactive' } })
+        expect(network.patchData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagers',
+          AMId: 1,
+          data: { assetManagerStatus: 'Inactive' }
+        })
         done()
       })
     })
@@ -182,10 +205,9 @@ describe('utils/assetManagers', () => {
         })
       })
       test('with promise', () => {
-        deactivate({ AMId: 1 })
-          .then(result => {
-            expect(result).toEqual(new AssetManager(data))
-          })
+        deactivate({ AMId: 1 }).then(result => {
+          expect(result).toEqual(new AssetManager(data))
+        })
       })
     })
   })
@@ -194,11 +216,11 @@ describe('utils/assetManagers', () => {
     let data
     beforeAll(() => {
       data = {
-        defaultBookCloseTime: "17:30:00",
-        defaultTimezone: "UTC",
-        assetManagerType: "Accredited Investor",
+        defaultBookCloseTime: '17:30:00',
+        defaultTimezone: 'UTC',
+        assetManagerType: 'Accredited Investor',
         clientId: 1,
-        assetManagerStatus: "Active",
+        assetManagerStatus: 'Active',
         defaultBookOwnerId: 2
       }
       network.patchData.mockImplementation(() => Promise.resolve(data))
@@ -209,7 +231,11 @@ describe('utils/assetManagers', () => {
     })
     it('calls patchData with correct params', done => {
       reactivate({ AMId: 1 }, (error, result) => {
-        expect(network.patchData).toHaveBeenCalledWith({ AMaaSClass: 'assetManagers', AMId: 1, data: { assetManagerStatus: 'Active' } })
+        expect(network.patchData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagers',
+          AMId: 1,
+          data: { assetManagerStatus: 'Active' }
+        })
         done()
       })
     })
@@ -221,10 +247,9 @@ describe('utils/assetManagers', () => {
         })
       })
       test('with promise', () => {
-        reactivate({ AMId: 1 })
-          .then(result => {
-            expect(result).toEqual(new AssetManager(data))
-          })
+        reactivate({ AMId: 1 }).then(result => {
+          expect(result).toEqual(new AssetManager(data))
+        })
       })
     })
   })
@@ -240,14 +265,21 @@ describe('utils/assetManagers', () => {
       network.searchData.mockImplementation(() => Promise.resolve(data))
     })
     test('with promise', () => {
-      let promise = searchDomains({ query: { isPrimary: true } })
+      let promise = searchDomains({ AMId: 88, query: { isPrimary: true } })
       expect(promise).toBeInstanceOf(Promise)
     })
     it('calls searchData with the correct params', done => {
-      searchDomains({ query: { isPrimary: true } }, (error, result) => {
-        expect(network.searchData).toHaveBeenCalledWith({ AMaaSClass: 'assetManagerDomains', query: { isPrimary: true } })
-        done()
-      })
+      searchDomains(
+        { AMId: 88, query: { isPrimary: true } },
+        (error, result) => {
+          expect(network.searchData).toHaveBeenCalledWith({
+            AMaaSClass: 'assetManagerDomains',
+            AMId: 88,
+            query: { isPrimary: true }
+          })
+          done()
+        }
+      )
     })
   })
 
@@ -268,7 +300,10 @@ describe('utils/assetManagers', () => {
     it('calls retrieveData with correct params', done => {
       network.retrieveData.mockImplementation(() => Promise.resolve(data))
       checkDomains({ domain: 'testDomain.com' }, (error, result) => {
-        expect(network.retrieveData).toHaveBeenCalledWith({ AMaaSClass: 'assetManagerDomains', query: { domains: ['testDomain.com'], isPrimary: true } })
+        expect(network.retrieveData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagerDomains',
+          query: { domains: ['testDomain.com'], isPrimary: true }
+        })
         done()
       })
     })
@@ -297,7 +332,11 @@ describe('utils/assetManagers', () => {
     })
     it('calls insertData with correct params', done => {
       insertDomain({ domain: data }, (error, result) => {
-        expect(network.insertData).toHaveBeenCalledWith({ AMaaSClass: 'assetManagerDomains', AMId: 1, data })
+        expect(network.insertData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagerDomains',
+          AMId: 1,
+          data
+        })
         done()
       })
     })
@@ -305,29 +344,38 @@ describe('utils/assetManagers', () => {
 
   describe('retrieveEODBooks', () => {
     const mockedEODBook = {
-          assetManagerId: 1,
-          utcCloseTime: '18:00:00',
-          bookId: 'testID',
-          eodBookStatus: 'testStatus'
+      assetManagerId: 1,
+      utcCloseTime: '18:00:00',
+      bookId: 'testID',
+      eodBookStatus: 'testStatus'
     }
     beforeAll(() => {
-      network.retrieveData.mockImplementation(() => Promise.resolve(mockedEODBook))
+      network.retrieveData.mockImplementation(() =>
+        Promise.resolve(mockedEODBook)
+      )
     })
     it('returns promise', () => {
-      let promise=retrieveEODBooks({AMId: 1, bookID: 'ABC'})
+      let promise = retrieveEODBooks({ AMId: 1, bookID: 'ABC' })
       expect(promise).toBeInstanceOf(Promise)
     })
     it('calls retrieveEODBooks with the correct params', done => {
-      retrieveEODBooks({AMId: 1, bookID: 'ABC'}, (error, result) => {
-        expect(network.retrieveData).toHaveBeenCalledWith({AMaaSClass: 'assetManagerEODBooks', AMId: 1, bookID: 'ABC'})
-        done()  
+      retrieveEODBooks({ AMId: 1, bookID: 'ABC' }, (error, result) => {
+        expect(network.retrieveData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagerEODBooks',
+          AMId: 1,
+          bookID: 'ABC'
+        })
+        done()
       })
     })
     it('calls retrieveEODBooks with the correct params', done => {
-      retrieveEODBooks({AMId: 1}, (error, result) => {
-        expect(network.retrieveData).toHaveBeenCalledWith({AMaaSClass: 'assetManagerEODBooks', AMId: 1})
-        done()  
-      }) 
+      retrieveEODBooks({ AMId: 1 }, (error, result) => {
+        expect(network.retrieveData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagerEODBooks',
+          AMId: 1
+        })
+        done()
+      })
     })
   })
 
@@ -341,7 +389,9 @@ describe('utils/assetManagers', () => {
       topics: ['topic1', 'topic2']
     }
     beforeAll(() => {
-      network.retrieveData.mockImplementation(() => Promise.resolve(mockedCredentials))
+      network.retrieveData.mockImplementation(() =>
+        Promise.resolve(mockedCredentials)
+      )
     })
     it('returns promise', () => {
       let promise = getCredentialsForPubSub({ AMId: 1 })
@@ -349,7 +399,10 @@ describe('utils/assetManagers', () => {
     })
     it('calls retrieveData with the correct params', done => {
       getCredentialsForPubSub({ AMId: 1 }, (error, result) => {
-        expect(network.retrieveData).toHaveBeenCalledWith({ AMaaSClass: 'assetManagerPubSubCredentials', AMId: 1 })
+        expect(network.retrieveData).toHaveBeenCalledWith({
+          AMaaSClass: 'assetManagerPubSubCredentials',
+          AMId: 1
+        })
         done()
       })
     })

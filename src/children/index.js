@@ -1,4 +1,7 @@
-import { AssetLink, PartyLink, TransactionLink, Link } from './Link'
+import { AssetLink } from './Link/AssetLink'
+import { PartyLink } from './Link/PartyLink'
+import { TransactionLink } from './Link/TransactionLink'
+import { Link } from './Link/Link'
 
 export { default as Code } from './Code'
 export { default as Charge } from './Charge'

@@ -17,6 +17,7 @@ class Organisation extends Party {
    * @param {string} [params.description] - Description of the Organisation
    * @param {object} [params.addresses] - Object of Addresses associated with the Organisation
    * @param {object} [params.emails] - Object of Emails associated with the Organisation
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Organisation
    * @param {object} [params.references] - Object of References associated with the Organisation
    * @param {object} [params.comments] - Object of Comments associated with the Organisation
    * @param {object} [params.links] - Object of Links associated with the Organisation
@@ -38,6 +39,7 @@ class Organisation extends Party {
     description='',
     addresses={},
     emails={},
+    phoneNumbers={},
     references={},
     comments={},
     links={},
@@ -59,6 +61,7 @@ class Organisation extends Party {
       description,
       addresses,
       emails,
+      phoneNumbers,
       references,
       comments,
       links,

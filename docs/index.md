@@ -65,15 +65,16 @@ Class representing a Reference
 Construct a new Reference instance
 
 
-| Param | Type | Description |
-| --- | --- | --- |
-| params | <code>object</code> | Reference creation options: |
-| params.referenceValue | <code>string</code> | The identifier of this Reference (e.g. transactionId) |
-| [params.createdBy] | <code>string</code> | ID of the user that created the Reference |
-| [params.updatedBy] | <code>string</code> | ID of the user that updated the Reference |
-| [params.createdTime] | <code>date</code> | Time that the Reference was created |
-| [params.updatedTime] | <code>date</code> | Time that the Reference was updated |
-| [params.version] | <code>number</code> | Version number of the Reference |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| params | <code>object</code> |  | Reference creation options: |
+| params.referenceValue | <code>string</code> |  | The identifier of this Reference (e.g. transactionId) |
+| [params.referencePrimary] | <code>boolean</code> | <code>false</code> | Whether the Reference is primary (a parent can only have 1 primary Reference) |
+| [params.createdBy] | <code>string</code> |  | ID of the user that created the Reference |
+| [params.updatedBy] | <code>string</code> |  | ID of the user that updated the Reference |
+| [params.createdTime] | <code>date</code> |  | Time that the Reference was created |
+| [params.updatedTime] | <code>date</code> |  | Time that the Reference was updated |
+| [params.version] | <code>number</code> |  | Version number of the Reference |
 
 <a name="module_core.AMaaSModel"></a>
 
@@ -123,13 +124,15 @@ API Methods. These methods enable communication with the AMaaS Database. All met
     * [.Assets](#module_api.Assets) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.Assets.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.insert(params, [callback])](#module_api.Assets.insert) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.upsert(params, [callback])](#module_api.Assets.upsert) ⇒ <code>Promise</code> \| <code>null</code>
         * [.amend(params, [callback])](#module_api.Assets.amend) ⇒ <code>Promise</code> \| <code>null</code>
         * [.partialAmend(params, [callback])](#module_api.Assets.partialAmend) ⇒ <code>Promise</code> \| <code>null</code>
         * [.search(params, callback)](#module_api.Assets.search) ⇒ <code>Promise</code> \| <code>null</code>
         * [.fuzzySearch(query, callback)](#module_api.Assets.fuzzySearch) ⇒ <code>Promise</code> \| <code>null</code>
-        * [.fieldsSearch(query, callback)](#module_api.Assets.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.fieldsSearch(params, callback)](#module_api.Assets.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
         * [.deactivate(params, [callback])](#module_api.Assets.deactivate) ⇒ <code>Promise</code> \| <code>null</code>
         * [.reactivate(params, [callback])](#module_api.Assets.reactivate) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.getAssetConfig(params, [callback])](#module_api.Assets.getAssetConfig) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Books](#module_api.Books) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.Books.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.search(params, [callback])](#module_api.Books.search) ⇒ <code>Promise</code> \| <code>null</code>
@@ -137,6 +140,11 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.amend(params, [callback])](#module_api.Books.amend) ⇒ <code>Promise</code> \| <code>null</code>
         * [.retire(params, [callback])](#module_api.Books.retire) ⇒ <code>Promise</code> \| <code>null</code>
         * [.reactivate(params, [callback])](#module_api.Books.reactivate) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.getPermissions(params, [permissionId], [callback])](#module_api.Books.getPermissions) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.addPermission(params, [callback])](#module_api.Books.addPermission) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.readPermission(params, [callback])](#module_api.Books.readPermission) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.writePermission(params, [callback])](#module_api.Books.writePermission) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.deactivatePermission(params, [callback])](#module_api.Books.deactivatePermission) ⇒ <code>Promise</code> \| <code>null</code>
     * [.CorporateActions](#module_api.CorporateActions) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.CorporateActions.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.insert(params, [callback])](#module_api.CorporateActions.insert) ⇒ <code>Promise</code> \| <code>null</code>
@@ -158,6 +166,7 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.retrieveEvent(params, [callback])](#module_api.Monitor.retrieveEvent) ⇒ <code>Promise</code> \| <code>null</code>
         * [.insertEvent(params, [callback])](#module_api.Monitor.insertEvent) ⇒ <code>Promise</code> \| <code>null</code>
         * [.closeEvent(params, callback)](#module_api.Monitor.closeEvent) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.retrieveActivites(params, callback)](#module_api.Monitor.retrieveActivites) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Netting](#module_api.Netting) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.Netting.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.send(params, [callback])](#module_api.Netting.send) ⇒ <code>Promise</code> \| <code>null</code>
@@ -168,6 +177,7 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.partialAmend(params, [callback])](#module_api.Parties.partialAmend) ⇒ <code>Promise</code> \| <code>null</code>
         * [.search(params, [callback])](#module_api.Parties.search) ⇒ <code>Promise</code> \| <code>null</code>
         * [.fuzzySearch(query, callback)](#module_api.Parties.fuzzySearch) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.fieldsSearch(query, callback)](#module_api.Parties.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
         * [.deactivate(params, [callback])](#module_api.Parties.deactivate) ⇒ <code>Promise</code> \| <code>null</code>
         * [.reactivate(params, [callback])](#module_api.Parties.reactivate) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Positions](#module_api.Positions) : <code>object</code>
@@ -185,6 +195,7 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.rejectRel(params, [callback])](#module_api.Relationships.rejectRel) ⇒ <code>Promise</code> \| <code>null</code>
         * [.revokeRel(params, [callback])](#module_api.Relationships.revokeRel) ⇒ <code>Promise</code> \| <code>null</code>
         * [.sendInvitation(params, [callback])](#module_api.Relationships.sendInvitation) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.register(params, [callback])](#module_api.Relationships.register) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Transactions](#module_api.Transactions) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.Transactions.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.insert(params, [callback])](#module_api.Transactions.insert) ⇒ <code>Promise</code> \| <code>null</code>
@@ -351,7 +362,8 @@ Search domains
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
-| params.query | <code>string</code> | search parameters for the domain search. Available keys are: <li>assetManagerIds</li> <li>isPrimary</li> <li>domains</li> <li>domainStatuses</li> <li>fields</li> e.g. `query = { isPrimary: true, domains: ['amaas.com', 'argomi.com'], domainStatuses: 'Active' }` |
+| params.AMId | <code>number</code> | Asset Manager ID to search domains for. |
+| params.query | <code>string</code> | search parameters for the domain search. Available keys are: <li>isPrimary</li> <li>domains</li> <li>domainStatuses</li> <li>fields</li> e.g. `query = { isPrimary: true, domains: ['amaas.com', 'argomi.com'], domainStatuses: 'Active' }` |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` are the matching Domain instances. Omit to return promise. |
 
 <a name="module_api.AssetManagers.checkDomains"></a>
@@ -420,13 +432,15 @@ Retrieve temporary credentials for pub/sub connection
 * [.Assets](#module_api.Assets) : <code>object</code>
     * [.retrieve(params, [callback])](#module_api.Assets.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
     * [.insert(params, [callback])](#module_api.Assets.insert) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.upsert(params, [callback])](#module_api.Assets.upsert) ⇒ <code>Promise</code> \| <code>null</code>
     * [.amend(params, [callback])](#module_api.Assets.amend) ⇒ <code>Promise</code> \| <code>null</code>
     * [.partialAmend(params, [callback])](#module_api.Assets.partialAmend) ⇒ <code>Promise</code> \| <code>null</code>
     * [.search(params, callback)](#module_api.Assets.search) ⇒ <code>Promise</code> \| <code>null</code>
     * [.fuzzySearch(query, callback)](#module_api.Assets.fuzzySearch) ⇒ <code>Promise</code> \| <code>null</code>
-    * [.fieldsSearch(query, callback)](#module_api.Assets.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.fieldsSearch(params, callback)](#module_api.Assets.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
     * [.deactivate(params, [callback])](#module_api.Assets.deactivate) ⇒ <code>Promise</code> \| <code>null</code>
     * [.reactivate(params, [callback])](#module_api.Assets.reactivate) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.getAssetConfig(params, [callback])](#module_api.Assets.getAssetConfig) ⇒ <code>Promise</code> \| <code>null</code>
 
 <a name="module_api.Assets.retrieve"></a>
 
@@ -447,6 +461,21 @@ Retrieve Asset data for specified AMId and assetId
 
 #### Assets.insert(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
 Insert a new Asset into the database
+
+**Kind**: static method of [<code>Assets</code>](#module_api.Assets)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the inserted Asset instance  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID of the Asset Manager to whom the inserted Asset belongs |
+| params.asset | <code>Asset</code> | Asset instance to insert |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion. ` result` is the inserted Asset instance. Omit to return Promise |
+
+<a name="module_api.Assets.upsert"></a>
+
+#### Assets.upsert(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Upsert a new Asset into the database
 
 **Kind**: static method of [<code>Assets</code>](#module_api.Assets)  
 **Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the inserted Asset instance  
@@ -516,20 +545,22 @@ Fuzzy Search on assets
 | Param | Type | Description |
 | --- | --- | --- |
 | query | <code>object</code> | Query object of the form . |
-| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is object of shape `{ total: <number>, max_score: <number>, hits: <Array> }`. `hits` is an array of objects:<br /> <pre><code> { _index: string, _type: string, _id: string, _score: number, _source:{  assetType: string,  assetId: string,  description: string,  assetClass: string,  displayName: string,  assetManagerId: string,  ticker: string } } </code></pre> |
+| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is object of shape `{ total: <number>, max_score: <number>, hits: <Array> }`. `hits` is an array of objects:<br /> <pre><code> {  assetType: string,  assetId: string,  description: string,  assetClass: string,  displayName: string,  assetManagerId: string,  search: string } </code></pre> |
 
 <a name="module_api.Assets.fieldsSearch"></a>
 
-#### Assets.fieldsSearch(query, callback) ⇒ <code>Promise</code> \| <code>null</code>
+#### Assets.fieldsSearch(params, callback) ⇒ <code>Promise</code> \| <code>null</code>
 Search for Assets and return specified fields
 
 **Kind**: static method of [<code>Assets</code>](#module_api.Assets)  
-**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with an array of plain objects or a single plain object  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with an array of objects or a single object  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| query | <code>object</code> | Query object of the form `{ assetManagerIds: number, fields: string[] }`. Any asset property may be specified as a field parameter. e.g. `{ query: { assetManagerIds: [1, 2], fields: ['assetId', 'references', 'comments']} }` |
-| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is an array of plain objects or a single plain object |
+| params | <code>object</code> | Search parameters |
+| params.AMId | <code>number</code> | Asset Manager ID to search over. |
+| params.query | <code>object</code> | Query object containing a `fields` property. e.g. `{ query: { fields: ['assetId', 'references', 'comments']} }` |
+| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is an array of objects or a single object |
 
 <a name="module_api.Assets.deactivate"></a>
 
@@ -561,6 +592,20 @@ Reactivate a deactivated Asset. This will set the Asset status to 'Active'.
 | params.resourceId | <code>string</code> | Asset ID of the Asset to be deleted |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the reactivated Asset instance. Omit to return Promise |
 
+<a name="module_api.Assets.getAssetConfig"></a>
+
+#### Assets.getAssetConfig(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Retrieve the asset config (settlement cycle) for a particular asset class.
+
+**Kind**: static method of [<code>Assets</code>](#module_api.Assets)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the config data.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.assetClass | <code>string</code> | Asset class to retrive config for. |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the config data. |
+
 <a name="module_api.Books"></a>
 
 ### api.Books : <code>object</code>
@@ -573,6 +618,11 @@ Reactivate a deactivated Asset. This will set the Asset status to 'Active'.
     * [.amend(params, [callback])](#module_api.Books.amend) ⇒ <code>Promise</code> \| <code>null</code>
     * [.retire(params, [callback])](#module_api.Books.retire) ⇒ <code>Promise</code> \| <code>null</code>
     * [.reactivate(params, [callback])](#module_api.Books.reactivate) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.getPermissions(params, [permissionId], [callback])](#module_api.Books.getPermissions) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.addPermission(params, [callback])](#module_api.Books.addPermission) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.readPermission(params, [callback])](#module_api.Books.readPermission) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.writePermission(params, [callback])](#module_api.Books.writePermission) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.deactivatePermission(params, [callback])](#module_api.Books.deactivatePermission) ⇒ <code>Promise</code> \| <code>null</code>
 
 <a name="module_api.Books.retrieve"></a>
 
@@ -664,6 +714,88 @@ Reactivate a Book. This will set the Book status to 'Active'.
 | params.AMId | <code>string</code> | AMId of the Books to be reactivated |
 | params.resourceId | <code>string</code> | Book ID of the Book to be reactivated |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the reactivated Book instance. Omit to return Promise |
+
+<a name="module_api.Books.getPermissions"></a>
+
+#### Books.getPermissions(params, [permissionId], [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Retrieve Book Permissions for an AMID.
+
+**Kind**: static method of [<code>Books</code>](#module_api.Books)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the inserted Book Permission  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID of the Company owning the Book Permission |
+| [params.bookId] | <code>string</code> | Specific Book ID to retrieve permissions for. Omit to return all Permissions for the given AMId |
+| [permissionId] | <code>string</code> | Optional permission ID. Specify to return the unique record. Omit to return all Permissions for the given AMId/bookId combination |
+| params.includeInactive | <code>boolean</code> | Whether to show inactive Book Permissions |
+| [callback] | <code>function</code> | Called with two values (error, result) on completion. `result` is the inserted Book Permission instance. |
+
+<a name="module_api.Books.addPermission"></a>
+
+#### Books.addPermission(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Add a Book Permission.
+
+**Kind**: static method of [<code>Books</code>](#module_api.Books)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the inserted Book Permission  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID of the Company owning the Book |
+| params.bookPermission | <code>BookPermission</code> \| <code>object</code> | Book permission instance or object |
+| [callback] | <code>function</code> | Called with two values (error, result) on completion. `result` is the inserted Book Permission instance. |
+
+<a name="module_api.Books.readPermission"></a>
+
+#### Books.readPermission(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Modify a Book Permission to read (this will downgrade an existing write permission)
+
+**Kind**: static method of [<code>Books</code>](#module_api.Books)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the modified Book Permission  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID of the Company owning the Book |
+| params.permissionId | <code>string</code> | Permission ID of the Permission to modify |
+| params.userAssetManagerId | <code>number</code> | Asset Manager ID of the user to grant read permission to |
+| params.bookId | <code>string</code> | Book ID |
+| [callback] | <code>function</code> | Called with two values (error, result) on completion. `result` is the modifed Book Permission instance. |
+
+<a name="module_api.Books.writePermission"></a>
+
+#### Books.writePermission(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Modify a Book Permission to write (this will upgrade an existing write permission)
+
+**Kind**: static method of [<code>Books</code>](#module_api.Books)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the modified Book Permission  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID of the Company owning the Book |
+| params.permissionId | <code>string</code> | Permission ID of the Permission to modify |
+| params.userAssetManagerId | <code>number</code> | Asset Manager ID of the user to grant read permission to |
+| params.bookId | <code>string</code> | Book ID |
+| [callback] | <code>function</code> | Called with two values (error, result) on completion. `result` is the modifed Book Permission instance. |
+
+<a name="module_api.Books.deactivatePermission"></a>
+
+#### Books.deactivatePermission(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Deactivate a Book Permission (reactivation requires adding new permission)
+
+**Kind**: static method of [<code>Books</code>](#module_api.Books)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the modified Book Permission  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID of the Company owning the Book |
+| params.permissionId | <code>number</code> | Permission ID of the Permission to deactivate |
+| params.bookId | <code>string</code> | Book ID of the Permission to deactivate |
+| [callback] | <code>function</code> | Called with two values (error, result) on completion. `result` is the modifed Book Permission instance. |
 
 <a name="module_api.CorporateActions"></a>
 
@@ -852,6 +984,7 @@ Make request and search data
     * [.retrieveEvent(params, [callback])](#module_api.Monitor.retrieveEvent) ⇒ <code>Promise</code> \| <code>null</code>
     * [.insertEvent(params, [callback])](#module_api.Monitor.insertEvent) ⇒ <code>Promise</code> \| <code>null</code>
     * [.closeEvent(params, callback)](#module_api.Monitor.closeEvent) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.retrieveActivites(params, callback)](#module_api.Monitor.retrieveActivites) ⇒ <code>Promise</code> \| <code>null</code>
 
 <a name="module_api.Monitor.retrieveItem"></a>
 
@@ -967,6 +1100,20 @@ Close a monitor item
 | params.resourceId | <code>string</code> | Event ID to close |
 | callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the closed Event. Omit to return promise |
 
+<a name="module_api.Monitor.retrieveActivites"></a>
+
+#### Monitor.retrieveActivites(params, callback) ⇒ <code>Promise</code> \| <code>null</code>
+Retrieve a Monitor Activity
+
+**Kind**: static method of [<code>Monitor</code>](#module_api.Monitor)  
+**Returns**: <code>Promise</code> \| <code>null</code> - - If no callback supplied, returns a Promise that resolves with an array of Activities or a single Activity instance  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.assetManagerId | <code>number</code> | Asset Manager ID of the Activities to be retrieved |
+| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is an array of Activities or a single Activity instance. Omit to return Promise |
+
 <a name="module_api.Netting"></a>
 
 ### api.Netting : <code>object</code>
@@ -1021,6 +1168,7 @@ Send Transactions to Net
     * [.partialAmend(params, [callback])](#module_api.Parties.partialAmend) ⇒ <code>Promise</code> \| <code>null</code>
     * [.search(params, [callback])](#module_api.Parties.search) ⇒ <code>Promise</code> \| <code>null</code>
     * [.fuzzySearch(query, callback)](#module_api.Parties.fuzzySearch) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.fieldsSearch(query, callback)](#module_api.Parties.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
     * [.deactivate(params, [callback])](#module_api.Parties.deactivate) ⇒ <code>Promise</code> \| <code>null</code>
     * [.reactivate(params, [callback])](#module_api.Parties.reactivate) ⇒ <code>Promise</code> \| <code>null</code>
 
@@ -1112,7 +1260,20 @@ Fuzzy Search on parties
 | Param | Type | Description |
 | --- | --- | --- |
 | query | <code>object</code> | Query object of the form . |
-| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is object of shape `{ total: <number>, max_score: <number>, hits: <Array> }`. `hits` is an array of objects:<br /> <pre><code> { _index: string, _type: string, _id: string, _score: number, _source:{  partyType: string  legalName: string  description: string  assetManagerId: number  displayName: string  partyId: string  partyClass: string  AMaaS: string } } </code></pre> |
+| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is object of shape `{ total: <number>, max_score: <number>, hits: <Array> }`. `hits` is an array of objects:<br /> <pre><code> {  partyType: string  legalName: string  description: string  assetManagerId: number  displayName: string  partyId: string  partyClass: string  AMaaS: string } </code></pre> |
+
+<a name="module_api.Parties.fieldsSearch"></a>
+
+#### Parties.fieldsSearch(query, callback) ⇒ <code>Promise</code> \| <code>null</code>
+Search for Parties and return specified fields
+
+**Kind**: static method of [<code>Parties</code>](#module_api.Parties)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with an array of plain objects or a single plain object  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| query | <code>object</code> | Query object of the form `{ assetManagerIds: number, fields: string[] }`. Any party property may be specified as a field parameter. e.g. `{ query: { assetManagerIds: [1, 2], fields: ['partyId', 'references', 'displayName']} }` |
+| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is an array of plain objects or a single plain object |
 
 <a name="module_api.Parties.deactivate"></a>
 
@@ -1225,6 +1386,7 @@ Search for Transaction with specified fields
     * [.rejectRel(params, [callback])](#module_api.Relationships.rejectRel) ⇒ <code>Promise</code> \| <code>null</code>
     * [.revokeRel(params, [callback])](#module_api.Relationships.revokeRel) ⇒ <code>Promise</code> \| <code>null</code>
     * [.sendInvitation(params, [callback])](#module_api.Relationships.sendInvitation) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.register(params, [callback])](#module_api.Relationships.register) ⇒ <code>Promise</code> \| <code>null</code>
 
 <a name="module_api.Relationships.retrieve"></a>
 
@@ -1267,7 +1429,7 @@ Get a list of relationships where the passed AMID is the relatedId
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Asset Manager ID of the AM that you want to see the parent Relationships for |
-| params.options | <code>object</code> | `{ includeInactive: [true], relationshipType: ['Employee', 'External] }` |
+| params.options | <code>object</code> | e.g. `{ includeInactive: true, relationshipType: ['Employee', 'External'] }` |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the Relationship instance or list of Relationships. Omit to return Promise |
 
 <a name="module_api.Relationships.insert"></a>
@@ -1306,15 +1468,14 @@ Amend an existing Relationship
 Approve a Relationship
 
 **Kind**: static method of [<code>Relationships</code>](#module_api.Relationships)  
-**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the approved Relationship instance  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves on success  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
-| params.AMId | <code>number</code> | Asset Manager ID of the Relationship to approve |
-| params.relatedId | <code>string</code> | ID of the Asset Manager ID related to `params.AMId` |
-| params.relationshipType | <code>string</code> | Relationship type being approved |
-| [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the approved Relationship. Omit to return Promise |
+| params.AMId | <code>number</code> | Asset Manager ID of the company with whom to approve the relationship |
+| params.relatedId | <code>string</code> | ID of the Asset Manager ID to approve |
+| [callback] | <code>function</code> | Called with one argument (error) on completion. If successful, error is null |
 
 <a name="module_api.Relationships.rejectRel"></a>
 
@@ -1322,15 +1483,14 @@ Approve a Relationship
 Reject a Relationship
 
 **Kind**: static method of [<code>Relationships</code>](#module_api.Relationships)  
-**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the rejected Relationship instance  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves on success  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Asset Manager ID of the Relationship to reject |
 | params.relatedId | <code>string</code> | ID of the Asset Manager ID related to `params.AMId` |
-| params.relationshipType | <code>string</code> | Relationship type being rejected |
-| [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the rejected Relationship. Omit to return Promise |
+| [callback] | <code>function</code> | Called with one argument (error) on completion. If successful, error is null |
 
 <a name="module_api.Relationships.revokeRel"></a>
 
@@ -1338,15 +1498,14 @@ Reject a Relationship
 Revoke a Relationship
 
 **Kind**: static method of [<code>Relationships</code>](#module_api.Relationships)  
-**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with the revoked Relationship instance  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves on success  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
-| params.AMId | <code>number</code> | Asset Manager ID of the Relationship to revoke |
-| params.relatedId | <code>string</code> | ID of the Asset Manager ID related to `params.AMId` |
-| params.relationshipType | <code>string</code> | Relationship type being revoked |
-| [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the revoked Relationship. Omit to return Promise |
+| params.AMId | <code>number</code> | Asset Manager ID of the company with whom to revoke the relationship |
+| params.relatedId | <code>string</code> | ID of the Asset Manager ID to revoke the relationship from |
+| [callback] | <code>function</code> | Called with one argument (error) on completion. If successful, error is null |
 
 <a name="module_api.Relationships.sendInvitation"></a>
 
@@ -1354,16 +1513,29 @@ Revoke a Relationship
 Send invitation to join
 
 **Kind**: static method of [<code>Relationships</code>](#module_api.Relationships)  
-**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a promise that resolves with `true`.  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a promise that resolves on success  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | AMID of company to join |
-| params.toEmail | <code>string</code> | Email address to send to |
-| params.fromEmail | <code>string</code> | Email address sent from |
-| params.companyName | <code>string</code> | Company to Join |
-| [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is `true`. |
+| params.email | <code>string</code> | Email address to send the invitation to |
+| params.companyName | <code>string</code> | Name of company to join |
+| [callback] | <code>function</code> | Called with one argument (error) on completion. If successful, error is null |
+
+<a name="module_api.Relationships.register"></a>
+
+#### Relationships.register(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Register a new user in the database
+
+**Kind**: static method of [<code>Relationships</code>](#module_api.Relationships)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a promise that resolves on success.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | AMID of Company (either the new company or the company to join) |
+| [callback] | <code>function</code> | Called with one argument (error) on completion. If successful, error is null. |
 
 <a name="module_api.Transactions"></a>
 
@@ -1391,6 +1563,7 @@ Retrieve a Transaction from the database
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Asset Manager ID of the Transaction's owner |
 | [params.resourceId] | <code>string</code> | Transaction ID. Omit to return all Transactions for the supplied AMId |
+| [params.query] | <code>string</code> | Optional query to allow version to be specified (`query: { version: 3 }`) |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is an Array of Transactions or a single Transaction instance. Omit to return Promise |
 
 <a name="module_api.Transactions.insert"></a>
@@ -1598,8 +1771,10 @@ Classes for the Assets service
         * [new Fund(params)](#new_module_assets.Fund_new)
     * [.ForeignExchange](#module_assets.ForeignExchange) ⇐ [<code>ForeignExchangeBase</code>](#module_assets.ForeignExchangeBase)
         * [new ForeignExchange(params)](#new_module_assets.ForeignExchange_new)
-    * [.ForeignExchangeForward](#module_assets.ForeignExchangeForward) ⇐ [<code>ForeignExchangeBase</code>](#module_assets.ForeignExchangeBase)
+    * [.ForeignExchangeForward](#module_assets.ForeignExchangeForward) ⇐ [<code>ForeignExchangeSpot</code>](#module_assets.ForeignExchangeSpot)
         * [new ForeignExchangeForward(params)](#new_module_assets.ForeignExchangeForward_new)
+    * [.ForeignExchangeSpot](#module_assets.ForeignExchangeSpot) ⇐ [<code>ForeignExchange</code>](#module_assets.ForeignExchange)
+        * [new ForeignExchangeSpot(params)](#new_module_assets.ForeignExchangeSpot_new)
     * [.ForeignExchangeBase](#module_assets.ForeignExchangeBase) ⇐ [<code>Asset</code>](#module_assets.Asset)
         * [new ForeignExchangeBase(params)](#new_module_assets.ForeignExchangeBase_new)
     * [.Index](#module_assets.Index) ⇐ [<code>Asset</code>](#module_assets.Asset)
@@ -2260,7 +2435,7 @@ Construct a new Fund instance
 <a name="module_assets.ForeignExchange"></a>
 
 ### assets.ForeignExchange ⇐ [<code>ForeignExchangeBase</code>](#module_assets.ForeignExchangeBase)
-Class representing FX
+Class representing ForeignExchange (the underlying pair used in a spo/forward asset)
 
 **Kind**: static class of [<code>assets</code>](#module_assets)  
 **Extends**: [<code>ForeignExchangeBase</code>](#module_assets.ForeignExchangeBase)  
@@ -2280,10 +2455,11 @@ Construct a new Foreign Exchange instance
 | [params.fungible] | <code>boolean</code> | <code>true</code> | Auto-set to `true` __(read-only)__ |
 | [params.assetIssuerId] | <code>string</code> |  | ID of the Foreign Exchange's issuer |
 | [params.assetStatus] | <code>string</code> | <code>&quot;Active&quot;</code> | Status of the Foreign Exchange |
+| [params.currency] | <code>string</code> |  | Transacted Currency for the FX pair (counterc currency) |
 | [params.description] | <code>string</code> |  | Description of the Foreign Exchange |
 | [params.displayName] | <code>string</code> |  | Display name of the ForeignExchange |
 | params.countryCodes | <code>array</code> |  | Array of country codes __(required)__ |
-| params.major | <code>boolean</code> |  | Whether this FX is major __(required)__ |
+| [params.major] | <code>boolean</code> | <code>false</code> | Whether this FX is major |
 | [params.clientId] | <code>string</code> |  | ID of the associated client |
 | [params.comments] | <code>object</code> |  | Object of Comments attached to the Foreign Exchange |
 | [params.links] | <code>object</code> |  | Object of array of Links attached to the Foreign Exchange |
@@ -2296,15 +2472,15 @@ Construct a new Foreign Exchange instance
 
 <a name="module_assets.ForeignExchangeForward"></a>
 
-### assets.ForeignExchangeForward ⇐ [<code>ForeignExchangeBase</code>](#module_assets.ForeignExchangeBase)
+### assets.ForeignExchangeForward ⇐ [<code>ForeignExchangeSpot</code>](#module_assets.ForeignExchangeSpot)
 Class representing FXForward
 
 **Kind**: static class of [<code>assets</code>](#module_assets)  
-**Extends**: [<code>ForeignExchangeBase</code>](#module_assets.ForeignExchangeBase)  
+**Extends**: [<code>ForeignExchangeSpot</code>](#module_assets.ForeignExchangeSpot)  
 <a name="new_module_assets.ForeignExchangeForward_new"></a>
 
 #### new ForeignExchangeForward(params)
-Construct a new FXForward instance
+Construct a new FXForward instance (if there is a fixingDate, it is an NDF)
 
 
 | Param | Type | Default | Description |
@@ -2315,13 +2491,15 @@ Construct a new FXForward instance
 | params.assetManagerId | <code>number</code> |  | Asset Manager ID |
 | [params.assetClass] | <code>string</code> | <code>&quot;ForeignExchange&quot;</code> | Auto-set to `ForeignExchange` __(read-only)__ |
 | [params.assetStatus] | <code>string</code> |  | Status of the asset |
+| [params.currency] | <code>string</code> |  | Transacted currency |
 | [params.description] | <code>string</code> |  | Description of the ForeignExchangeForward |
 | [params.clientId] | <code>string</code> |  | ID of the client |
-| params.major | <code>boolean</code> |  | Whether it is a major currency or not |
 | params.countryCodes | <code>object</code> |  | An array of country codes |
 | params.settlementDate | <code>string</code> |  | The date of exchange of ownership |
+| params.maturityDate | <code>string</code> |  | Maturity Date of the FX Forward |
 | [params.fixingDate] | <code>string</code> |  | The date of fixing exchange rate between two currencies |
 | params.forwardRate | <code>string</code> |  | Currency exchange rate |
+| params.underlying | <code>string</code> |  | AssetId of the underlying ForeignExchange |
 | [params.comments] | <code>object</code> |  | Object of Comments attached to the Non Deliverable Forward |
 | [params.links] | <code>object</code> |  | Object of array of Links attached to the Non Deliverable Forward |
 | [params.references] | <code>object</code> | <code>{ AMaaS: Reference() }</code> | Object of References associated with this Asset. * The AMaaS Reference is auto-created and populated |
@@ -2329,6 +2507,45 @@ Construct a new FXForward instance
 | [params.updatedBy] | <code>string</code> |  | ID of the user that updated the Non Deliverable Forward |
 | [params.createdTime] | <code>date</code> |  | Time that the Non Deliverable Forward was created |
 | [params.updatedTime] | <code>date</code> |  | Time that the Non Deliverable Forward was updated |
+| [params.version] | <code>number</code> |  | Version number |
+
+<a name="module_assets.ForeignExchangeSpot"></a>
+
+### assets.ForeignExchangeSpot ⇐ [<code>ForeignExchange</code>](#module_assets.ForeignExchange)
+Class representing Spot ForeignExchange (Settles as soon as possible)
+
+**Kind**: static class of [<code>assets</code>](#module_assets)  
+**Extends**: [<code>ForeignExchange</code>](#module_assets.ForeignExchange)  
+<a name="new_module_assets.ForeignExchangeSpot_new"></a>
+
+#### new ForeignExchangeSpot(params)
+Construct a new Foreign Exchange instance
+
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| params | <code>object</code> |  | ForeignExchange creation options: |
+| params.assetId | <code>number</code> |  | ID of the Asset __(required)__ |
+| params.assetClass | <code>string</code> |  | Auto-set to `ForeignExchange` __(read-only)__ |
+| [params.assetType] | <code>string</code> |  | Auto-set to `ForeignExchangeSpot` __(read-only)__ |
+| [params.assetTypeDisplay] | <code>string</code> |  | Auto-set to the spaced class name (e.g. `Listed Derivative` for `ListedDerivative()`) |
+| [params.fungible] | <code>boolean</code> | <code>true</code> | Auto-set to `true` __(read-only)__ |
+| [params.assetStatus] | <code>string</code> | <code>&quot;Active&quot;</code> | Status of the Foreign Exchange Spot |
+| [params.currency] | <code>string</code> |  | Transacted Currency for the FX pair (counterc currency) |
+| [params.description] | <code>string</code> |  | Description of the Foreign Exchange |
+| [params.displayName] | <code>string</code> |  | Display name of the ForeignExchange |
+| params.underlying | <code>string</code> |  | Underlying assetID of the ForeignExchangeBase |
+| params.settlementDate | <code>string</code> |  | Settlement date for the spot pair |
+| params.maturityDate | <code>string</code> |  | Maturity date for the spot pair |
+| params.countryCodes | <code>array</code> |  | Array of country codes __(required)__ |
+| [params.clientId] | <code>string</code> |  | ID of the associated client |
+| [params.comments] | <code>object</code> |  | Object of Comments attached to the Foreign Exchange |
+| [params.links] | <code>object</code> |  | Object of array of Links attached to the Foreign Exchange |
+| [params.references] | <code>object</code> | <code>{ AMaaS: Reference() }</code> | Object of References associated with the Foreign Exchange. * The AMaaS Reference is auto-created and populated |
+| [params.createdBy] | <code>string</code> |  | ID of the user that created the Foreign Exchange |
+| [params.updatedBy] | <code>string</code> |  | ID of the user that updated the Foreign Exchange |
+| [params.createdTime] | <code>date</code> |  | Time that the Foreign Exchange was created |
+| [params.updatedTime] | <code>date</code> |  | Time that the Foreign Exchange was updated |
 | [params.version] | <code>number</code> |  | Version number |
 
 <a name="module_assets.ForeignExchangeBase"></a>
@@ -2348,7 +2565,7 @@ Construct a new ForeignExchangeBase instance
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | params | <code>object</code> |  | ForeignExchangeBase creation options: |
-| [params.assetManagerId] | <code>number</code> | <code>0</code> | Auto-set to `0` except for ForeignExchangeForward. All FX classes and subclasses are treated as public Assets |
+| [params.assetManagerId] | <code>number</code> | <code>0</code> | Defaults to `0` |
 | params.assetId | <code>number</code> |  | ID of the ForeignExchangeBase __(required)__ |
 | [params.assetClass] | <code>string</code> | <code>&quot;ForeignExchange&quot;</code> | Auto-set to `ForeignExchange` __(read-only)__ |
 | [params.assetType] | <code>string</code> |  | Type of the ForeignExchangeBase. Auto-set based on the class or subclass constructor |
@@ -2359,7 +2576,6 @@ Construct a new ForeignExchangeBase instance
 | [params.description] | <code>string</code> |  | Description of the ForeignExchangeBase |
 | [params.displayName] | <code>string</code> |  | Display name of the ForeignExchangeBase |
 | params.countryCodes | <code>array</code> |  | Array of country codes __(required)__ |
-| params.major | <code>boolean</code> |  | Whether this FX is major __(required)__ |
 | [params.rollPrice] | <code>boolean</code> | <code>false</code> | Auto-set to `false` __(read-only)__ |
 | [params.clientId] | <code>string</code> |  | ID of the associated client |
 | [params.comments] | <code>object</code> |  | Object of Comments attached to the ForeignExchangeBase |
@@ -3332,6 +3548,8 @@ Classes for the Books Service
 * [books](#module_books)
     * [.Book](#module_books.Book) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Book(params)](#new_module_books.Book_new)
+    * [.BookPermission](#module_books.BookPermission) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+        * [new BookPermission(params)](#new_module_books.BookPermission_new)
 
 <a name="module_books.Book"></a>
 
@@ -3355,17 +3573,45 @@ Construct a new Book object
 | [params.bookStatus] | <code>string</code> | <code>&quot;Active&quot;</code> | status of Book |
 | [params.ownerId] | <code>number</code> |  | ID of the owner of the Book (e.g. the Trader who is responsible for the Book) |
 | [params.partyId] | <code>number</code> |  | ID of the party of which the activity being tracked belongs (e.g. Registered fund or HNWI) |
-| [params.closeTime] | <code>string</code> | <code>&quot;17:30:00&quot;</code> | Book close time. This is stored as local time, to be referenced against timezone |
-| [params.timezone] | <code>string</code> | <code>&quot;UTC&quot;</code> | Book's timezone (use this to determine absolute close time) |
+| [params.closeTime] | <code>string</code> |  | Book close time. This is stored as local time, to be referenced against timezone |
+| [params.timezone] | <code>string</code> |  | Book's timezone (use this to determine absolute close time) |
 | [params.baseCurrency] | <code>string</code> | <code>&quot;USD&quot;</code> | Base currency for the Book |
 | [params.businessUnit] | <code>string</code> |  | A business unit to associate with the Book (e.g. Emerging Markets, Equities) |
 | [params.description] | <code>string</code> |  | Description of the book |
 | [params.positions] | <code>Array</code> |  | Array of objects [{asset_id: string, quantity: number}] |
+| [params.reference] | <code>object</code> |  | Reference for the Book |
 | [params.createdBy] | <code>string</code> |  | ID of the user that created this object (required if creating a new Book) |
 | [params.updatedBy] | <code>string</code> |  | ID of the user that updated this object (use if amending existing Book) |
 | [params.createdTime] | <code>date</code> |  | Time that the Book was created (required if creating new Book) |
 | [params.updatedTime] | <code>date</code> |  | Time that the Book was updated (required if amending existing Book) |
 | [params.version] | <code>number</code> |  | Version number of the Book |
+
+<a name="module_books.BookPermission"></a>
+
+### books.BookPermission ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+Class representing a Book Permission
+
+**Kind**: static class of [<code>books</code>](#module_books)  
+**Extends**: [<code>AMaaSModel</code>](#module_core.AMaaSModel)  
+<a name="new_module_books.BookPermission_new"></a>
+
+#### new BookPermission(params)
+Construct a new Book Permission instance
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | Book Permission creation options: |
+| params.assetManagerId | <code>number</code> | Asset Manager ID of the Book Permission |
+| params.bookId | <code>string</code> | Book ID |
+| params.permissionId | <code>string</code> | Uniqie ID for the Permission record |
+| params.userAssetManagerId | <code>number</code> | Asset Manager ID of the User to grant the permission to |
+| params.permissionStatus | <code>string</code> | Permission status (Active or Inactive) |
+| params.permission | <code>string</code> | Permission value ('read' or 'write') |
+| [params.createdBy] | <code>string</code> | Username of the user that created this permission |
+| [params.updatedBy] | <code>string</code> | Username of the user that updated this permission |
+| [params.createdTime] | <code>date</code> | Time that the permission was created |
+| [params.updatedTime] | <code>date</code> | Time that the permission was updated |
 
 <a name="module_children"></a>
 
@@ -3447,10 +3693,39 @@ Classes for the Monitor Service
 
 
 * [monitor](#module_monitor)
+    * [.Activity](#module_monitor.Activity) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+        * [new Activity(params)](#new_module_monitor.Activity_new)
     * [.Event](#module_monitor.Event) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Event(params)](#new_module_monitor.Event_new)
     * [.Item](#module_monitor.Item) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Item(params)](#new_module_monitor.Item_new)
+
+<a name="module_monitor.Activity"></a>
+
+### monitor.Activity ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+Class representing a Monitor Item
+
+**Kind**: static class of [<code>monitor</code>](#module_monitor)  
+**Extends**: [<code>AMaaSModel</code>](#module_core.AMaaSModel)  
+<a name="new_module_monitor.Activity_new"></a>
+
+#### new Activity(params)
+Construct a new Monitor item
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | Item creation options: |
+| params.assetManagerId | <code>number</code> | Asset Manager ID of owner |
+| params.clientId | <code>number</code> | Client ID associated with the Monitor Item |
+| params.activityId | <code>string</code> | Activity ID associated with the Monitor Item |
+| params.bookId | <code>string</code> | Book ID associated with the Monitor Item |
+| params.entity | <code>string</code> | entity of Monitor Item |
+| params.activityType | <code>string</code> | activityType of the Monitor Item |
+| params.source | <code>string</code> | source of the Monitor Item |
+| params.message | <code>string</code> | Message attached to the Monitor item |
+| params.referenceId | <code>string</code> | referenceId associated with the Monitor Item |
+| params.referenceType | <code>string</code> | referenceType associated with the Monitor Item |
 
 <a name="module_monitor.Event"></a>
 
@@ -3526,46 +3801,58 @@ Classes for the Parties service
         * [new AssetManager(params)](#new_module_parties.AssetManager_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Broker](#module_parties.Broker) ⇐ [<code>Company</code>](#module_parties.Company)
         * [new Broker(params)](#new_module_parties.Broker_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Address](#module_parties.Address) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Address(params)](#new_module_parties.Address_new)
     * [.Email](#module_parties.Email) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Email(params)](#new_module_parties.Email_new)
+    * [.PhoneNumber](#module_parties.PhoneNumber) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+        * [new PhoneNumber(params)](#new_module_parties.PhoneNumber_new)
     * [.Company](#module_parties.Company) ⇐ [<code>Organisation</code>](#module_parties.Organisation)
         * [new Company(params)](#new_module_parties.Company_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Exchange](#module_parties.Exchange) ⇐ [<code>Company</code>](#module_parties.Company)
         * [new Exchange(params)](#new_module_parties.Exchange_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Fund](#module_parties.Fund) ⇐ [<code>Company</code>](#module_parties.Company)
         * [new Fund(params)](#new_module_parties.Fund_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.GovernmentAgency](#module_parties.GovernmentAgency) ⇐ [<code>Organisation</code>](#module_parties.Organisation)
         * [new GovernmentAgency(params)](#new_module_parties.GovernmentAgency_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Individual](#module_parties.Individual) ⇐ [<code>Party</code>](#module_parties.Party)
         * [new Individual(params)](#new_module_parties.Individual_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Organisation](#module_parties.Organisation) ⇐ [<code>Party</code>](#module_parties.Party)
         * [new Organisation(params)](#new_module_parties.Organisation_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.Party](#module_parties.Party) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Party(params)](#new_module_parties.Party_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
     * [.SubFund](#module_parties.SubFund) ⇐ [<code>Party</code>](#module_parties.Party)
         * [new SubFund(params)](#new_module_parties.SubFund_new)
         * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
         * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+        * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="module_parties.AssetManager"></a>
 
@@ -3579,6 +3866,7 @@ Class representing an Asset Manager
     * [new AssetManager(params)](#new_module_parties.AssetManager_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.AssetManager_new"></a>
 
@@ -3599,9 +3887,9 @@ Construct a new Asset Manager instance
 | [params.assetsUnderManagement] | <code>string</code> |  | Value of assets under management |
 | [params.registrationNumber] | <code>string</code> |  | Business registration number (if applicable) |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | params.addresses | <code>object</code> |  | Object of Addresses associated with this Asset Manager |
 | params.emails | <code>object</code> |  | Object of Emails associated with this Asset Manager |
+| params.phoneNumbers | <code>object</code> |  | Object of phoneNumbers associated with this Asset Manager |
 | params.references | <code>object</code> |  | Object of References associated with this Asset Manager |
 | params.comments | <code>object</code> |  | Object of Comments associated with the Asset Manager |
 | params.links | <code>object</code> |  | Object of Links associated with the Asset Manager |
@@ -3638,6 +3926,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### assetManager.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>AssetManager</code>](#module_parties.AssetManager)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Broker"></a>
 
 ### parties.Broker ⇐ [<code>Company</code>](#module_parties.Company)
@@ -3650,6 +3950,7 @@ Class representing a Broker
     * [new Broker(params)](#new_module_parties.Broker_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Broker_new"></a>
 
@@ -3670,9 +3971,9 @@ Construct a new Broker instance
 | [params.assetsUnderManagement] | <code>string</code> |  | Value of assets under management |
 | [params.registrationNumber] | <code>string</code> |  | Business registration number (if applicable) |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Broker |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Broker |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Broker |
 | [params.references] | <code>object</code> |  | Object of References associated with the Broker |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Broker |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Broker |
@@ -3708,6 +4009,18 @@ Upsert an Email
 | --- | --- | --- |
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
+
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### broker.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Broker</code>](#module_parties.Broker)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
 
 <a name="module_parties.Address"></a>
 
@@ -3764,6 +4077,31 @@ Construct a new Email object
 | [params.updatedTime] | <code>date</code> | Time that the Email was updated |
 | [params.version] | <code>number</code> | Version number of the Email |
 
+<a name="module_parties.PhoneNumber"></a>
+
+### parties.PhoneNumber ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+Class representing an Phone Number
+
+**Kind**: static class of [<code>parties</code>](#module_parties)  
+**Extends**: [<code>AMaaSModel</code>](#module_core.AMaaSModel)  
+<a name="new_module_parties.PhoneNumber_new"></a>
+
+#### new PhoneNumber(params)
+Construct a new phone number object
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | phone number creation options: |
+| params.phoneNumberPrimary | <code>boolean</code> | Whether the phone number is primary for its owner. If a Party has phone number, at least one must be primary |
+| params.phoneNumber | <code>string</code> | Phone Number |
+| params.active | <code>boolean</code> | Whether the phone number is active for its owner |
+| [params.createdBy] | <code>string</code> | ID of the user that created the phone number |
+| [params.updatedBy] | <code>string</code> | ID of the user that updated the phone number |
+| [params.createdTime] | <code>date</code> | Time that the phone number was created |
+| [params.updatedTime] | <code>date</code> | Time that the phone number was updated |
+| [params.version] | <code>number</code> | Version number of the phone number |
+
 <a name="module_parties.Company"></a>
 
 ### parties.Company ⇐ [<code>Organisation</code>](#module_parties.Organisation)
@@ -3776,6 +4114,7 @@ Class representing a Company
     * [new Company(params)](#new_module_parties.Company_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Company_new"></a>
 
@@ -3792,14 +4131,10 @@ Construct a new Company instance
 | [params.partyClass] | <code>string</code> | <code>&quot;Company&quot;</code> | Class of the Company (a subclass of Company may define its own partyClass) |
 | [params.baseCurrency] | <code>string</code> |  | Base Currency of the Company (e.g. SGD, USD) |
 | [params.description] | <code>string</code> |  | Description of the Company |
-| [params.licenseNumber] | <code>string</code> |  | Company license number (if applicable) |
-| [params.licenseType] | <code>string</code> |  | Company license type |
-| [params.assetsUnderManagement] | <code>string</code> |  | Value of assets under management |
-| [params.registrationNumber] | <code>string</code> |  | Business registration number (if applicable) |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Company |
-| [params.emails] | <code>object</code> |  | Object of Emails associated with the Company |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Company |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Company |
 | [params.references] | <code>object</code> |  | Object of References associated with the Company |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Company |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Company |
@@ -3836,6 +4171,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### company.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Company</code>](#module_parties.Company)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Exchange"></a>
 
 ### parties.Exchange ⇐ [<code>Company</code>](#module_parties.Company)
@@ -3848,6 +4195,7 @@ Class representing an Exchange
     * [new Exchange(params)](#new_module_parties.Exchange_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Exchange_new"></a>
 
@@ -3868,9 +4216,9 @@ Construct a new Exchange instance
 | [params.assetsUnderManagement] | <code>string</code> |  | Value of assets under management |
 | [params.registrationNumber] | <code>string</code> |  | Business registration number (if applicable) |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Exchange |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Exchange |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Exchange |
 | [params.references] | <code>object</code> |  | Object of References associated with the Exchange |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Exchange |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Exchange |
@@ -3907,6 +4255,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### exchange.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Exchange</code>](#module_parties.Exchange)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Fund"></a>
 
 ### parties.Fund ⇐ [<code>Company</code>](#module_parties.Company)
@@ -3919,6 +4279,7 @@ Class representing a Fund
     * [new Fund(params)](#new_module_parties.Fund_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Fund_new"></a>
 
@@ -3939,9 +4300,9 @@ Construct a new Fund instance
 | [params.assetsUnderManagement] | <code>string</code> |  | Value of assets under management |
 | [params.registrationNumber] | <code>string</code> |  | Business registration number (if applicable) |
 | [params.yearOfIncorporation] | <code>string</code> |  | Year of incorporation |
-| [params.contactNumber] | <code>string</code> |  | Contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Fund |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Fund |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Fund |
 | [params.references] | <code>object</code> |  | Object of References associated with the Fund |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Fund |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Fund |
@@ -3978,6 +4339,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### fund.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Fund</code>](#module_parties.Fund)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.GovernmentAgency"></a>
 
 ### parties.GovernmentAgency ⇐ [<code>Organisation</code>](#module_parties.Organisation)
@@ -3990,6 +4363,7 @@ Class representing a Government Agency
     * [new GovernmentAgency(params)](#new_module_parties.GovernmentAgency_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.GovernmentAgency_new"></a>
 
@@ -4008,6 +4382,7 @@ Construct a new Government Agency instance
 | [params.description] | <code>string</code> |  | Description of the Government Agency |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Government Agency |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Government Agency |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Government Agency |
 | [params.references] | <code>object</code> |  | Object of References associated with the Government Agency |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Government Agency |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Government Agency |
@@ -4044,6 +4419,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### governmentAgency.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>GovernmentAgency</code>](#module_parties.GovernmentAgency)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Individual"></a>
 
 ### parties.Individual ⇐ [<code>Party</code>](#module_parties.Party)
@@ -4056,6 +4443,7 @@ Class representing an Individual
     * [new Individual(params)](#new_module_parties.Individual_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Individual_new"></a>
 
@@ -4078,9 +4466,9 @@ Construct a new Individual instance
 | [params.title] | <code>string</code> |  | Individual's title (e.g. Mr, Mrs, Ms, etc.) |
 | [params.department] | <code>string</code> |  | Individual's department |
 | [params.role] | <code>string</code> |  | Individual's role |
-| [params.contactNumber] | <code>string</code> |  | Individual's contact number |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Individual |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Individual |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Individual |
 | [params.references] | <code>object</code> |  | Object of References associated with the Individual |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Individual |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Individual |
@@ -4117,6 +4505,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### individual.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Individual</code>](#module_parties.Individual)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Organisation"></a>
 
 ### parties.Organisation ⇐ [<code>Party</code>](#module_parties.Party)
@@ -4129,6 +4529,7 @@ Class representing an Organisation
     * [new Organisation(params)](#new_module_parties.Organisation_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Organisation_new"></a>
 
@@ -4147,6 +4548,7 @@ Construct a new Organisation instance
 | [params.description] | <code>string</code> |  | Description of the Organisation |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Organisation |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Organisation |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the Organisation |
 | [params.references] | <code>object</code> |  | Object of References associated with the Organisation |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Organisation |
 | [params.links] | <code>object</code> |  | Object of Links associated with the Organisation |
@@ -4183,6 +4585,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### organisation.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Organisation</code>](#module_parties.Organisation)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.Party"></a>
 
 ### parties.Party ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
@@ -4195,6 +4609,7 @@ Class representing a Party
     * [new Party(params)](#new_module_parties.Party_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.Party_new"></a>
 
@@ -4213,6 +4628,7 @@ Construct a new Party instance
 | [params.description] | <code>string</code> |  | Description of the Party |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the Party |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the Party |
+| [params.phoneNumbers] | <code>object</code> |  | Object of Phone Numbers associated with the Party |
 | [params.references] | <code>object</code> |  | Object of References associated with the Party |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the Party |
 | [params.links] | <code>object</code> |  | Object of Links associated with this Party |
@@ -4249,6 +4665,18 @@ Upsert an Email
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
 
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### party.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>Party</code>](#module_parties.Party)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
+
 <a name="module_parties.SubFund"></a>
 
 ### parties.SubFund ⇐ [<code>Party</code>](#module_parties.Party)
@@ -4261,6 +4689,7 @@ Class representing a Celled Fund Structure (SubFund)
     * [new SubFund(params)](#new_module_parties.SubFund_new)
     * [.upsertAddress(type, address)](#module_parties.Party+upsertAddress)
     * [.upsertEmail(type, email)](#module_parties.Party+upsertEmail)
+    * [.upsertPhoneNumber(type, phoneNumber)](#module_parties.Party+upsertPhoneNumber)
 
 <a name="new_module_parties.SubFund_new"></a>
 
@@ -4278,6 +4707,7 @@ Construct a new SubFund instance
 | [params.description] | <code>string</code> |  | Description of the SubFund |
 | [params.addresses] | <code>object</code> |  | Object of Addresses associated with the SubFund |
 | [params.emails] | <code>object</code> |  | Object of Emails associated with the SubFund |
+| [params.phoneNumbers] | <code>object</code> |  | Object of phoneNumbers associated with the SubFund |
 | [params.references] | <code>object</code> |  | Object of References associated with the SubFund |
 | [params.comments] | <code>object</code> |  | Object of Comments associated with the SubFund |
 | [params.links] | <code>object</code> |  | Object of Links associated with the SubFund |
@@ -4313,6 +4743,18 @@ Upsert an Email
 | --- | --- | --- |
 | type | <code>string</code> | Type of Email (e.g. 'Work', 'Support') |
 | email | <code>Emails</code> | new Email. Note that the new Email cannot be primary if a primary Email already exists. Use this.emails setter to replace primary Emails (??) |
+
+<a name="module_parties.Party+upsertPhoneNumber"></a>
+
+#### subFund.upsertPhoneNumber(type, phoneNumber)
+Upsert an Phone Number
+
+**Kind**: instance method of [<code>SubFund</code>](#module_parties.SubFund)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| type | <code>string</code> | Type of Phone Number (e.g. 'Work', 'Support') |
+| phoneNumber | <code>PhoneNumbers</code> | new phoneNumber. Note that the new phoneNumber cannot be primary if a primary phoneNumber already exists. Use this.phoneNumbers setter to replace primary phoneNumbers (??) |
 
 <a name="module_relationships"></a>
 

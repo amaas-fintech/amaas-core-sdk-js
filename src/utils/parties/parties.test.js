@@ -1,5 +1,16 @@
 import uuid from 'uuid'
-import { retrieve, _parseParty, insert, partialAmend, amend, search, fuzzySearch, deactivate, reactivate } from './parties.js'
+import {
+  retrieve,
+  _parseParty,
+  insert,
+  partialAmend,
+  amend,
+  search,
+  fuzzySearch,
+  fieldsSearch,
+  deactivate,
+  reactivate
+} from './parties.js'
 import Party from '../../parties/Party/party.js'
 import Individual from '../../parties/Individual/individual'
 import Broker from '../../parties/Broker/broker.js'
@@ -13,7 +24,6 @@ network.patchData = jest.fn()
 network.putData = jest.fn()
 network.searchData = jest.fn()
 network.deleteData = jest.fn()
-
 
 api.config({
   stage: 'staging',
@@ -30,35 +40,35 @@ let mockFuzzyResult = {
   max_score: 1,
   hits: [
     {
-      _index: "parties",
-      _type: "10",
-      _id: "001114727",
+      _index: 'parties',
+      _type: '10',
+      _id: '001114727',
       _score: 1,
       _source: {
-        partyType: "Broker",
-        legalName: "Saxo Capital Markets Pte. Ltd.",
-        description: "Saxo Capital Markets Singapore",
+        partyType: 'Broker',
+        legalName: 'Saxo Capital Markets Pte. Ltd.',
+        description: 'Saxo Capital Markets Singapore',
         assetManagerId: 0,
-        displayName: "Saxo Singapore",
-        partyId: "52990041GUUCABWVC636",
-        partyClass: "Company",
-        AMaaS: "52990041GUUCABWVC636"
+        displayName: 'Saxo Singapore',
+        partyId: '52990041GUUCABWVC636',
+        partyClass: 'Company',
+        AMaaS: '52990041GUUCABWVC636'
       }
     },
     {
-      _index: "parties",
-      _type: "10",
-      _id: "001114999",
+      _index: 'parties',
+      _type: '10',
+      _id: '001114999',
       _score: 1,
       _source: {
-        partyType: "Exchange",
-        legalName: "",
-        description: "SINGAPORE COMMODITY EXCHANGE",
+        partyType: 'Exchange',
+        legalName: '',
+        description: 'SINGAPORE COMMODITY EXCHANGE',
         assetManagerId: 0,
-        displayName: "",
-        partyId: "XSCE",
-        partyClass: "Company",
-        AMaaS: "XSCE"
+        displayName: '',
+        partyId: 'XSCE',
+        partyClass: 'Company',
+        AMaaS: 'XSCE'
       }
     }
   ]
@@ -74,7 +84,11 @@ describe('retrieve', () => {
   })
   it('calls retrieveData with the correct params', done => {
     retrieve({ AMId: 1, resourceId: 'testID' }, (error, result) => {
-      expect(network.retrieveData).toHaveBeenCalledWith({ AMaaSClass: 'parties', AMId: 1, resourceId: 'testID' })
+      expect(network.retrieveData).toHaveBeenCalledWith({
+        AMaaSClass: 'parties',
+        AMId: 1,
+        resourceId: 'testID'
+      })
       done()
     })
   })
@@ -90,7 +104,11 @@ describe('insert', () => {
   })
   it('calls insertData with the correct params', done => {
     insert({ AMId: 1, party: mockParty }, (error, result) => {
-      expect(network.insertData).toHaveBeenCalledWith({ AMaaSClass: 'parties', AMId: 1, data: JSON.parse(JSON.stringify(mockParty)) })
+      expect(network.insertData).toHaveBeenCalledWith({
+        AMaaSClass: 'parties',
+        AMId: 1,
+        data: JSON.parse(JSON.stringify(mockParty))
+      })
       done()
     })
   })
@@ -105,10 +123,18 @@ describe('amend', () => {
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls putData with the correct params', done => {
-    amend({ AMId: 1, party: mockParty, resourceId: 'testID' }, (error, result) => {
-      expect(network.putData).toHaveBeenCalledWith({ AMaaSClass: 'parties', AMId: 1, resourceId: 'testID', data: JSON.parse(JSON.stringify(mockParty)) })
-      done()
-    })
+    amend(
+      { AMId: 1, party: mockParty, resourceId: 'testID' },
+      (error, result) => {
+        expect(network.putData).toHaveBeenCalledWith({
+          AMaaSClass: 'parties',
+          AMId: 1,
+          resourceId: 'testID',
+          data: JSON.parse(JSON.stringify(mockParty))
+        })
+        done()
+      }
+    )
   })
 })
 
@@ -121,10 +147,18 @@ describe('partial', () => {
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls patchData with the correct params', done => {
-    partialAmend({ AMId: 1, resourceId: 'testID', changes: { changed: 'changed' } }, (error, result) => {
-      expect(network.patchData).toHaveBeenCalledWith({ AMaaSClass: 'parties', AMId: 1, resourceId: 'testID', data: { changed: 'changed' } })
-      done()
-    })
+    partialAmend(
+      { AMId: 1, resourceId: 'testID', changes: { changed: 'changed' } },
+      (error, result) => {
+        expect(network.patchData).toHaveBeenCalledWith({
+          AMaaSClass: 'parties',
+          AMId: 1,
+          resourceId: 'testID',
+          data: { changed: 'changed' }
+        })
+        done()
+      }
+    )
   })
 })
 
@@ -137,16 +171,25 @@ describe('search', () => {
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls searchData with the correct params', done => {
-    search({ AMId: 1, query: { queryKey: ['queryValues'] } }, (error, result) => {
-      expect(network.searchData).toHaveBeenCalledWith({ AMaaSClass: 'parties', AMId: 1, query: { queryKey: ['queryValues'] } })
-      done()
-    })
+    search(
+      { AMId: 1, query: { queryKey: ['queryValues'] } },
+      (error, result) => {
+        expect(network.searchData).toHaveBeenCalledWith({
+          AMaaSClass: 'parties',
+          AMId: 1,
+          query: { queryKey: ['queryValues'] }
+        })
+        done()
+      }
+    )
   })
 })
 
 describe('fuzzySearch', () => {
   beforeAll(() => {
-    network.retrieveData.mockImplementation(() => Promise.resolve(mockFuzzyResult))
+    network.retrieveData.mockImplementation(() =>
+      Promise.resolve(mockFuzzyResult)
+    )
   })
   test('with promise', () => {
     let promise = fuzzySearch({})
@@ -155,10 +198,75 @@ describe('fuzzySearch', () => {
   it('calls retrieveData with the correct params', done => {
     const params = {
       AMId: 1,
-      query: { q: 'AGMI', fields: ['ticker', 'asset'], includeAdditional: [1, 10] }
+      query: {
+        q: 'AGMI',
+        fields: ['ticker', 'asset'],
+        includeAdditional: [1, 10]
+      }
     }
     fuzzySearch(params, (error, result) => {
-      expect(network.retrieveData).toHaveBeenCalledWith({ AMaaSClass: 'parties', AMId: 'search', resourceId: 1, query: { q: 'AGMI', fields: ['ticker', 'asset'], includeAdditional: [1, 10], fuzzy: true } })
+      expect(network.retrieveData).toHaveBeenCalledWith({
+        AMaaSClass: 'parties',
+        AMId: 'search',
+        resourceId: 1,
+        query: {
+          q: 'AGMI',
+          fields: ['ticker', 'asset'],
+          includeAdditional: [1, 10],
+          fuzzy: true
+        }
+      })
+      done()
+    })
+  })
+  it('allows fuzzy false', done => {
+    const params = {
+      AMId: 1,
+      query: {
+        q: 'AGMI',
+        fields: ['ticker', 'asset'],
+        includeAdditional: [1, 10],
+        fuzzy: false
+      }
+    }
+    fuzzySearch(params, (error, result) => {
+      expect(network.retrieveData).toHaveBeenCalledWith({
+        AMaaSClass: 'parties',
+        AMId: 'search',
+        resourceId: 1,
+        query: {
+          q: 'AGMI',
+          fields: ['ticker', 'asset'],
+          includeAdditional: [1, 10],
+          fuzzy: false
+        }
+      })
+      done()
+    })
+  })
+})
+
+describe('fieldsSearch', () => {
+  beforeAll(() => {
+    network.searchData.mockImplementation(() =>
+      Promise.resolve({ partyId: 'PARTY1', displayName: 'Test Name' })
+    )
+  })
+  test('with promise', () => {
+    let promise = fieldsSearch({ assetManagerIds: 88 })
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls searchData with the correct params', done => {
+    const params = {
+      AMId: 88,
+      query: { fields: ['displayName', 'description'] }
+    }
+    fieldsSearch(params, (error, result) => {
+      expect(network.searchData).toHaveBeenCalledWith({
+        AMaaSClass: 'parties',
+        AMId: 88,
+        query: params.query
+      })
       done()
     })
   })
@@ -174,7 +282,12 @@ describe('deactivate', () => {
   })
   it('calls patchData with the correct params', done => {
     deactivate({ AMId: 1, resourceId: 'testID' }, (error, result) => {
-      expect(network.patchData).toHaveBeenCalledWith({ AMaaSClass: 'parties', AMId: 1, resourceId: 'testID', data: { partyStatus: 'Inactive' } })
+      expect(network.patchData).toHaveBeenCalledWith({
+        AMaaSClass: 'parties',
+        AMId: 1,
+        resourceId: 'testID',
+        data: { partyStatus: 'Inactive' }
+      })
       done()
     })
   })
@@ -190,7 +303,12 @@ describe('reactivate', () => {
   })
   it('calls patchData with the correct params', done => {
     reactivate({ AMId: 1, resourceId: 'testID' }, (error, result) => {
-      expect(network.patchData).toHaveBeenCalledWith({ AMaaSClass: 'parties', AMId: 1, resourceId: 'testID', data: { partyStatus: 'Active' } })
+      expect(network.patchData).toHaveBeenCalledWith({
+        AMaaSClass: 'parties',
+        AMId: 1,
+        resourceId: 'testID',
+        data: { partyStatus: 'Active' }
+      })
       done()
     })
   })

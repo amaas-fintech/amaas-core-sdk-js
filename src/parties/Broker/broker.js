@@ -19,9 +19,9 @@ class Broker extends Company {
    * @param {string} [params.assetsUnderManagement] - Value of assets under management
    * @param {string} [params.registrationNumber] - Business registration number (if applicable)
    * @param {string} [params.yearOfIncorporation] - Year of incorporation
-   * @param {string} [params.contactNumber] - Contact number
    * @param {object} [params.addresses] - Object of Addresses associated with the Broker
    * @param {object} [params.emails] - Object of Emails associated with the Broker
+   * @param {object} [params.phoneNumbers] - Object of phoneNumbers associated with the Broker
    * @param {object} [params.references] - Object of References associated with the Broker
    * @param {object} [params.comments] - Object of Comments associated with the Broker
    * @param {object} [params.links] - Object of Links associated with the Broker
@@ -40,14 +40,10 @@ class Broker extends Company {
     partyStatus='Active',
     baseCurrency,
     description='',
-    licenseNumber,
-    licenseType,
-    assetsUnderManagement,
-    registrationNumber,
-    yearOfIncoporation,
-    contactNumber,
+    yearOfIncorporation,
     addresses={},
     emails={},
+    phoneNumbers={},
     references={},
     comments={},
     links={},
@@ -66,14 +62,10 @@ class Broker extends Company {
       partyStatus,
       baseCurrency,
       description,
-      licenseNumber,
-      licenseType,
-      assetsUnderManagement,
-      registrationNumber,
-      yearOfIncoporation,
-      contactNumber,
+      yearOfIncorporation,
       addresses,
       emails,
+      phoneNumbers,
       references,
       comments,
       links,

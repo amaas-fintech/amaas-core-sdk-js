@@ -1,7 +1,11 @@
 import request from 'superagent'
 import { endpoint, userPoolConfig } from '../../config.js'
 import fs from 'fs'
-import { AuthenticationDetails, CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js'
+import {
+  AuthenticationDetails,
+  CognitoUser,
+  CognitoUserPool
+} from 'amazon-cognito-identity-js'
 import expandTilde from 'expand-tilde'
 
 export function poolConfig(stage) {
@@ -11,15 +15,17 @@ export function poolConfig(stage) {
     case 'staging':
       return userPoolConfig.staging
     case 'prod':
+      return userPoolConfig.prod
     default:
       throw new Error('unavailable config')
   }
 }
 
-const userPool = (stage) => new CognitoUserPool({
-  UserPoolId: poolConfig(stage).userPoolId,
-  ClientId: poolConfig(stage).clientAppId
-})
+const userPool = stage =>
+  new CognitoUserPool({
+    UserPoolId: poolConfig(stage).userPoolId,
+    ClientId: poolConfig(stage).clientAppId
+  })
 
 export function getEndpoint({ stage, apiVersion }) {
   switch (stage) {
@@ -38,7 +44,7 @@ export function getEndpoint({ stage, apiVersion }) {
 function isNode() {
   try {
     return Object.prototype.toString.call(global.process) === '[object process]'
-  } catch(e) {
+  } catch (e) {
     return false
   }
 }
@@ -56,10 +62,10 @@ export function authenticate(stage, credPath) {
       path = `${expandTilde('~')}/amaas.js`
     }
     console.log(`Reading credentials from ${path}`)
-    fs.readFile(path, (error, data)=> {
+    fs.readFile(path, (error, data) => {
       if (error) {
         return injectedReject(error)
-    }
+      }
       const Username = JSON.parse(data).username
       const Password = JSON.parse(data).password
       const authenticationDetails = new AuthenticationDetails({
@@ -111,7 +117,7 @@ export function getToken(stage, credPath) {
             } else {
               if (isNode()) {
                 console.warn('getSession failure, attempting to authenticate')
-                  authenticate(stage, credPath)
+                authenticate(stage, credPath)
                   .then(res => injectedResolve(res))
                   .catch(err => injectedReject(err))
               } else {
@@ -139,14 +145,17 @@ export function getToken(stage, credPath) {
 export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
   let baseURL = ''
   switch (AMaaSClass) {
-    case 'book':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/book/books`
+    case 'assets':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/asset/assets`
       break
-    case 'parties':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/party/parties`
+    case 'assetConfig':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/asset/asset-config`
       break
     case 'assetManagers':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/asset-managers`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/assetmanager/asset-managers`
       break
     case 'assetManagerDomains':
       baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/domains`
@@ -154,8 +163,17 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
     case 'assetManagerEODBooks':
       baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/eod-books`
       break
-    case 'assets':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/asset/assets`
+    case 'assetManagerPubSubCredentials':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/credential`
+      break
+    case 'book':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/book/books`
+      break
+    case 'bookPermissions':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/book/book-permissions`
+      break
+    case 'parties':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/party/parties`
       break
     case 'positions':
       baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/positions`
@@ -166,6 +184,9 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
     case 'monitorItems':
       baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/items`
       break
+    case 'monitorActivities':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/activities`
+      break
     case 'monitorEvents':
       baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/events`
       break
@@ -173,28 +194,40 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
       baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/netting`
       break
     case 'relationships':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/asset-manager-relationships`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/assetmanager/asset-manager-relationships`
       break
     case 'relatedAssetManagerID':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/asset-manager-related-amid`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/assetmanager/asset-manager-related-amid`
       break
     case 'relationshipRequest':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/relationship-request`
-      break
-    case 'assetManagerPubSubCredentials':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/credential`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/assetmanager/relationship-request`
       break
     case 'transactions':
       baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/transactions`
       break
     case 'corporateActions':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/corporateaction/corporate-actions`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/corporateaction/corporate-actions`
       break
     case 'fundamentalCountries':
       baseURL = `${getEndpoint({ stage, apiVersion })}/fundamental/countries`
       break
     case 'fundamentalBusinessDate':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/fundamental/business-date`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/fundamental/business-date`
       break
     case 'fundamentalDateInfo':
       baseURL = `${getEndpoint({ stage, apiVersion })}/fundamental/date-info/`
@@ -205,7 +238,7 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
     default:
       throw new Error(`Invalid class type: ${AMaaSClass}`)
   }
-  if (!AMId) {
+  if (AMId === null || AMId === undefined) {
     return `${baseURL}`
   } else if (!resourceId) {
     return `${baseURL}/${AMId}`
@@ -229,17 +262,38 @@ export function makeRequest({ method, url, data, query, stage, credPath }) {
     .then(res => {
       switch (method) {
         case 'GET':
-          return request.get(url).set(setAuthorization(stage), res).query({ ...query, camelcase: true })
+          return request
+            .get(url)
+            .set(setAuthorization(stage), res)
+            .query({ ...query, camelcase: true })
         case 'SEARCH':
-          return request.get(url).set(setAuthorization(stage), res).query({ ...data, camelcase: true })
+          return request
+            .get(url)
+            .set(setAuthorization(stage), res)
+            .query({ ...data, camelcase: true })
         case 'POST':
-          return request.post(url).send(data).set(setAuthorization(stage), res).query({ ...query, camelcase: true })
+          return request
+            .post(url)
+            .send(data)
+            .set(setAuthorization(stage), res)
+            .query({ ...query, camelcase: true })
         case 'PUT':
-          return request.put(url).send(data).set(setAuthorization(stage), res).query({ ...query, camelcase: true })
+          return request
+            .put(url)
+            .send(data)
+            .set(setAuthorization(stage), res)
+            .query({ ...query, camelcase: true })
         case 'PATCH':
-          return request.patch(url).send(data).set(setAuthorization(stage), res).query({ ...query, camelcase: true })
+          return request
+            .patch(url)
+            .send(data)
+            .set(setAuthorization(stage), res)
+            .query({ ...query, camelcase: true })
         case 'DELETE':
-          return request.delete(url).set(setAuthorization(stage), res).query({ ...query, camelcase: true })
+          return request
+            .delete(url)
+            .set(setAuthorization(stage), res)
+            .query({ ...query, camelcase: true })
         default:
       }
     })

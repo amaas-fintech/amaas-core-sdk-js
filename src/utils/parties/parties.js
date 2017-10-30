@@ -1,8 +1,12 @@
-import { retrieveData, insertData, patchData, putData, deleteData, searchData } from '../network'
+import {
+  retrieveData,
+  insertData,
+  patchData,
+  putData,
+  deleteData,
+  searchData
+} from '../network'
 import * as PartyClasses from '../../parties'
-
-import Address from '../../parties/Children/address.js'
-import Email from '../../parties/Children/email.js'
 
 /**
  * Retrieve Party data for specified AMId and partyId
@@ -198,11 +202,6 @@ export function search({ AMId, query }, callback) {
  * 
  * <pre><code>
  * {
- * _index: string,
- * _type: string,
- * _id: string,
- * _score: number,
- * _source:{
  *  partyType: string
  *  legalName: string
  *  description: string
@@ -212,12 +211,11 @@ export function search({ AMId, query }, callback) {
  *  partyClass: string
  *  AMaaS: string
  * }
- * }
  * </code></pre>
  * @returns {Promise|null} If no callback supplied, returns a Promise that resolves with the above object.
  */
 export function fuzzySearch({ AMId, query = { fuzzy: true } }, callback) {
-  query = { ...query, fuzzy: true }
+  query = { fuzzy: true, ...query }
   const params = {
     AMaaSClass: 'parties',
     AMId: 'search',
@@ -225,6 +223,34 @@ export function fuzzySearch({ AMId, query = { fuzzy: true } }, callback) {
     query
   }
   let promise = retrieveData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
+ * Search for Parties and return specified fields
+ * @function fieldsSearch
+ * @memberof module:api.Parties
+ * @static
+ * @param {object} query - Query object of the form `{ assetManagerIds: number, fields: string[] }`. Any party property may be specified as a field parameter.
+ * e.g. `{ query: { assetManagerIds: [1, 2], fields: ['partyId', 'references', 'displayName']} }`
+ * @param {function} callback - Called with two arguments (error, result) on completion. `result` is an array of plain objects or a single plain object
+ * @returns {Promise|null} If no callback supplied, returns a Promise that resolves with an array of plain objects or a single plain object
+ */
+export function fieldsSearch({ AMId, query }, callback) {
+  const params = {
+    AMaaSClass: 'parties',
+    AMId,
+    query
+  }
+  let promise = searchData(params).then(result => {
     if (typeof callback === 'function') {
       callback(null, result)
     }

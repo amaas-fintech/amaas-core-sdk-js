@@ -1,5 +1,5 @@
 import { assetManagers } from './exports/assetManager'
-import { assets } from './exports/assets'
+import { assets, assetUtils } from './exports/assets'
 import { books } from './exports/books'
 import { children } from './exports/children'
 import { corporateActions } from './exports/corporateActions'
@@ -13,6 +13,7 @@ export {
   api,
   assetManagers,
   assets,
+  assetUtils,
   books,
   children,
   corporateActions,
