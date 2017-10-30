@@ -1,57 +1,8 @@
 import Transaction from './transaction'
+import { ICashTransaction } from '../../../index.d'
 
 class CashTransaction extends Transaction {
-  constructor({
-    assetManagerId,
-    assetBookId,
-    counterpartyBookId,
-    transactionAction,
-    assetId,
-    quantity,
-    transactionDate,
-    settlementDate,
-    price=1,
-    transactionCurrency,
-    settlementCurrency,
-    assets,
-    executionTime,
-    transactionType,
-    transactionId,
-    transactionStatus,
-    charges,
-    codes,
-    comments,
-    links,
-    parties,
-    rates,
-    references
-  }) {
-    super({
-      assetManagerId,
-      assetBookId,
-      counterpartyBookId,
-      transactionAction,
-      assetId,
-      quantity,
-      transactionDate,
-      settlementDate,
-      price: 1,
-      transactionCurrency,
-      settlementCurrency,
-      assets,
-      executionTime,
-      transactionType,
-      transactionId,
-      transactionStatus,
-      charges,
-      codes,
-      comments,
-      links,
-      parties,
-      rates,
-      references
-    })
-  }
+  constructor(prop: ICashTransaction) {}
 }
 
 export default CashTransaction
