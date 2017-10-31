@@ -4,7 +4,7 @@ const Decimal = require('decimal.js')
 describe('CashTransaction class', () => {
   let testCashTransaction
   beforeEach(() => {
-    const data = { assetManagerId: 123, transactionType: 'Coupon' }
+    const data = { assetManagerId: 123, transactionType: 'Cashflow' }
     testCashTransaction = new CashTransaction(data)
   })
   it('should set Price correctly', () => {
@@ -12,13 +12,11 @@ describe('CashTransaction class', () => {
   })
 })
 
-describe('Invalid transactionType CashTransaction class', () => {
-  let testCashTransaction
-  const data = { assetManagerId: 123, transactionType: 'Allocation' }
+describe('Invalid CashTransaction class', () => {
   it('should throw error', () => {
     const willThrow = () => {
-      new CashTransaction(data)
+      new CashTransaction({ assetManagerId: 123, transactionType: 'Allocation' })
     }
-    expect(willThrow).toThrowError(new Error('Invalid Transaction Type: Allocation'))
+    expect(willThrow).toThrowError(new Error('Invalid Cash Transaction Type: Allocation'))
   })
 })
