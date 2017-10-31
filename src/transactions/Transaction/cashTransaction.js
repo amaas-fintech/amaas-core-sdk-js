@@ -1,4 +1,5 @@
 import Transaction from './transaction'
+import * as types from '../enums'
 
 class CashTransaction extends Transaction {
   constructor({
@@ -25,6 +26,10 @@ class CashTransaction extends Transaction {
     rates,
     references
   }) {
+    console.log(transactionType)
+    if (types.CASH_TRANSACTION_TYPES.indexOf(transactionType) === -1) {
+      throw new Error(`Invalid Transaction Type: ${transactionType}`)
+    }
     super({
       assetManagerId,
       assetBookId,
