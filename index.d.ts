@@ -560,6 +560,17 @@ declare module '@amaas/amaas-core-sdk-js' {
     version?: number
   }
 
+  export interface IPubSubConnectionDetails {
+    Credentials: IPubSubCredentials
+    Topics: string[]
+  }
+  export interface IPubSubCredentials {
+    AccessKeyId: string
+    Expiration: string
+    SecretAccessKey: string
+    SessionToken: string
+  }
+
   // API
   namespace api {
     namespace AssetManagers {
@@ -625,14 +636,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       function getCredentialsForPubSub(
         { AMId }: { AMId: number },
         callback?: Function
-      ): Promise<{
-        credentials: {
-          AccessKeyId: string
-          SecretAccessKey: string
-          SessionToken: string
-        }
-        topics: string[]
-      }> | void
+      ): Promise<IPubSubConnectionDetails[]> | void
     }
     namespace Assets {
       function retrieve(

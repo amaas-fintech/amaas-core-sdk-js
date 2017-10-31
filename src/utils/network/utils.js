@@ -164,7 +164,7 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
       baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/eod-books`
       break
     case 'assetManagerPubSubCredentials':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/credential`
+      baseURL = `${getEndpoint({ stage, apiVersion })}/book/credentials`
       break
     case 'book':
       baseURL = `${getEndpoint({ stage, apiVersion })}/book/books`
