@@ -10,7 +10,6 @@ class CashTransaction extends Transaction {
     quantity,
     transactionDate,
     settlementDate,
-    price=1,
     transactionCurrency,
     settlementCurrency,
     assets,
