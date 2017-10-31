@@ -1,6 +1,37 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v1.0.1 - 2017-10-31
+### Changed
+- Changed the endpoint for the pub/sub credentials
+
+## v1.0.0 - 2017-10-30
+### Added
+- Added bookPermissions endpoints to allow retrieval and update of Book Permissions.
+- Added a PhoneNumber class to Parties (changed from `contactNumber` attribute).
+- Added Activity class for Monitor.
+- Added Activity API function (only retrieve).
+- Added a `reference` attribute to Books.
+- Added a `referencePrimary` attribute to the Reference model.
+- Added an Asset upsert function.
+- Added a getAssetConfig function.
+- Added a ForeignExchangeSpot class.
+- Added a Currency field to ForeignExchange classes.
+- Added 'Short Cover' to Transaction: transactionAction.
+- Added 'Demo' to Account Types.
+- Added a register API function (for the signup workflow).
+- Added approveRel, revokeRel and rejectRel API functions.
+- Added fieldsSearch to Parties.
+- Added 'DataProvider' to Relationship types.
+
+### Changed
+- Ensure the fuzzySearch functions do not force `fuzzy: true`.
+- Use AMId in the endpoint address (execpt for insert AssetManager).
+- Fix gross and net settlement get/setters to use existing grossSettlement/netSettlement if available.
+- Change defaultBookOwnerId from number to string type.
+- Change ForeignExchange classes to subclass: ForeignExchangeBase <- ForeignExchange <- ForeignExchangeSpot <- ForeignExchangeForward.
+- Moved licenseType, licenseNumber, assetsUnderManagement, registrationNumber from Company model to AssetManager subclass model.
+
 ## v0.1.3 - 2017-09-08
 ### Added
 - Added CommodityFuture and ForeignExchangeFuture classes.
