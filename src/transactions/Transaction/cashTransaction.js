@@ -26,7 +26,6 @@ class CashTransaction extends Transaction {
     rates,
     references
   }) {
-    console.log(transactionType)
     if (types.CASH_TRANSACTION_TYPES.indexOf(transactionType) === -1) {
       throw new Error(`Invalid Transaction Type: ${transactionType}`)
     }
