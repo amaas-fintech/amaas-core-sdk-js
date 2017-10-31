@@ -9,6 +9,7 @@ describe('CashTransaction class', () => {
     testCashTransaction = new CashTransaction(data)
   })
   it('should set Price correctly', () => {
-    expect(testCashTransaction.price).toEqual(1) 
+    expect(testCashTransaction.price).toEqual(new Decimal(1)) 
+
   })
 })
