@@ -12,7 +12,17 @@ describe('CashTransaction class', () => {
   })
 })
 
-describe('Invalid CashTransaction class', () => {
+describe('CashTransaction class with valid transaction type', () => {
+  let testCashTransaction
+  beforeEach(() => {
+    testCashTransaction = new CashTransaction({ assetManagerId: 123, transactionType: 'Cashflow' })
+  })
+  it('should initialise a new class', () => {
+    expect(typeof testCashTransaction).toBe('object')
+  })
+})
+
+describe('CashTransaction class with invalid transaction type', () => {
   it('should throw error', () => {
     const willThrow = () => {
       new CashTransaction({ assetManagerId: 123, transactionType: 'Allocation' })
