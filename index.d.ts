@@ -536,6 +536,12 @@ declare module '@amaas/amaas-core-sdk-js' {
     updatedTime?: string
     version?: number
   }
+
+  // Cash Transactions
+  export interface ICashTransaction extends ITransaction {
+    price: 1
+  }
+
   export interface IPosition {
     assetManagerId: number
     bookId?: string
@@ -1954,6 +1960,10 @@ declare module '@amaas/amaas-core-sdk-js' {
       updatedTime?: string
       version?: number
       constructor(props: ITransaction)
+    }
+
+    class CashTransaction extends Transaction {
+      constructor(props: ICashTransaction)
     }
 
     class Position {
