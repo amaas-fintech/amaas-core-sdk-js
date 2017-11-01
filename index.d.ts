@@ -540,6 +540,11 @@ declare module '@amaas/amaas-core-sdk-js' {
   // Cash Transactions
   export interface ICashTransaction extends ITransaction {
     price: 1
+    transactionType:
+    | 'Cashflow'
+    | 'Coupon'
+    | 'Dividend'
+    | 'Payment'
   }
 
   export interface IPosition {
