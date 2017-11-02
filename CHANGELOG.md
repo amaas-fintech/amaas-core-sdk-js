@@ -1,9 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v1.1.0 - 2017-11-02
+### Added
+- Added a CashTransaction class.
+
 ## v1.0.1 - 2017-10-31
 ### Changed
-- Changed the endpoint for the pub/sub credentials
+- Changed the endpoint for the pub/sub credentials.
 
 ## v1.0.0 - 2017-10-30
 ### Added
