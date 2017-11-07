@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v1.1.1
+### Changed
+- Removed the `fuzzy` parameter from fuzzySearch function.
+
 ## v1.1.0 - 2017-11-02
 ### Added
 - Added a CashTransaction class.

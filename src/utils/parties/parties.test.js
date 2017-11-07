@@ -212,8 +212,7 @@ describe('fuzzySearch', () => {
         query: {
           q: 'AGMI',
           fields: ['ticker', 'asset'],
-          includeAdditional: [1, 10],
-          fuzzy: true
+          includeAdditional: [1, 10]
         }
       })
       done()
