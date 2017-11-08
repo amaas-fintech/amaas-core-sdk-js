@@ -471,6 +471,24 @@ declare module '@amaas/amaas-core-sdk-js' {
     version: number
   }
 
+  // Profit & Loss (PNL)
+  export interface PNLResult {
+    clientId: number
+    assetManagerId: number
+    assetBookId: string
+    assetId: string
+    businessDate: Date
+    realisedPNL: string
+    unrealisedPNL: string
+    totalPNL: string
+    fxPNL: string
+    pnlStatus: string
+    message: string
+    version: string
+    pnlTimeStamp: Date
+    transactionId: string
+  }
+
   // Transactions
   export interface ITransaction {
     assetManagerId: number
