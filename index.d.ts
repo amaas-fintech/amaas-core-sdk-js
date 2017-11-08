@@ -58,7 +58,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     bookId: string
     bookType?: 'Counterparty' | 'Management' | 'Trading' | 'Wash'
     bookStatus?: string
-    ownerId?: number
+    ownerId?: string
     partyId?: string
     closeTime?: string
     timezone?: string
@@ -539,11 +539,7 @@ declare module '@amaas/amaas-core-sdk-js' {
 
   // Cash Transactions
   export interface ICashTransaction extends ITransaction {
-    transactionType:
-    | 'Cashflow'
-    | 'Coupon'
-    | 'Dividend'
-    | 'Payment'
+    transactionType: 'Cashflow' | 'Coupon' | 'Dividend' | 'Payment'
   }
 
   export interface IPosition {
@@ -1248,7 +1244,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       bookId: string
       bookType?: 'Counterparty' | 'Management' | 'Trading' | 'Wash'
       bookStatus?: string
-      ownerId?: number
+      ownerId?: string
       partyId?: string
       closeTime?: string
       timezone?: string
