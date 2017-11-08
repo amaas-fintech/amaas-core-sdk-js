@@ -1,7 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v1.1.1 -2017-11-07
+## v2.0.0 - 2017-11-08
+### Changed
+- Fixed erroneous type definitions.
+
+## v1.1.1 - 2017-11-07
 ### Changed
 - Removed the `fuzzy` parameter from fuzzySearch function.
 
