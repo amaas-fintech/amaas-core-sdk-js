@@ -28,6 +28,49 @@ export function retrieve({ AMId, resourceId }, callback) {
     promise.catch(error => calback(error))
 }
 
+export function insert({ AMId, pnl}, callback) {
+  const params = {
+    AMaaSClass: 'pnl',
+    AMId
+  }
+  let promise = insertData(params)
+    .then(result => {
+      result = _parsePNLResult(result)
+      if (typeof callback === 'function') {
+        callback(null, result)
+      }
+      return result
+    })
+    if (typeof callback !== 'function') {
+      return promise
+    }
+}
+
+export function amend({  AMId, pnl }, callback) {
+  stringified, data
+  if (pnl) {
+    stringified = JSON.stringify(pnl)
+    data = JSON.parse(stringified)
+  }
+  const params = {
+    AMaaSClass: 'pnl',
+    AMId,
+    data
+  }
+  let promise = putData(params).then(result => {
+    result = _parseParty(result)
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    // return promise if callback is not provided
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
 export function _parsePNLResult(object) {
   return new PNLResult(object)
 }
