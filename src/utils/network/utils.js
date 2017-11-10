@@ -10,16 +10,6 @@ import expandTilde from 'expand-tilde'
 
 export function poolConfig(stage) {
   return userPoolConfig[stage]
-  // switch (stage) {
-  //   case 'dev':
-  //     return userPoolConfig.dev
-  //   case 'staging':
-  //     return userPoolConfig.staging
-  //   case 'prod':
-  //     return userPoolConfig.prod
-  //   default:
-  //     throw new Error('unavailable config')
-  // }
 }
 
 const userPool = stage =>
@@ -29,18 +19,7 @@ const userPool = stage =>
   })
 
 export function getEndpoint({ stage, apiVersion }) {
-  return `${endpoint[dev]}/${apiVersion}`
-  // switch (stage) {
-  //   case 'dev':
-  //     return `${endpoint.dev}/${apiVersion || 'v1.0'}`
-  //   case 'staging':
-  //     return `${endpoint.staging}/${apiVersion || 'v1.0'}`
-  //   case 'prod':
-  //     return `${endpoint.prod}/${apiVersion || 'sg1.0'}`
-  //   default:
-  //     console.warn(`Unknown stage variable: ${stage}. Defaulting to dev`)
-  //     return `${endpoint.dev}/${apiVersion || 'v1.0'}`
-  // }
+  return `${endpoint[stage]}/${apiVersion}`
 }
 
 function isNode() {
@@ -97,10 +76,6 @@ export function getToken(stage, credPath) {
   return new Promise((resolve, reject) => {
     injectedResolve = resolve
     injectedReject = reject
-    // switch (stage) {
-    //   case 'dev':
-    //   case 'staging':
-    //   case 'prod':
     const cognitoUser = userPool(stage).getCurrentUser()
     if (!cognitoUser) {
       if (isNode()) {
@@ -128,10 +103,6 @@ export function getToken(stage, credPath) {
         }
       })
     }
-    //     break
-    //   default:
-    //     injectedReject('Missing Authorization')
-    // }
   })
 }
 
@@ -251,13 +222,6 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
 
 export function setAuthorization(stage) {
   return 'Authorization'
-  // switch (stage) {
-  //   case 'dev':
-  //   case 'staging':
-  //   case 'prod':
-  //   default:
-  //     return 'Authorization'
-  // }
 }
 
 export function makeRequest({ method, url, data, query, stage, credPath }) {
