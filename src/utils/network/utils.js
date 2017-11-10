@@ -9,16 +9,7 @@ import {
 import expandTilde from 'expand-tilde'
 
 export function poolConfig(stage) {
-  switch (stage) {
-    case 'dev':
-      return userPoolConfig.dev
-    case 'staging':
-      return userPoolConfig.staging
-    case 'prod':
-      return userPoolConfig.prod
-    default:
-      throw new Error('unavailable config')
-  }
+  return userPoolConfig[stage]
 }
 
 const userPool = stage =>
@@ -28,17 +19,7 @@ const userPool = stage =>
   })
 
 export function getEndpoint({ stage, apiVersion }) {
-  switch (stage) {
-    case 'dev':
-      return `${endpoint.dev}/${apiVersion || 'v1.0'}`
-    case 'staging':
-      return `${endpoint.staging}/${apiVersion || 'v1.0'}`
-    case 'prod':
-      return `${endpoint.prod}/${apiVersion || 'sg1.0'}`
-    default:
-      console.warn(`Unknown stage variable: ${stage}. Defaulting to dev`)
-      return `${endpoint.dev}/${apiVersion || 'v1.0'}`
-  }
+  return `${endpoint[stage]}/${apiVersion}`
 }
 
 function isNode() {
@@ -95,40 +76,32 @@ export function getToken(stage, credPath) {
   return new Promise((resolve, reject) => {
     injectedResolve = resolve
     injectedReject = reject
-    switch (stage) {
-      case 'dev':
-      case 'staging':
-      case 'prod':
-        const cognitoUser = userPool(stage).getCurrentUser()
-        if (!cognitoUser) {
+    const cognitoUser = userPool(stage).getCurrentUser()
+    if (!cognitoUser) {
+      if (isNode()) {
+        console.warn('No user in storage, attempting to authenticate...')
+        authenticate(stage, credPath)
+          .then(res => injectedResolve(res))
+          .catch(err => injectedReject(err))
+      } else {
+        injectedReject('Unauthorized, please re-authenticate')
+      }
+    } else {
+      cognitoUser.getSession((err, session) => {
+        if (session) {
+          console.log('getSession success')
+          injectedResolve(session.getIdToken().getJwtToken())
+        } else {
           if (isNode()) {
-            console.warn('No user in storage, attempting to authenticate...')
+            console.warn('getSession failure, attempting to authenticate')
             authenticate(stage, credPath)
               .then(res => injectedResolve(res))
               .catch(err => injectedReject(err))
           } else {
             injectedReject('Unauthorized, please re-authenticate')
           }
-        } else {
-          cognitoUser.getSession((err, session) => {
-            if (session) {
-              console.log('getSession success')
-              injectedResolve(session.getIdToken().getJwtToken())
-            } else {
-              if (isNode()) {
-                console.warn('getSession failure, attempting to authenticate')
-                authenticate(stage, credPath)
-                  .then(res => injectedResolve(res))
-                  .catch(err => injectedReject(err))
-              } else {
-                injectedReject('Unauthorized, please re-authenticate')
-              }
-            }
-          })
         }
-        break
-      default:
-        injectedReject('Missing Authorization')
+      })
     }
   })
 }
@@ -248,13 +221,7 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
 }
 
 export function setAuthorization(stage) {
-  switch (stage) {
-    case 'dev':
-    case 'staging':
-    case 'prod':
-    default:
-      return 'Authorization'
-  }
+  return 'Authorization'
 }
 
 export function makeRequest({ method, url, data, query, stage, credPath }) {
