@@ -489,6 +489,29 @@ declare module '@amaas/amaas-core-sdk-js' {
     transactionId: string
   }
 
+  export interface PositionPNL {
+    assetId: string
+    assetManagerId: string
+    assetPnl: string
+    bookId: string
+    businessDate: Date
+    clientId: string
+    fxPnl: string
+    message: string
+    period?: string
+    pnlStatus: string
+    pnlTimestamp: Date
+    quanity: number
+    realisedPnl: string
+    totalPnl: string
+    unrealisedPnl: string
+    createdBy: Date
+    updatedBy: Date
+    createdTime: Date
+    updatedTime: Date
+    version: string
+  }
+
   // Transactions
   export interface ITransaction {
     assetManagerId: number
