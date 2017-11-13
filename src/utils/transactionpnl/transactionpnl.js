@@ -23,9 +23,10 @@ export function retrieve({ AMId }, callback) {
     }
 }
 
-export function amend({ AMId }, callback) {
+export function amend({ AMId, data }, callback) {
   const params = {
     AMaaSClass: 'transationpnl',
+    data: TransactionPNL,
     AMId
   }
   let promise = putData(params).then(result => {
@@ -41,9 +42,10 @@ export function amend({ AMId }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function insert({ AMId }, callback) {
+export function insert({ AMId, data }, callback) {
   const params = {
     AMaaSClass: 'transationpnl',
+    data: TransactionPNL,
     AMId
   }
   let promise = insertData(params)
