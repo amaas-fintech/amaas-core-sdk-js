@@ -3,17 +3,16 @@ import {
   insertData,
   putData
 } from '../network'
-import PNLPosition from '../../transactions/PostionPNL/PositionPNL'
-
+import TransactionPNL from '../../transactions/TransactionPNL/TransactionPNL'
 
 export function retrieve({ AMId }, callback) {
   const params = {
-    AMaaSClass: 'pnlposition',
+    AMaaSClass: 'transationpnl',
     AMId
   }
   let promise = retrieveData(params)
     .then(result => {
-      result = result.map(pnlposition => _parsePNLPosition(pnl))
+      result = result.map(transationpnl => _parseTransactoinPNL(pnl))
       if (typeof callback === 'function') {
         callback(null, result)
       }
@@ -26,11 +25,11 @@ export function retrieve({ AMId }, callback) {
 
 export function amend({ AMId }, callback) {
   const params = {
-    AMaaSClass: 'pnlposition',
+    AMaaSClass: 'transationpnl',
     AMId
   }
   let promise = putData(params).then(result => {
-    result = _parseParty(result)
+    result = _ParseTransactionPNL(result)
     if (typeof callback === 'function') {
       callback(null, result)
     }
@@ -39,17 +38,17 @@ export function amend({ AMId }, callback) {
   if (typeof callback !== 'function') {
     return promise
   }
-  promiswe.catch(error => callback(error))
+  promise.catch(error => callback(error))
 }
 
 export function insert({ AMId }, callback) {
   const params = {
-    AMaaSClass: 'pnlposition',
+    AMaaSClass: 'transationpnl',
     AMId
   }
   let promise = insertData(params)
     .then(result => {
-      result = _parsePNLPosition(result)
+      result = _parseTransactionPNL(result)
       if (typeof callback === 'function') {
         callback(null, result)
       }
@@ -60,6 +59,6 @@ export function insert({ AMId }, callback) {
     }
 }
 
-export function _parsePNLPosition(object) {
-  return new PNLPosition(object)
+export function _ParseTransactionPNL(object) {
+  return new TransactionPNL(object)
 }

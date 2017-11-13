@@ -471,25 +471,8 @@ declare module '@amaas/amaas-core-sdk-js' {
     version: number
   }
 
-  // Profit & Loss (PNL)
-  export interface PNLResult {
-    clientId: number
-    assetManagerId: number
-    assetBookId: string
-    assetId: string
-    businessDate: Date
-    realisedPNL: string
-    unrealisedPNL: string
-    totalPNL: string
-    fxPNL: string
-    pnlStatus: string
-    message: string
-    version: string
-    pnlTimeStamp: Date
-    transactionId: string
-  }
-
-  export interface PositionPNL {
+  // PNL (Profit & Loss)
+  export interface IPositionPNL {
     assetId: string
     assetManagerId: string
     assetPnl: string
@@ -498,7 +481,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     clientId: string
     fxPnl: string
     message: string
-    period?: string
+    period: any
     pnlStatus: string
     pnlTimestamp: Date
     quanity: number
@@ -510,6 +493,24 @@ declare module '@amaas/amaas-core-sdk-js' {
     createdTime: Date
     updatedTime: Date
     version: string
+  }
+
+  export interface ITransactionPNL {
+    assetId: string
+    assetManagerId: string
+    assetPnl: string
+    bookId: string
+    businessDate: Date
+    clientId: string
+    fxPnl: string
+    message: string
+    period: any
+    pnlStatus: string
+    pnlTimestamp: Date
+    quantity: number
+    realisedPnl: string
+    totalPnl: string
+    unrealisedPnl: string
   }
 
   // Transactions
