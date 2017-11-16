@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+##v2.0.2 - 2017-11-16
+### Changed
+- Changed config key for production from "prod" to "production".
+
+##v2.0.1 - 2017-11-10
+### Added
+- Added a `staging-pro` config option.
+
 ## v2.0.0 - 2017-11-08
 ### Changed
 - Fixed erroneous type definitions.

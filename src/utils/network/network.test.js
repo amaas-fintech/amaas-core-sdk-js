@@ -23,15 +23,15 @@ describe('retrieveData', () => {
     query: { domain: 'domain', domains: ['domain1', 'domain2'] }
   }
   it('calls buildURL with correct params', callback => {
-    api.config({ stage: 'prod', apiVersion: 'v2.0' })
+    api.config({ stage: 'production', apiVersion: 'v2.0' })
     network.retrieveData(testParams, (error, result) => {
-      expect(utils.buildURL).toHaveBeenCalledWith({ AMaaSClass: 'book', AMId: 1234, stage: 'prod', apiVersion: 'v2.0' })
+      expect(utils.buildURL).toHaveBeenCalledWith({ AMaaSClass: 'book', AMId: 1234, stage: 'production', apiVersion: 'v2.0' })
       callback()
     })
   })
   it('calls makeRequest with correct params', callback => {
     network.retrieveData(testParams, (error, result) => {
-      expect(utils.makeRequest).toHaveBeenCalledWith({ method: 'GET', url: 'testURL', query: { camelcase: true, domain: 'domain', domains: 'domain1,domain2' }, stage: 'prod' })
+      expect(utils.makeRequest).toHaveBeenCalledWith({ method: 'GET', url: 'testURL', query: { camelcase: true, domain: 'domain', domains: 'domain1,domain2' }, stage: 'production' })
       callback()
     })
   })
