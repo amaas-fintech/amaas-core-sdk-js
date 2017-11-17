@@ -3,7 +3,7 @@ import {
   insertData,
   putData
 } from '../network'
-import PositionPNL from '../../transactions/PostionPNL/PositionPNL'
+import PositionPNL from '../../transactions/PositionPNL/PositionPNL'
 
 export function retrieve({ AMId, query }, callback) {
   const params = {
