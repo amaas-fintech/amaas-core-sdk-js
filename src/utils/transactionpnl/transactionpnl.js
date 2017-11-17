@@ -5,12 +5,11 @@ import {
 } from '../network'
 import TransactionPNL from '../../transactions/TransactionPNL/TransactionPNL'
 
-export function retrieve({ AMId, bookId, businessDate }, callback) {
+export function retrieve({ AMId, query }, callback) {
   const params = {
     AMaaSClass: 'transationpnl',
     AMId,
-    bookId,
-    businessDate
+    query
   }
   let promise = retrieveData(params)
     .then(result => {
