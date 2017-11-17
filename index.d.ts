@@ -1216,8 +1216,16 @@ declare module '@amaas/amaas-core-sdk-js' {
     }): void
     namespace PositionPNL {
       function retrieve(
-        { AMId }: { AMId: number },
-
+        {
+          AMId,
+          query
+        }: { 
+          AMId: number,
+          query: {
+            bookId: string | string[]
+            businessDate: string
+          }
+        },
         callback?: Function
       ): Promise<transactions.PositionPNL[]>
       function insert(
@@ -1228,7 +1236,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         }: {
           AMId: number,
           data: transactions.PositionPNL,
-          queryParam: any | any[]
+          queryParam: {
+            upsert: boolean
+          }
          },
         callback?: Function
       ): Promise<transactions.PositionPNL[]> | void
@@ -1250,7 +1260,10 @@ declare module '@amaas/amaas-core-sdk-js' {
           query
         }: {
           AMId: number,
-          query: any | any[]
+          query: {
+            bookId: string | string[]
+            businessDate: string
+          }
         },
         callback?: Function
       ): Promise<transactions.TransactionPNL[]>
@@ -1262,7 +1275,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         }: {
           AMId: number
           data: transactions.TransactionPNL
-          queryParam: any | any[]
+          queryParam: {
+            upsert: boolean
+          }
         },
         callback?: Function
       ): Promise<transactions.TransactionPNL[]> | void
@@ -1274,7 +1289,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         }: {
           AMId: number,
           data: transactions.TransactionPNL,
-          queryParam: any[]
+          queryParam: {
+            upsert: boolean
+          }
          },
         callback?: Function
       ): Promise<transactions.TransactionPNL[]> | void
