@@ -5,7 +5,7 @@ import {
 } from '../network'
 import TransactionPNL from '../../transactions/TransactionPNL/TransactionPNL'
 
-export function retrieve({ AMId }, callback) {
+export function retrieve({ AMId, bookId, businessDate }, callback) {
   const params = {
     AMaaSClass: 'transationpnl',
     AMId,
@@ -25,12 +25,12 @@ export function retrieve({ AMId }, callback) {
     }
 }
 
-export function amend({ AMId, data }, callback) {
+export function amend({ AMId, data, queryParams }, callback) {
   const params = {
     AMaaSClass: 'transationpnl',
     data: data,
     AMId,
-    upsert
+    queryParams
   }
   let promise = putData(params).then(result => {
     result = _ParseTransactionPNL(result)
@@ -45,12 +45,12 @@ export function amend({ AMId, data }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function insert({ AMId, data }, callback) {
+export function insert({ AMId, data, queryParams }, callback) {
   const params = {
     AMaaSClass: 'transationpnl',
     data: data,
     AMId,
-    upsert
+    queryParams
   }
   let promise = insertData(params)
     .then(result => {
