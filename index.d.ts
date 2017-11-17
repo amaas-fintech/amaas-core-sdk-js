@@ -488,11 +488,11 @@ declare module '@amaas/amaas-core-sdk-js' {
     realisedPnl: string
     totalPnl: string
     unrealisedPnl: string
-    createdBy: Date
-    updatedBy: Date
-    createdTime: Date
-    updatedTime: Date
-    version: string
+    createdBy?: Date
+    updatedBy?: Date
+    createdTime?: Date
+    updatedTime?: Date
+    version?: string
   }
 
   export interface ITransactionPNL {
@@ -511,6 +511,11 @@ declare module '@amaas/amaas-core-sdk-js' {
     realisedPnl: string
     totalPnl: string
     unrealisedPnl: string
+    createdBy?: Date
+    updatedBy?: Date
+    createdTime?: Date
+    updatedTime?: Date
+    version?: string
   }
 
   // Transactions
@@ -1209,6 +1214,10 @@ declare module '@amaas/amaas-core-sdk-js' {
       apiVersion?: string
       token?: string
     }): void
+    namespace PositionPNL {
+      function retrieve {
+      }
+    }
   }
   // CLASSES
 
