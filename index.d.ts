@@ -471,6 +471,53 @@ declare module '@amaas/amaas-core-sdk-js' {
     version: number
   }
 
+  // PNL (Profit & Loss)
+  export interface IPositionPNL {
+    assetId: string
+    assetManagerId: string
+    assetPnl: string
+    bookId: string
+    businessDate: Date
+    clientId: string
+    fxPnl: string
+    message: string
+    period: any
+    pnlStatus: string
+    pnlTimestamp: Date
+    quanity: number
+    realisedPnl: string
+    totalPnl: string
+    unrealisedPnl: string
+    createdBy?: Date
+    updatedBy?: Date
+    createdTime?: Date
+    updatedTime?: Date
+    version?: string
+  }
+
+  export interface ITransactionPNL {
+    assetId: string
+    assetManagerId: string
+    assetPnl: string
+    bookId: string
+    businessDate: Date
+    clientId: string
+    fxPnl: string
+    message: string
+    period: any
+    pnlStatus: string
+    pnlTimestamp: Date
+    quantity: number
+    realisedPnl: string
+    totalPnl: string
+    unrealisedPnl: string
+    createdBy?: Date
+    updatedBy?: Date
+    createdTime?: Date
+    updatedTime?: Date
+    version?: string
+  }
+
   // Transactions
   export interface ITransaction {
     assetManagerId: number
@@ -1173,6 +1220,88 @@ declare module '@amaas/amaas-core-sdk-js' {
       apiVersion?: string
       token?: string
     }): void
+    namespace PositionPNL {
+      function retrieve(
+        {
+          AMId,
+          query
+        }: { 
+          AMId: number,
+          query: {
+            bookId: string | string[]
+            businessDate: string
+          }
+        },
+        callback?: Function
+      ): Promise<transactions.PositionPNL[]>
+      function insert(
+        {
+          AMId,
+          data,
+          queryParam
+        }: {
+          AMId: number,
+          data: transactions.PositionPNL,
+          queryParam: {
+            upsert: boolean
+          }
+         },
+        callback?: Function
+      ): Promise<transactions.PositionPNL[]> | void
+      function amend(
+        {
+          AMId,
+          data
+        }: {
+          AMId: number,
+          data: transactions.PositionPNL
+        },
+        callback?: Function
+      ): Promise<transactions.PositionPNL[]> | void
+    }
+    namespace TransactionPNL {
+      function retrieve(
+        {
+          AMId,
+          query
+        }: {
+          AMId: number,
+          query: {
+            bookId: string | string[]
+            businessDate: string
+          }
+        },
+        callback?: Function
+      ): Promise<transactions.TransactionPNL[]>
+      function insert(
+        {
+          AMId,
+          data,
+          queryParam
+        }: {
+          AMId: number
+          data: transactions.TransactionPNL
+          queryParam: {
+            upsert: boolean
+          }
+        },
+        callback?: Function
+      ): Promise<transactions.TransactionPNL[]> | void
+      function amend(
+        {
+          AMId,
+          data,
+          queryParam
+        }: {
+          AMId: number,
+          data: transactions.TransactionPNL,
+          queryParam: {
+            upsert: boolean
+          }
+         },
+        callback?: Function
+      ): Promise<transactions.TransactionPNL[]> | void
+    }
   }
   // CLASSES
 
@@ -1979,6 +2108,52 @@ declare module '@amaas/amaas-core-sdk-js' {
       updatedTime?: string
       version?: number
       constructor(props: IPosition)
+    }
+
+    class PositionPNL {
+      assetId: string
+      assetManagerId: string
+      assetPnl: string
+      bookId: string
+      businessDate: Date
+      clientId: string
+      fxPnl: string
+      message: string
+      period: any
+      pnlStatus: string
+      pnlTimestamp: Date
+      quanity: number
+      realisedPnl: string
+      totalPnl: string
+      unrealisedPnl: string
+      createdBy?: Date
+      updatedBy?: Date
+      createdTime?: Date
+      updatedTime?: Date
+      version?: string
+    }
+
+    class TransactionPNL {
+      assetId: string
+      assetManagerId: string
+      assetPnl: string
+      bookId: string
+      businessDate: Date
+      clientId: string
+      fxPnl: string
+      message: string
+      period: any
+      pnlStatus: string
+      pnlTimestamp: Date
+      quantity: number
+      realisedPnl: string
+      totalPnl: string
+      unrealisedPnl: string
+      createdBy?: Date
+      updatedBy?: Date
+      createdTime?: Date
+      updatedTime?: Date
+      version?: string
     }
   }
 }
