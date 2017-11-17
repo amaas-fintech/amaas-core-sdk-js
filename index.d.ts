@@ -1215,8 +1215,43 @@ declare module '@amaas/amaas-core-sdk-js' {
       token?: string
     }): void
     namespace PositionPNL {
-      function retrieve {
-      }
+      function retrieve(
+        { AMId }: { AMId: number },
+        bookId: string,
+        businessDate: Date,
+        callback?: Function
+      ): Promise<transactions.PositionPNL[]>
+      function insert(
+        { AMId }: { AMId: number },
+        data: transactions.PositionPNL,
+        upsert: boolean,
+        callback?: Function
+      ): Promise<transactions.PositionPNL[]> | void
+      function amend(
+        { AMId }: { AMId: number },
+        data: transactions.PositionPNL,
+        callback?: Function
+      ): Promise<transactions.PositionPNL[]> | void
+    }
+    namespace TransactionPNL {
+      function retrieve(
+        { AMId }: { AMId: number },
+        bookId: string,
+        businessDate: Date,
+        callback?: Function
+      ): Promise<transactions.TransactionPNL[]>
+      function insert(
+        { AMId }: { AMId: number },
+        data: transactions.TransactionPNL,
+        upsert: boolean,
+        callback?: Function
+      ): Promise<transactions.TransactionPNL[]> | void
+      function amend(
+        { AMId }: { AMId: number },
+        data: transactions.TransactionPNL,
+        upsert: boolean,
+        callback?: Function
+      ): Promise<transactions.TransactionPNL[]> | void
     }
   }
   // CLASSES
@@ -2020,6 +2055,52 @@ declare module '@amaas/amaas-core-sdk-js' {
       updatedTime?: string
       version?: number
       constructor(props: IPosition)
+    }
+
+    class PositionPNL {
+      assetId: string
+      assetManagerId: string
+      assetPnl: string
+      bookId: string
+      businessDate: Date
+      clientId: string
+      fxPnl: string
+      message: string
+      period: any
+      pnlStatus: string
+      pnlTimestamp: Date
+      quanity: number
+      realisedPnl: string
+      totalPnl: string
+      unrealisedPnl: string
+      createdBy?: Date
+      updatedBy?: Date
+      createdTime?: Date
+      updatedTime?: Date
+      version?: string
+    }
+
+    class TransactionPNL {
+      assetId: string
+      assetManagerId: string
+      assetPnl: string
+      bookId: string
+      businessDate: Date
+      clientId: string
+      fxPnl: string
+      message: string
+      period: any
+      pnlStatus: string
+      pnlTimestamp: Date
+      quantity: number
+      realisedPnl: string
+      totalPnl: string
+      unrealisedPnl: string
+      createdBy?: Date
+      updatedBy?: Date
+      createdTime?: Date
+      updatedTime?: Date
+      version?: string
     }
   }
 }

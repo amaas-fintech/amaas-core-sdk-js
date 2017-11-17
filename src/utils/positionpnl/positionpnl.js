@@ -8,7 +8,9 @@ import PositionPNL from '../../transactions/PostionPNL/PositionPNL'
 export function retrieve({ AMId }, callback) {
   const params = {
     AMaaSClass: 'positionpnl',
-    AMId
+    AMId,
+    bookId,
+    businessDate
   }
   let promise = retrieveData(params)
     .then(result => {
@@ -46,7 +48,8 @@ export function insert({ AMId, data }, callback) {
   const params = {
     AMaaSClass: 'positionpnl',
     data: data,
-    AMId
+    AMId,
+    upsert
   }
   let promise = insertData(params)
     .then(result => {

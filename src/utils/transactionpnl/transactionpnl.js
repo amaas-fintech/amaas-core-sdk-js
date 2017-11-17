@@ -8,7 +8,9 @@ import TransactionPNL from '../../transactions/TransactionPNL/TransactionPNL'
 export function retrieve({ AMId }, callback) {
   const params = {
     AMaaSClass: 'transationpnl',
-    AMId
+    AMId,
+    bookId,
+    businessDate
   }
   let promise = retrieveData(params)
     .then(result => {
@@ -27,7 +29,8 @@ export function amend({ AMId, data }, callback) {
   const params = {
     AMaaSClass: 'transationpnl',
     data: data,
-    AMId
+    AMId,
+    upsert
   }
   let promise = putData(params).then(result => {
     result = _ParseTransactionPNL(result)
@@ -46,7 +49,8 @@ export function insert({ AMId, data }, callback) {
   const params = {
     AMaaSClass: 'transationpnl',
     data: data,
-    AMId
+    AMId,
+    upsert
   }
   let promise = insertData(params)
     .then(result => {
