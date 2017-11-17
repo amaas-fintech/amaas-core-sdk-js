@@ -23,8 +23,8 @@ class Book extends AMaaSModel {
    * <li>Trading</li>
    * <li>Wash</li>
    * @param {string} [params.bookStatus=Active] - status of Book
-   * @param {number} [params.ownerId] - ID of the owner of the Book (e.g. the Trader who is responsible for the Book)
-   * @param {number} [params.partyId] - ID of the party of which the activity being tracked belongs (e.g. Registered fund or HNWI)
+   * @param {string} [params.ownerId] - Party ID of the owner of the Book (e.g. the Trader who is responsible for the Book)
+   * @param {string} [params.partyId] - Party ID of the party of which the activity being tracked belongs (e.g. Registered fund or HNWI)
    * @param {string} [params.closeTime] - Book close time. This is stored as local time, to be referenced against timezone
    * @param {string} [params.timezone] - Book's timezone (use this to determine absolute close time)
    * @param {string} [params.baseCurrency=USD] - Base currency for the Book
@@ -78,7 +78,7 @@ class Book extends AMaaSModel {
           }
         },
         enumerable: true
-      },
+      }
     })
     this.assetManagerId = assetManagerId
     this.bookId = bookId

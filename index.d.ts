@@ -58,7 +58,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     bookId: string
     bookType?: 'Counterparty' | 'Management' | 'Trading' | 'Wash'
     bookStatus?: string
-    ownerId?: number
+    ownerId?: string
     partyId?: string
     closeTime?: string
     timezone?: string
@@ -583,6 +583,12 @@ declare module '@amaas/amaas-core-sdk-js' {
     updatedTime?: string
     version?: number
   }
+
+  // Cash Transactions
+  export interface ICashTransaction extends ITransaction {
+    transactionType: 'Cashflow' | 'Coupon' | 'Dividend' | 'Payment'
+  }
+
   export interface IPosition {
     assetManagerId: number
     bookId?: string
@@ -601,13 +607,24 @@ declare module '@amaas/amaas-core-sdk-js' {
     version?: number
   }
 
+  export interface IPubSubConnectionDetails {
+    Credentials: IPubSubCredentials
+    Topics: string[]
+  }
+  export interface IPubSubCredentials {
+    AccessKeyId: string
+    Expiration: string
+    SecretAccessKey: string
+    SessionToken: string
+  }
+
   // API
   namespace api {
     namespace AssetManagers {
       function retrieve(
         { AMId }: { AMId: number },
         callback?: Function
-      ): Promise<any> | void
+      ): Promise<assetManagers.AssetManager> | void
       function insert(
         {
           assetManager
@@ -647,7 +664,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           }
         },
         callback?: Function
-      ): Promise<assetManagers.Domain | assetManagers.Domain[]> | void
+      ): Promise<assetManagers.Domain[]> | void
       function checkDomains(
         { domain }: { domain: string },
         callback?: Function
@@ -666,20 +683,13 @@ declare module '@amaas/amaas-core-sdk-js' {
       function getCredentialsForPubSub(
         { AMId }: { AMId: number },
         callback?: Function
-      ): Promise<{
-        credentials: {
-          AccessKeyId: string
-          SecretAccessKey: string
-          SessionToken: string
-        }
-        topics: string[]
-      }> | void
+      ): Promise<IPubSubConnectionDetails[]> | void
     }
     namespace Assets {
       function retrieve(
         { AMId, resourceId }: { AMId: number; resourceId?: string },
         callback?: Function
-      ): Promise<assets.AssetClassTypes[]> | void
+      ): Promise<assets.AssetClassTypes | assets.AssetClassTypes[]> | void
       function insert(
         {
           AMId,
@@ -762,7 +772,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       function retrieve(
         { AMId, resourceId }: { AMId: number; resourceId?: string },
         callback?: Function
-      ): Promise<books.Book[]> | void
+      ): Promise<books.Book | books.Book[]> | void
       function search(
         {
           AMId,
@@ -930,7 +940,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           }
         },
         callback?: Function
-      ): Promise<monitor.Item | monitor.Item[]> | void
+      ): Promise<monitor.Item[]> | void
       function closeItem(
         { AMId, resourceId }: { AMId: number; resourceId: string },
         callback?: Function
@@ -938,11 +948,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       function retrieveActivities(
         { AMId }: { AMId: number },
         callback?: Function
-      ): Promise<
-        | [monitor.Activity | IMonitorActivity]
-        | monitor.Activity
-        | IMonitorActivity
-      > | void
+      ): Promise<monitor.Activity | monitor.Activity[]> | void
       function retrieveEvent(
         { AMId, resourceId }: { AMId: number; resourceId?: string },
         callback?: Function
@@ -1098,7 +1104,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       function retrieve(
         { AMId }: { AMId: number },
         callback?: Function
-      ): Promise<transactions.Position> | void
+      ): Promise<transactions.Position[]> | void
       function search(
         {
           AMId,
@@ -1116,7 +1122,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           }
         },
         callback?: Function
-      ): Promise<transactions.Position> | void
+      ): Promise<transactions.Position[]> | void
       function fieldsSearch(
         query: {
           assetManagerIds: number | number[]
@@ -1190,7 +1196,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           }
         },
         callback?: Function
-      ): Promise<transactions.Transaction | transactions.Transaction[]> | void
+      ): Promise<transactions.Transaction[]> | void
       function fieldsSearch(
         query: {
           assetManagerIds: number | number[]
@@ -1363,7 +1369,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       bookId: string
       bookType?: 'Counterparty' | 'Management' | 'Trading' | 'Wash'
       bookStatus?: string
-      ownerId?: number
+      ownerId?: string
       partyId?: string
       closeTime?: string
       timezone?: string
@@ -2079,6 +2085,10 @@ declare module '@amaas/amaas-core-sdk-js' {
       updatedTime?: string
       version?: number
       constructor(props: ITransaction)
+    }
+
+    class CashTransaction extends Transaction {
+      constructor(props: ICashTransaction)
     }
 
     class Position {
