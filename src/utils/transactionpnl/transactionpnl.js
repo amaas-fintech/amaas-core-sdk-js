@@ -53,7 +53,7 @@ export function insert({ AMId, data, queryParams }, callback) {
   }
   let promise = insertData(params)
     .then(result => {
-      result = _parseTransactionPNL(result)
+      result = _ParseTransactionPNL(result)
       if (typeof callback === 'function') {
         callback(null, result)
       }
