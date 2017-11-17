@@ -1217,39 +1217,65 @@ declare module '@amaas/amaas-core-sdk-js' {
     namespace PositionPNL {
       function retrieve(
         { AMId }: { AMId: number },
-        bookId: string,
-        businessDate: Date,
+
         callback?: Function
       ): Promise<transactions.PositionPNL[]>
       function insert(
-        { AMId }: { AMId: number },
-        data: transactions.PositionPNL,
-        upsert: boolean,
+        {
+          AMId,
+          data,
+          queryParam
+        }: {
+          AMId: number,
+          data: transactions.PositionPNL,
+          queryParam: any | any[]
+         },
         callback?: Function
       ): Promise<transactions.PositionPNL[]> | void
       function amend(
-        { AMId }: { AMId: number },
-        data: transactions.PositionPNL,
+        {
+          AMId,
+          data
+        }: {
+          AMId: number,
+          data: transactions.PositionPNL
+        },
         callback?: Function
       ): Promise<transactions.PositionPNL[]> | void
     }
     namespace TransactionPNL {
       function retrieve(
-        { AMId }: { AMId: number },
-        bookId: string,
-        businessDate: Date,
+        {
+          AMId,
+          query
+        }: {
+          AMId: number,
+          query: any | any[]
+        },
         callback?: Function
       ): Promise<transactions.TransactionPNL[]>
       function insert(
-        { AMId }: { AMId: number },
-        data: transactions.TransactionPNL,
-        upsert: boolean,
+        {
+          AMId,
+          data,
+          queryParam
+        }: {
+          AMId: number
+          data: transactions.TransactionPNL
+          queryParam: any | any[]
+        },
         callback?: Function
       ): Promise<transactions.TransactionPNL[]> | void
       function amend(
-        { AMId }: { AMId: number },
-        data: transactions.TransactionPNL,
-        upsert: boolean,
+        {
+          AMId,
+          data,
+          queryParam
+        }: {
+          AMId: number,
+          data: transactions.TransactionPNL,
+          queryParam: any[]
+         },
         callback?: Function
       ): Promise<transactions.TransactionPNL[]> | void
     }
