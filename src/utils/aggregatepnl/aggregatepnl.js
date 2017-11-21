@@ -6,12 +6,14 @@ export function retrieve({ AMId, query }, callback) {
     AMId,
     query
   }
-  let promise = retrieveData(params)
-    .then(result => {
-      if (typeof callback === 'function') {
-        callback(null, result)
-      }
-      return result
-    })
+  let promise = retrieveData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
   promise.catch(error => callback(error))
 }
