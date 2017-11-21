@@ -7,16 +7,18 @@ export function retrieve({ AMId, query }, callback) {
     AMId,
     query
   }
-  let promise = retrieveData(params).then(result => {
-    result = result.map(positionpnl => _parsePositionPNL(pnl))
-    if (typeof callback === 'function') {
-      callback(null, result)
+  let promise = retrieveData(params)
+    .then(result => {
+      result = result.map(positionPNL => _parsePositionPNL(positionPNL))
+      if (typeof callback === 'function') {
+        callback(null, result)
+      }
+      return result
+    })
+    if (typeof callback !== 'function') {
+      return promise
     }
-    return result
-  })
-  if (typeof callback !== 'function') {
-    return promise
-  }
+    promise.catch(error => callback(error))
 }
 
 export function amend({ AMId, data }, callback) {
