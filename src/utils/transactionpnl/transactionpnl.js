@@ -3,7 +3,7 @@ import TransactionPNL from '../../transactions/TransactionPNL/TransactionPNL'
 
 export function retrieve({ AMId, query }, callback) {
   const params = {
-    AMaaSClass: 'transationpnl',
+    AMaaSClass: 'transactionpnl',
     AMId,
     query
   }
@@ -22,7 +22,7 @@ export function retrieve({ AMId, query }, callback) {
 
 export function amend({ AMId, data, queryParams }, callback) {
   const params = {
-    AMaaSClass: 'transationpnl',
+    AMaaSClass: 'transactionpnl',
     data: data,
     AMId,
     queryParams
@@ -42,7 +42,7 @@ export function amend({ AMId, data, queryParams }, callback) {
 
 export function insert({ AMId, data, queryParams }, callback) {
   const params = {
-    AMaaSClass: 'transationpnl',
+    AMaaSClass: 'transactionpnl',
     data: data,
     AMId,
     queryParams
