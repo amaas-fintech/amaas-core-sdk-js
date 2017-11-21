@@ -534,11 +534,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       fx: string
       asset: string
     }
-    fxRates: {
-      SGDSGD: string,
-      USDSGD: string,
-      SGDUSD: string
-    }
+    fxRates: any
   }
 
   // Transactions
