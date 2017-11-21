@@ -28,7 +28,7 @@ export function amend({ AMId, data, queryParams }, callback) {
     queryParams
   }
   let promise = putData(params).then(result => {
-    result = _ParseTransactionPNL(result)
+    result = _parseTransactionPNL(result)
     if (typeof callback === 'function') {
       callback(null, result)
     }
@@ -48,7 +48,7 @@ export function insert({ AMId, data, queryParams }, callback) {
     queryParams
   }
   let promise = insertData(params).then(result => {
-    result = _ParseTransactionPNL(result)
+    result = _parseTransactionPNL(result)
     if (typeof callback === 'function') {
       callback(null, result)
     }
@@ -60,6 +60,6 @@ export function insert({ AMId, data, queryParams }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function _ParseTransactionPNL(object) {
+export function _parseTransactionPNL(object) {
   return new TransactionPNL(object)
 }
