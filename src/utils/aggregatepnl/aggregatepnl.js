@@ -12,7 +12,7 @@ export function retrieve({ AMId, query }, callback) {
     }
     return result
   })
-  if (typeof callback === 'function') {
+  if (typeof callback !== 'function') {
     return promise
   }
   promise.catch(error => callback(error))
