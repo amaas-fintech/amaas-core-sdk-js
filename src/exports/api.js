@@ -37,7 +37,7 @@ export {
   csv,
   config,
   PositionPNL,
-  TransactionalPNL,
+  TransactionPNL,
   AggregatePNL
 }
 
