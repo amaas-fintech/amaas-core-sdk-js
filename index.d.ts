@@ -477,21 +477,21 @@ declare module '@amaas/amaas-core-sdk-js' {
     assetManagerId: string
     assetPnl: string
     bookId: string
-    businessDate: Date
+    businessDate: string
     clientId: string
     fxPnl: string
     message: string
     period: any
     pnlStatus: string
-    pnlTimestamp: Date
+    pnlTimestamp: string
     quanity: number
     realisedPnl: string
     totalPnl: string
     unrealisedPnl: string
-    createdBy?: Date
-    updatedBy?: Date
-    createdTime?: Date
-    updatedTime?: Date
+    createdBy?: string
+    updatedBy?: string
+    createdTime?: string
+    updatedTime?: string
     version?: string
   }
 
@@ -500,21 +500,21 @@ declare module '@amaas/amaas-core-sdk-js' {
     assetManagerId: string
     assetPnl: string
     bookId: string
-    businessDate: Date
+    businessDate: string
     clientId: string
     fxPnl: string
     message: string
     period: any
     pnlStatus: string
-    pnlTimestamp: Date
+    pnlTimestamp: string
     quantity: number
     realisedPnl: string
     totalPnl: string
     unrealisedPnl: string
-    createdBy?: Date
-    updatedBy?: Date
-    createdTime?: Date
-    updatedTime?: Date
+    createdBy?: string
+    updatedBy?: string
+    createdTime?: string
+    updatedTime?: string
     version?: string
   }
 
@@ -1225,8 +1225,8 @@ declare module '@amaas/amaas-core-sdk-js' {
         {
           AMId,
           query
-        }: { 
-          AMId: number,
+        }: {
+          AMId: number
           query: {
             bookId: string | string[]
             businessDate: string
@@ -1240,12 +1240,12 @@ declare module '@amaas/amaas-core-sdk-js' {
           data,
           queryParam
         }: {
-          AMId: number,
-          data: transactions.PositionPNL,
+          AMId: number
+          data: transactions.PositionPNL
           queryParam: {
             upsert: boolean
           }
-         },
+        },
         callback?: Function
       ): Promise<transactions.PositionPNL[]> | void
       function amend(
@@ -1253,7 +1253,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           AMId,
           data
         }: {
-          AMId: number,
+          AMId: number
           data: transactions.PositionPNL
         },
         callback?: Function
@@ -1265,7 +1265,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           AMId,
           query
         }: {
-          AMId: number,
+          AMId: number
           query: {
             bookId: string | string[]
             businessDate: string
@@ -1293,12 +1293,12 @@ declare module '@amaas/amaas-core-sdk-js' {
           data,
           queryParam
         }: {
-          AMId: number,
-          data: transactions.TransactionPNL,
+          AMId: number
+          data: transactions.TransactionPNL
           queryParam: {
             upsert: boolean
           }
-         },
+        },
         callback?: Function
       ): Promise<transactions.TransactionPNL[]> | void
     }
@@ -2115,21 +2115,21 @@ declare module '@amaas/amaas-core-sdk-js' {
       assetManagerId: string
       assetPnl: string
       bookId: string
-      businessDate: Date
+      businessDate: string
       clientId: string
       fxPnl: string
       message: string
       period: any
       pnlStatus: string
-      pnlTimestamp: Date
+      pnlTimestamp: string
       quanity: number
       realisedPnl: string
       totalPnl: string
       unrealisedPnl: string
-      createdBy?: Date
-      updatedBy?: Date
-      createdTime?: Date
-      updatedTime?: Date
+      createdBy?: string
+      updatedBy?: string
+      createdTime?: string
+      updatedTime?: string
       version?: string
     }
 
@@ -2138,21 +2138,21 @@ declare module '@amaas/amaas-core-sdk-js' {
       assetManagerId: string
       assetPnl: string
       bookId: string
-      businessDate: Date
+      businessDate: string
       clientId: string
       fxPnl: string
       message: string
       period: any
       pnlStatus: string
-      pnlTimestamp: Date
+      pnlTimestamp: string
       quantity: number
       realisedPnl: string
       totalPnl: string
       unrealisedPnl: string
-      createdBy?: Date
-      updatedBy?: Date
-      createdTime?: Date
-      updatedTime?: Date
+      createdBy?: string
+      updatedBy?: string
+      createdTime?: string
+      updatedTime?: string
       version?: string
     }
   }

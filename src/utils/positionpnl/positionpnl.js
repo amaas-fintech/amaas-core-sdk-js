@@ -1,8 +1,4 @@
-import {
-  retrieveData,
-  insertData,
-  putData
-} from '../network'
+import { retrieveData, insertData, putData } from '../network'
 import PositionPNL from '../../transactions/PositionPNL/PositionPNL'
 
 export function retrieve({ AMId, query }, callback) {
@@ -22,6 +18,7 @@ export function retrieve({ AMId, query }, callback) {
     if (typeof callback !== 'function') {
       return promise
     }
+    promise.catch(error => callback(error))
 }
 
 export function amend({ AMId, data }, callback) {
@@ -50,17 +47,17 @@ export function insert({ AMId, data, queryParams }, callback) {
     AMId,
     queryParams
   }
-  let promise = insertData(params)
-    .then(result => {
-      result = _parsePositionPNL(result)
-      if (typeof callback === 'function') {
-        callback(null, result)
-      }
-      return result
-    })
-    if (typeof callback !== 'function') {
-      return promise
+  let promise = insertData(params).then(result => {
+    result = _parsePositionPNL(result)
+    if (typeof callback === 'function') {
+      callback(null, result)
     }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
 }
 
 export function _parsePositionPNL(object) {

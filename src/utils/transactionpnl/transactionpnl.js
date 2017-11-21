@@ -1,8 +1,4 @@
-import {
-  retrieveData,
-  insertData,
-  putData
-} from '../network'
+import { retrieveData, insertData, putData } from '../network'
 import TransactionPNL from '../../transactions/TransactionPNL/TransactionPNL'
 
 export function retrieve({ AMId, query }, callback) {
@@ -11,17 +7,17 @@ export function retrieve({ AMId, query }, callback) {
     AMId,
     query
   }
-  let promise = retrieveData(params)
-    .then(result => {
-      result = result.map(transationpnl => _parseTransactoinPNL(pnl))
-      if (typeof callback === 'function') {
-        callback(null, result)
-      }
-      return result
-    })
-    if (typeof callback !== 'function') {
-      return promise
+  let promise = retrieveData(params).then(result => {
+    result = result.map(transationpnl => _parseTransactoinPNL(pnl))
+    if (typeof callback === 'function') {
+      callback(null, result)
     }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
 }
 
 export function amend({ AMId, data, queryParams }, callback) {
@@ -51,17 +47,17 @@ export function insert({ AMId, data, queryParams }, callback) {
     AMId,
     queryParams
   }
-  let promise = insertData(params)
-    .then(result => {
-      result = _ParseTransactionPNL(result)
-      if (typeof callback === 'function') {
-        callback(null, result)
-      }
-      return result
-    })
-    if (typeof callback !== 'function') {
-      return promise
+  let promise = insertData(params).then(result => {
+    result = _ParseTransactionPNL(result)
+    if (typeof callback === 'function') {
+      callback(null, result)
     }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
 }
 
 export function _ParseTransactionPNL(object) {
