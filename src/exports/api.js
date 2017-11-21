@@ -17,7 +17,8 @@ import * as Relationships from '../utils/relationships'
 import * as Transactions from '../utils/transactions'
 import * as csv from '../csv_upload/csvUpload.js'
 import * as PositionPNL from '../utils/positionpnl/positionpnl'
-import * as TransactionalPNL from '../utils/transactionpnl/transactionpnl'
+import * as TransactionPNL from '../utils/transactionpnl/transactionpnl'
+import * as AggregatePNL from '../utils/aggregatepnl/aggregatepnl'
 
 import { configureStage, configureAuth } from '../utils/network'
 
@@ -36,7 +37,8 @@ export {
   csv,
   config,
   PositionPNL,
-  TransactionalPNL
+  TransactionalPNL,
+  AggregatePNL
 }
 
 function config(config) {
