@@ -1321,24 +1321,23 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<transactions.TransactionPNL[]> | void
     }
+    namespace AggregatePNL {
+      function retrieve(
+        {
+          AMID,
+          query
+        }: {
+          AMID: number 
+          query: {
+            bookId: string | string[]
+            businessDate: string
+            currency: string
+          }
+        },
+        callback?: Function
+      ): Promise<IAggregatePNL> | void
+    }
   }
-  namespace AggregatePNL {
-    function retrieve(
-      {
-        AMID,
-        query
-      }: {
-        AMID: number 
-        query: {
-          bookId: string | string[]
-          businessDate: string
-          currency: string
-        }
-      },
-      callback?: Function
-    ): Promise<IAggregatePNL> | void
-  }
-
 
   // CLASSES
 
