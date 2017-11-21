@@ -1,6 +1,6 @@
 import {
   retrieveData,
- _parsePositionPNL insertData,
+  insertData,
   putData
 } from '../network'
 import PositionPNL from '../../transactions/PositionPNL/PositionPNL'
