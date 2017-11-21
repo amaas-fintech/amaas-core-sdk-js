@@ -1,6 +1,6 @@
 import {
   retrieveData,
-  insertData,
+ _parsePositionPNL insertData,
   putData
 } from '../network'
 import PositionPNL from '../../transactions/PositionPNL/PositionPNL'
@@ -13,7 +13,7 @@ export function retrieve({ AMId, query }, callback) {
   }
   let promise = retrieveData(params)
     .then(result => {
-      result = result.map(positionpnl => _parsePositionPNL(pnl))
+      result = result.map(positionPNL => _parsePositionPNL(positionPNL))
       if (typeof callback === 'function') {
         callback(null, result)
       }
