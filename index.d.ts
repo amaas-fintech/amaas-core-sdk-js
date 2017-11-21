@@ -1324,10 +1324,10 @@ declare module '@amaas/amaas-core-sdk-js' {
     namespace AggregatePNL {
       function retrieve(
         {
-          AMID,
+          AMId,
           query
         }: {
-          AMID: number 
+          AMId: number 
           query: {
             bookId: string | string[]
             businessDate: string
