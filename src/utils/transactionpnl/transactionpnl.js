@@ -8,7 +8,7 @@ export function retrieve({ AMId, query }, callback) {
     query
   }
   let promise = retrieveData(params).then(result => {
-    result = result.map(transationpnl => _parseTransactoinPNL(pnl))
+    result = result.map(transationPNL => _parseTransactoinPNL(transationPNL))
     if (typeof callback === 'function') {
       callback(null, result)
     }
