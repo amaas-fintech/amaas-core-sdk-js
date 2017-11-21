@@ -71,3 +71,5 @@ class PositionPNL extends AMaaSModel {
     this.unrealisedPnl = unrealisedPnl
   }
 }
+
+export default PositionPNL

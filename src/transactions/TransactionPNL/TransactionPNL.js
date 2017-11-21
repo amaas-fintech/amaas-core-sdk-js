@@ -79,3 +79,5 @@ class TransactionPNL extends AMaaSModel {
     this.currency = currency
   }
 }
+
+export default TransactionPNL
