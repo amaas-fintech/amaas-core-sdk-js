@@ -518,6 +518,25 @@ declare module '@amaas/amaas-core-sdk-js' {
     version?: string
   }
 
+  export interface IAggregatePNL {
+    YTD: {
+      total: string
+      fx: string
+      asset: string
+    }
+    MTD: {
+      total: string
+      fx: string
+      asset: string
+    }
+    DTD: {
+      total: string
+      fx: string
+      asset: string
+    }
+    fxRates: any
+  }
+
   // Transactions
   export interface ITransaction {
     assetManagerId: number
@@ -1303,6 +1322,24 @@ declare module '@amaas/amaas-core-sdk-js' {
       ): Promise<transactions.TransactionPNL[]> | void
     }
   }
+  namespace AggregatePNL {
+    function retrieve(
+      {
+        AMID,
+        query
+      }: {
+        AMID: number 
+        query: {
+          bookId: string | string[]
+          businessDate: string
+          currency: string
+        }
+      },
+      callback?: Function
+    ): Promise<IAggregatePNL> | void
+  }
+
+
   // CLASSES
 
   // assetManagers
