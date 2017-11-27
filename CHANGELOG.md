@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v2.0.3
+## v2.0.4 - 2017-11-27
 ### Added
 - Added `Settlement` to list of Cash Transaction types.
 
