@@ -1,4 +1,4 @@
-export const CASH_TRANSACTION_TYPES = [ 'Cashflow', 'Coupon', 'Dividend', 'Payment' ]
+export const CASH_TRANSACTION_TYPES = [ 'Cashflow', 'Coupon', 'Dividend', 'Payment', 'Settlement' ]
 export const TRANSACTION_TYPES = [ 'Allocation', 'Block', 'Exercise', 'Expiry', 'Journal', 'Maturity', 'Net', 'Novation', 'Split', 'Trade', 'Transfer', ...CASH_TRANSACTION_TYPES ]
 export const TRANSACTION_INVESTOR_ACTIONS = [ 'Subscription', 'Redemption' ]
 export const TRANSACTION_LIFECYCLE_ACTIONS = [ 'Acquire', 'Remove' ]
