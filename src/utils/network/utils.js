@@ -224,45 +224,54 @@ export function setAuthorization(stage) {
   return 'Authorization'
 }
 
-export function makeRequest({ method, url, data, query, stage, credPath }) {
+export function makeRequest({
+  method,
+  url,
+  data,
+  query,
+  stage,
+  credPath,
+  contentType
+}) {
   return getToken(stage, credPath)
     .then(res => {
+      let requestToMake
       switch (method) {
         case 'GET':
-          return request
-            .get(url)
-            .set(setAuthorization(stage), res)
-            .query({ ...query, camelcase: true })
+          requestToMake = request.get(url).query({ ...query, camelcase: true })
+          break
         case 'SEARCH':
-          return request
-            .get(url)
-            .set(setAuthorization(stage), res)
-            .query({ ...data, camelcase: true })
+          requestToMake = request.get(url).query({ ...data, camelcase: true })
+          break
         case 'POST':
-          return request
+          let requestToMake = request
             .post(url)
             .send(data)
-            .set(setAuthorization(stage), res)
             .query({ ...query, camelcase: true })
+          break
         case 'PUT':
-          return request
+          requestToMake = request
             .put(url)
             .send(data)
-            .set(setAuthorization(stage), res)
             .query({ ...query, camelcase: true })
+          break
         case 'PATCH':
-          return request
+          requestToMake = request
             .patch(url)
             .send(data)
-            .set(setAuthorization(stage), res)
             .query({ ...query, camelcase: true })
+          break
         case 'DELETE':
-          return request
+          requestToMake = request
             .delete(url)
-            .set(setAuthorization(stage), res)
             .query({ ...query, camelcase: true })
+          break
         default:
       }
+      if (contentType) {
+        requestToMake = requestToMake.type(contentType)
+      }
+      return requestToMake.set(setAuthorization(stage), res)
     })
     .catch(err => Promise.reject(err))
 }

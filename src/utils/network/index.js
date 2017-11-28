@@ -37,7 +37,7 @@ export function configureAuth(config) {
  * @param {object} [query] - Additional query parameters
 */
 export function retrieveData(
-  { AMaaSClass, AMId, resourceId, query },
+  { AMaaSClass, AMId, resourceId, query, contentType },
   callback
 ) {
   let url
@@ -60,7 +60,8 @@ export function retrieveData(
     method: 'GET',
     url,
     query: queryParams,
-    stage
+    stage,
+    contentType
   })
   if (typeof callback !== 'function') {
     // return promise if callback is not provided
@@ -96,7 +97,7 @@ export function retrieveData(
  * @param {string} data: data to insert into database
 */
 export function insertData(
-  { AMaaSClass, AMId, resourceId, data, queryParams },
+  { AMaaSClass, AMId, resourceId, data, queryParams, contentType },
   callback
 ) {
   let url
@@ -106,7 +107,8 @@ export function insertData(
       AMId,
       resourceId,
       stage,
-      apiVersion
+      apiVersion,
+      contentType
     })
   } catch (e) {
     if (typeof callback !== 'function') {
@@ -143,7 +145,7 @@ export function insertData(
 }
 
 export function putData(
-  { AMaaSClass, AMId, resourceId, data, query },
+  { AMaaSClass, AMId, resourceId, data, query, contentType },
   callback
 ) {
   let url
@@ -162,7 +164,14 @@ export function putData(
     callback(e)
     return
   }
-  let promise = utils.makeRequest({ method: 'PUT', url, data, stage, query })
+  let promise = utils.makeRequest({
+    method: 'PUT',
+    url,
+    data,
+    stage,
+    query,
+    contentType
+  })
   if (typeof callback !== 'function') {
     // return promise if callback is not provided
     return promise.then(response => response.body)
@@ -181,7 +190,7 @@ export function putData(
 }
 
 export function patchData(
-  { AMaaSClass, AMId, resourceId, data, query },
+  { AMaaSClass, AMId, resourceId, data, query, contentType },
   callback
 ) {
   let url
@@ -204,7 +213,14 @@ export function patchData(
     url,
     json: data
   }
-  let promise = utils.makeRequest({ method: 'PATCH', url, data, stage, query })
+  let promise = utils.makeRequest({
+    method: 'PATCH',
+    url,
+    data,
+    stage,
+    query,
+    contentType
+  })
   if (typeof callback !== 'function') {
     // return promise if callback is not provided
     return promise.then(response => response.body)
@@ -222,7 +238,10 @@ export function patchData(
     })
 }
 
-export function deleteData({ AMaaSClass, AMId, resourceId }, callback) {
+export function deleteData(
+  { AMaaSClass, AMId, resourceId, contentType },
+  callback
+) {
   let url
   try {
     url = utils.buildURL({
@@ -239,7 +258,7 @@ export function deleteData({ AMaaSClass, AMId, resourceId }, callback) {
     callback(e)
     return
   }
-  let promise = utils.makeRequest({ method: 'DELETE', url, stage })
+  let promise = utils.makeRequest({ method: 'DELETE', url, stage, contentType })
   if (typeof callback !== 'function') {
     // return promise if callback is not provided
     return promise.then(response => response.body)
@@ -263,7 +282,7 @@ export function deleteData({ AMaaSClass, AMId, resourceId }, callback) {
  * and values are all the values to search over. E.g.
  * `const queries = { assetIds: ['abc', 'def'], assetClasses: ['Currency', 'Bond'] }`
  */
-export function searchData({ AMaaSClass, AMId, query }, callback) {
+export function searchData({ AMaaSClass, AMId, query, contentType }, callback) {
   let url
   try {
     url = utils.buildURL({
@@ -280,7 +299,13 @@ export function searchData({ AMaaSClass, AMId, query }, callback) {
     return
   }
   let data = parseQueryParams(query)
-  let promise = utils.makeRequest({ method: 'SEARCH', url, data, stage })
+  let promise = utils.makeRequest({
+    method: 'SEARCH',
+    url,
+    data,
+    stage,
+    contentType
+  })
   if (typeof callback !== 'function') {
     // return promise if callback is not provided
     return promise.then(response => response.body)
