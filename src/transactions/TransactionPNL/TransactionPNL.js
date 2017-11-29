@@ -8,28 +8,28 @@ import { AMaaSModel } from '../../core'
 
 class TransactionPNL extends AMaaSModel {
   /**
-  * Construct a new TransactionPNL object
-  * @param {object} params - TransactionPNL creation options
-  * @param {string} params.assetId - ID of the TransactionPNL's Asset
-  * @param {string} params.assetManagerId - ID of the TransactionPNL's Asset Manager
-  * @param {string} params.assetPnl - PNL of asset
-  * @param {string} params.bookId - ID of TransactionPNL's book
-  * @param {Date} params.businessDate - Date of TransactionPNL
-  * @param {string} params.clientId - Id of TransactionPNL's client
-  * @param {string} params.fxPnl - FX Profit & Loss
-  * @param {Date} params.pnlTimeStamp - Proft & Loss Timestamp
-  * @param {number} params.quantity - Quantity of TransactionPNL
-  * @param {string} params.realisedPnl - Realised Profit & Loss of TransactionPNL
-  * @param {string} params.totalPnl - Total Profit & Loss of TransactionPNL
-  * @param {string} params.transactionId - ID of the TransactionPNL's Transaction
-  * @param {string} params.unrealisedPnl - Unrealised Profit & Loss of TransactionPNL
-  * @param {string} params.currency - Currency of TransactionPNL
-  * @param {string} params.createdBy - Creator of TransactionPNL
-  * @param {string} params.updatedBy - Latest user who updated the TransactionPNL
-  * @param {string} params.createdTime - Created Time of the TransactionPNL
-  * @param {string} params.updatedTime - Updated Time of the TransactionPNL
-  * @param {string} params.version - Version of the TransactionPNL
-  */
+   * Construct a new TransactionPNL object
+   * @param {object} params - TransactionPNL creation options
+   * @param {string} params.assetId - ID of the TransactionPNL's Asset
+   * @param {string} params.assetManagerId - ID of the TransactionPNL's Asset Manager
+   * @param {string} params.assetPnl - PNL of asset
+   * @param {string} params.bookId - ID of TransactionPNL's book
+   * @param {Date} params.businessDate - Date of TransactionPNL
+   * @param {string} params.clientId - Id of TransactionPNL's client
+   * @param {string} params.fxPnl - FX Profit & Loss
+   * @param {Date} params.pnlTimeStamp - Proft & Loss Timestamp
+   * @param {number} params.quantity - Quantity of TransactionPNL
+   * @param {string} params.realisedPnl - Realised Profit & Loss of TransactionPNL
+   * @param {string} params.totalPnl - Total Profit & Loss of TransactionPNL
+   * @param {string} params.transactionId - ID of the TransactionPNL's Transaction
+   * @param {string} params.unrealisedPnl - Unrealised Profit & Loss of TransactionPNL
+   * @param {string} params.currency - Currency of TransactionPNL
+   * @param {string} params.createdBy - Creator of TransactionPNL
+   * @param {string} params.updatedBy - Latest user who updated the TransactionPNL
+   * @param {string} params.createdTime - Created Time of the TransactionPNL
+   * @param {string} params.updatedTime - Updated Time of the TransactionPNL
+   * @param {string} params.version - Version of the TransactionPNL
+   */
   constructor({
     assetId,
     assetManagerId,
@@ -71,6 +71,7 @@ class TransactionPNL extends AMaaSModel {
     this.message = message
     this.period = period
     this.pnlStatus = pnlStatus
+    this.pnlTimestamp = pnlTimestamp
     this.quantity = quantity
     this.realisedPnl = realisedPnl
     this.totalPnl = totalPnl
