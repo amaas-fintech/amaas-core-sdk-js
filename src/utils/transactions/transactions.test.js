@@ -246,7 +246,7 @@ describe('uploadCSV', () => {
   it('calls insertData with correct params', done => {
     uploadCSV({ AMId: 88, data: 'csv' }, (error, result) => {
       expect(network.insertData).toHaveBeenCalledWith({
-        AMaaSClass: 'importTransactions',
+        AMaaSClass: 'uploadTransactions',
         AMId: 88,
         data: 'csv',
         contentType: 'text/csv'

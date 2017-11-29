@@ -273,7 +273,7 @@ export function cancel({ AMId, resourceId }, callback) {
  */
 export function uploadCSV({ AMId, data, contentType }, callback) {
   const params = {
-    AMaaSClass: 'importTransactions',
+    AMaaSClass: 'uploadTransactions',
     AMId,
     data,
     contentType: contentType || 'text/csv'
