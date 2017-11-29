@@ -217,6 +217,15 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
     case 'fundamentalHoliday':
       baseURL = `${getEndpoint({ stage, apiVersion })}/fundamental/holidays`
       break
+    case 'positionpnl':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/position_pnls`
+      break
+    case 'transactionpnl':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/transaction_pnls`
+      break
+    case 'aggregatepnl':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/aggregate_pnls`
+      break
     default:
       throw new Error(`Invalid class type: ${AMaaSClass}`)
   }
