@@ -39,13 +39,6 @@ These classes cannot be instantiated from the SDK, they are included for referen
 </dd>
 </dl>
 
-## Classes
-
-<dl>
-<dt><a href="#PositionPNL">PositionPNL</a></dt>
-<dd></dd>
-</dl>
-
 <a name="module_core"></a>
 
 ## core
@@ -1372,7 +1365,7 @@ Reactivate a Party. This will set the Party status to 'Active'
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
-| params.data | [<code>PositionPNL</code>](#PositionPNL) | PositionPNL object |
+| params.data | <code>PositionPNL</code> | PositionPNL object |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
 <a name="module_api.PositionPNL.insert"></a>
@@ -1385,7 +1378,7 @@ Reactivate a Party. This will set the Party status to 'Active'
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
-| params.data | [<code>PositionPNL</code>](#PositionPNL) | PositionPNL object |
+| params.data | <code>PositionPNL</code> | PositionPNL object |
 | params.queryParams | <code>object</code> | Object of query params:<br/> Available keys are: <li>`boolean` upsert</li> |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
@@ -4935,8 +4928,76 @@ Classes for the Transactions service.
 
 
 * [transactions](#module_transactions)
+    * [.PositionPNL](#module_transactions.PositionPNL) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+        * [new PositionPNL(params)](#new_module_transactions.PositionPNL_new)
+    * [.Position](#module_transactions.Position) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+        * [new Position(params)](#new_module_transactions.Position_new)
     * [.Transaction](#module_transactions.Transaction) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new Transaction(params)](#new_module_transactions.Transaction_new)
+    * [.TransactionPNL](#module_transactions.TransactionPNL) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+        * [new TransactionPNL(params)](#new_module_transactions.TransactionPNL_new)
+
+<a name="module_transactions.PositionPNL"></a>
+
+### transactions.PositionPNL ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+Class representing Position Profit and Loss
+
+**Kind**: static class of [<code>transactions</code>](#module_transactions)  
+**Extends**: [<code>AMaaSModel</code>](#module_core.AMaaSModel)  
+<a name="new_module_transactions.PositionPNL_new"></a>
+
+#### new PositionPNL(params)
+Construct a new PositionPNL object
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | PositionPNL creation options |
+| params.assetId | <code>string</code> | ID of the PositionPNL's Asset |
+| params.assetManagerId | <code>number</code> | ID of the PositionPNL's Asset Manager |
+| params.assetPnl | <code>string</code> | PNL of asset |
+| params.bookId | <code>string</code> | ID of PositionPNL's book |
+| params.clientId | <code>number</code> | Id of TransactionPNL's client |
+| params.businessDate | <code>string</code> | Date of PositionPNL |
+| params.fxPnl | <code>number</code> | FX Profit & Loss |
+| params.message | <code>string</code> | Message |
+| params.periods | <code>string</code> | Sort of PNL |
+| params.pnlStatus- | <code>string</code> | Status of PositionPNL |
+| params.pnlTimeStamp | <code>string</code> | Proft & Loss Timestamp |
+| params.quantity | <code>number</code> | Quantity of PositionpNL |
+| params.realisedPnl | <code>number</code> | Realised Profit & Loss of PositionPNL |
+| params.totalPnl | <code>number</code> | Total Profit & Loss of PositionPNL |
+| params.unrealisedPnl | <code>number</code> | Unrealised Profit & Loss of PositionPNL |
+| params.createdBy | <code>string</code> | Creator of PositionPNL |
+| params.updatedBy | <code>string</code> | Latest user who updated the PositionPNL |
+| params.createdTime | <code>string</code> | Created Time of the PositionPNL |
+| params.updatedTime | <code>string</code> | Updated Time of the PositionPNL |
+| params.version | <code>number</code> | Version of the PositionPNL |
+
+<a name="module_transactions.Position"></a>
+
+### transactions.Position ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+Class representing a Position
+
+**Kind**: static class of [<code>transactions</code>](#module_transactions)  
+**Extends**: [<code>AMaaSModel</code>](#module_core.AMaaSModel)  
+<a name="new_module_transactions.Position_new"></a>
+
+#### new Position(params)
+Construct a new Position object
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | Position creation options |
+| params.assetManagerId | <code>number</code> | Owning Asset Manager's ID |
+| params.bookId | <code>string</code> | Book that the Position belongs to |
+| params.assetId | <code>string</code> | Asset for the Position |
+| params.quantity | <code>Decimal</code> | Quantity of the Position |
+| params.validFrom | <code>string</code> | Timestamp that the Position is valid from (for the given price) |
+| params.validTo | <code>string</code> | Timestamp that the Position is valid to (should be max date for currently valid Positions) |
+| params.accountingType | <code>string</code> | Accounting Type of the Position ("Transaction Date" or "Settlement Date") |
+| params.accountId | <code>string</code> | Account ID of the Position |
 
 <a name="module_transactions.Transaction"></a>
 
@@ -4979,37 +5040,39 @@ Construct a new Transaction object
 | params.references | <code>object</code> | * |
 | params.postings | <code>\*</code> | * |
 
-<a name="PositionPNL"></a>
+<a name="module_transactions.TransactionPNL"></a>
 
-## PositionPNL
-**Kind**: global class  
-<a name="new_PositionPNL_new"></a>
+### transactions.TransactionPNL ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+Class representing a TransactionPNL
 
-### new PositionPNL(params)
-Construct a new PositionPNL object
+**Kind**: static class of [<code>transactions</code>](#module_transactions)  
+**Extends**: [<code>AMaaSModel</code>](#module_core.AMaaSModel)  
+<a name="new_module_transactions.TransactionPNL_new"></a>
+
+#### new TransactionPNL(params)
+Construct a new TransactionPNL object
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| params | <code>object</code> | PositionPNL creation options |
-| params.assetId | <code>string</code> | ID of the PositionPNL's Asset |
-| params.assetManagerId | <code>number</code> | ID of the PositionPNL's Asset Manager |
-| params.assetPnl | <code>string</code> | PNL of asset |
-| params.bookId | <code>string</code> | ID of PositionPNL's book |
+| params | <code>object</code> | TransactionPNL creation options |
+| params.assetId | <code>string</code> | ID of the TransactionPNL's Asset |
+| params.assetManagerId | <code>number</code> | ID of the TransactionPNL's Asset Manager |
+| params.assetPnl | <code>number</code> | PNL of asset |
+| params.bookId | <code>string</code> | ID of TransactionPNL's book |
+| params.businessDate | <code>string</code> | Date of TransactionPNL |
 | params.clientId | <code>number</code> | Id of TransactionPNL's client |
-| params.businessDate | <code>string</code> | Date of PositionPNL |
 | params.fxPnl | <code>number</code> | FX Profit & Loss |
-| params.message | <code>string</code> | Message |
-| params.periods | <code>string</code> | Sort of PNL |
-| params.pnlStatus- | <code>string</code> | Status of PositionPNL |
 | params.pnlTimeStamp | <code>string</code> | Proft & Loss Timestamp |
-| params.quantity | <code>number</code> | Quantity of PositionpNL |
-| params.realisedPnl | <code>number</code> | Realised Profit & Loss of PositionPNL |
-| params.totalPnl | <code>number</code> | Total Profit & Loss of PositionPNL |
-| params.unrealisedPnl | <code>number</code> | Unrealised Profit & Loss of PositionPNL |
-| params.createdBy | <code>string</code> | Creator of PositionPNL |
-| params.updatedBy | <code>string</code> | Latest user who updated the PositionPNL |
-| params.createdTime | <code>string</code> | Created Time of the PositionPNL |
-| params.updatedTime | <code>string</code> | Updated Time of the PositionPNL |
-| params.version | <code>number</code> | Version of the PositionPNL |
+| params.quantity | <code>number</code> | Quantity of TransactionPNL |
+| params.realisedPnl | <code>number</code> | Realised Profit & Loss of TransactionPNL |
+| params.totalPnl | <code>number</code> | Total Profit & Loss of TransactionPNL |
+| params.transactionId | <code>string</code> | ID of the TransactionPNL's Transaction |
+| params.unrealisedPnl | <code>number</code> | Unrealised Profit & Loss of TransactionPNL |
+| params.currency | <code>string</code> | Currency of TransactionPNL |
+| params.createdBy | <code>string</code> | Creator of TransactionPNL |
+| params.updatedBy | <code>string</code> | Latest user who updated the TransactionPNL |
+| params.createdTime | <code>string</code> | Created Time of the TransactionPNL |
+| params.updatedTime | <code>string</code> | Updated Time of the TransactionPNL |
+| params.version | <code>number</code> | Version of the TransactionPNL |
 

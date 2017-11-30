@@ -1,5 +1,10 @@
 import { AMaaSModel } from '../../core'
 
+/**
+ * Class representing Position Profit and Loss
+ * @memberof module:transactions
+ * @extends module:core.AMaaSModel
+ */
 class PositionPNL extends AMaaSModel {
   /**
    * Construct a new PositionPNL object

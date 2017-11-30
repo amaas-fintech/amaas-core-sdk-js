@@ -2,10 +2,9 @@ import { AMaaSModel } from '../../core'
 
 /**
  * Class representing a TransactionPNL
- * @memberof module:transactionpnl
+ * @memberof module:transactions
  * @extends module:core.AMaaSModel
  */
-
 class TransactionPNL extends AMaaSModel {
   /**
    * Construct a new TransactionPNL object
