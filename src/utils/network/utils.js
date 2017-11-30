@@ -155,13 +155,22 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
       baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/allocations`
       break
     case 'uploadTransactions':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/import/upload`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/import/upload`
       break
     case 'executeTransactions':
-    baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/import/execute`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/import/execute`
       break
     case 'uploadTransactionsDetails':
-    baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/import/details`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/import/details`
       break
     case 'monitorItems':
       baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/items`
@@ -218,13 +227,22 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
       baseURL = `${getEndpoint({ stage, apiVersion })}/fundamental/holidays`
       break
     case 'positionpnl':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/position_pnls`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/position_pnls`
       break
     case 'transactionpnl':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/transaction_pnls`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/transaction_pnls`
       break
     case 'aggregatepnl':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/aggregate_pnls`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/aggregate_pnls`
       break
     default:
       throw new Error(`Invalid class type: ${AMaaSClass}`)
@@ -262,7 +280,7 @@ export function makeRequest({
           requestToMake = request.get(url).query({ ...data, camelcase: true })
           break
         case 'POST':
-          let requestToMake = request
+          requestToMake = request
             .post(url)
             .send(data)
             .query({ ...query, camelcase: true })
