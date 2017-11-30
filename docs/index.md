@@ -39,6 +39,13 @@ These classes cannot be instantiated from the SDK, they are included for referen
 </dd>
 </dl>
 
+## Classes
+
+<dl>
+<dt><a href="#PositionPNL">PositionPNL</a></dt>
+<dd></dd>
+</dl>
+
 <a name="module_core"></a>
 
 ## core
@@ -107,6 +114,8 @@ API Methods. These methods enable communication with the AMaaS Database. All met
 * [api](#module_api)
     * [.csv](#module_api.csv) : <code>object</code>
         * [.parseString(params)](#module_api.csv.parseString) ⇒ <code>Array</code>
+    * [.AggregatePNL](#module_api.AggregatePNL) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.AggregatePNL.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Allocations](#module_api.Allocations) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.Allocations.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.send(params, [callback])](#module_api.Allocations.send) ⇒ <code>Promise</code> \| <code>null</code>
@@ -180,6 +189,10 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.fieldsSearch(query, callback)](#module_api.Parties.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
         * [.deactivate(params, [callback])](#module_api.Parties.deactivate) ⇒ <code>Promise</code> \| <code>null</code>
         * [.reactivate(params, [callback])](#module_api.Parties.reactivate) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.PositionPNL](#module_api.PositionPNL) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.PositionPNL.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.amend(params, [callback])](#module_api.PositionPNL.amend) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.insert(params, [callback])](#module_api.PositionPNL.insert) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Positions](#module_api.Positions) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.Positions.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.search(params, [callback])](#module_api.Positions.search) ⇒ <code>Promise</code> \| <code>null</code>
@@ -196,6 +209,10 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.revokeRel(params, [callback])](#module_api.Relationships.revokeRel) ⇒ <code>Promise</code> \| <code>null</code>
         * [.sendInvitation(params, [callback])](#module_api.Relationships.sendInvitation) ⇒ <code>Promise</code> \| <code>null</code>
         * [.register(params, [callback])](#module_api.Relationships.register) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.TransactionPNL](#module_api.TransactionPNL) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.TransactionPNL.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.amend(params, [callback])](#module_api.TransactionPNL.amend) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.insert(params, [callback])](#module_api.TransactionPNL.insert) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Transactions](#module_api.Transactions) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.Transactions.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.insert(params, [callback])](#module_api.Transactions.insert) ⇒ <code>Promise</code> \| <code>null</code>
@@ -221,6 +238,23 @@ Convert csv object string into class instance
 | params | <code>object</code> | object of parameters: |
 | params.csv | <code>string</code> | csv string to parse |
 | params.type | <code>string</code> | type of data being passed in<br /> Available types are: <li>transactions</li> |
+
+<a name="module_api.AggregatePNL"></a>
+
+### api.AggregatePNL : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+<a name="module_api.AggregatePNL.retrieve"></a>
+
+#### AggregatePNL.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>AggregatePNL</code>](#module_api.AggregatePNL)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
+| params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string or string[]` bookIds</li> <li>`string` businessDate</li> <li>`string` currency</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
 <a name="module_api.Allocations"></a>
 
@@ -1305,6 +1339,56 @@ Reactivate a Party. This will set the Party status to 'Active'
 | params.resourceId | <code>string</code> | Party ID of the Party to be reactivated |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the reactivated Party instance. Omit to return Promise |
 
+<a name="module_api.PositionPNL"></a>
+
+### api.PositionPNL : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+
+* [.PositionPNL](#module_api.PositionPNL) : <code>object</code>
+    * [.retrieve(params, [callback])](#module_api.PositionPNL.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.amend(params, [callback])](#module_api.PositionPNL.amend) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.insert(params, [callback])](#module_api.PositionPNL.insert) ⇒ <code>Promise</code> \| <code>null</code>
+
+<a name="module_api.PositionPNL.retrieve"></a>
+
+#### PositionPNL.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>PositionPNL</code>](#module_api.PositionPNL)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
+| params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string or string[]` bookIds</li> <li>`string` businessDate</li> <li>`string or string[]` periods</li> <li>`string or string[]` assetIds</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.PositionPNL.amend"></a>
+
+#### PositionPNL.amend(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>PositionPNL</code>](#module_api.PositionPNL)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
+| params.data | [<code>PositionPNL</code>](#PositionPNL) | PositionPNL object |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.PositionPNL.insert"></a>
+
+#### PositionPNL.insert(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>PositionPNL</code>](#module_api.PositionPNL)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
+| params.data | [<code>PositionPNL</code>](#PositionPNL) | PositionPNL object |
+| params.queryParams | <code>object</code> | Object of query params:<br/> Available keys are: <li>`boolean` upsert</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
 <a name="module_api.Positions"></a>
 
 ### api.Positions : <code>object</code>
@@ -1536,6 +1620,56 @@ Register a new user in the database
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | AMID of Company (either the new company or the company to join) |
 | [callback] | <code>function</code> | Called with one argument (error) on completion. If successful, error is null. |
+
+<a name="module_api.TransactionPNL"></a>
+
+### api.TransactionPNL : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+
+* [.TransactionPNL](#module_api.TransactionPNL) : <code>object</code>
+    * [.retrieve(params, [callback])](#module_api.TransactionPNL.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.amend(params, [callback])](#module_api.TransactionPNL.amend) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.insert(params, [callback])](#module_api.TransactionPNL.insert) ⇒ <code>Promise</code> \| <code>null</code>
+
+<a name="module_api.TransactionPNL.retrieve"></a>
+
+#### TransactionPNL.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>TransactionPNL</code>](#module_api.TransactionPNL)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
+| params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string or string[]` bookIds</li> <li>`string` businessDate</li> <li>`string or string[]` periods</li> <li>`string or string[]` assetIds</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.TransactionPNL.amend"></a>
+
+#### TransactionPNL.amend(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>TransactionPNL</code>](#module_api.TransactionPNL)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
+| params.data | <code>TransactionPNL</code> | TransactionPNL object |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.TransactionPNL.insert"></a>
+
+#### TransactionPNL.insert(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>TransactionPNL</code>](#module_api.TransactionPNL)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
+| params.data | <code>TransactionPNL</code> | TransactionPNL object |
+| params.queryParams | <code>object</code> | Object of query params:<br/> Available keys are: <li>`boolean` upsert</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
 <a name="module_api.Transactions"></a>
 
@@ -3571,8 +3705,8 @@ Construct a new Book object
 | params.bookId | <code>string</code> |  | ID of this Book __(required)__ |
 | params.bookType | <code>string</code> |  | Book Type<br /> Available options: <li>Counterparty</li> <li>Management</li> <li>Trading</li> <li>Wash</li> |
 | [params.bookStatus] | <code>string</code> | <code>&quot;Active&quot;</code> | status of Book |
-| [params.ownerId] | <code>number</code> |  | ID of the owner of the Book (e.g. the Trader who is responsible for the Book) |
-| [params.partyId] | <code>number</code> |  | ID of the party of which the activity being tracked belongs (e.g. Registered fund or HNWI) |
+| [params.ownerId] | <code>string</code> |  | Party ID of the owner of the Book (e.g. the Trader who is responsible for the Book) |
+| [params.partyId] | <code>string</code> |  | Party ID of the party of which the activity being tracked belongs (e.g. Registered fund or HNWI) |
 | [params.closeTime] | <code>string</code> |  | Book close time. This is stored as local time, to be referenced against timezone |
 | [params.timezone] | <code>string</code> |  | Book's timezone (use this to determine absolute close time) |
 | [params.baseCurrency] | <code>string</code> | <code>&quot;USD&quot;</code> | Base currency for the Book |
@@ -4844,4 +4978,38 @@ Construct a new Transaction object
 | params.rates | <code>object</code> | Object of all rates (Rate class) |
 | params.references | <code>object</code> | * |
 | params.postings | <code>\*</code> | * |
+
+<a name="PositionPNL"></a>
+
+## PositionPNL
+**Kind**: global class  
+<a name="new_PositionPNL_new"></a>
+
+### new PositionPNL(params)
+Construct a new PositionPNL object
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | PositionPNL creation options |
+| params.assetId | <code>string</code> | ID of the PositionPNL's Asset |
+| params.assetManagerId | <code>number</code> | ID of the PositionPNL's Asset Manager |
+| params.assetPnl | <code>string</code> | PNL of asset |
+| params.bookId | <code>string</code> | ID of PositionPNL's book |
+| params.clientId | <code>number</code> | Id of TransactionPNL's client |
+| params.businessDate | <code>string</code> | Date of PositionPNL |
+| params.fxPnl | <code>number</code> | FX Profit & Loss |
+| params.message | <code>string</code> | Message |
+| params.periods | <code>string</code> | Sort of PNL |
+| params.pnlStatus- | <code>string</code> | Status of PositionPNL |
+| params.pnlTimeStamp | <code>string</code> | Proft & Loss Timestamp |
+| params.quantity | <code>number</code> | Quantity of PositionpNL |
+| params.realisedPnl | <code>number</code> | Realised Profit & Loss of PositionPNL |
+| params.totalPnl | <code>number</code> | Total Profit & Loss of PositionPNL |
+| params.unrealisedPnl | <code>number</code> | Unrealised Profit & Loss of PositionPNL |
+| params.createdBy | <code>string</code> | Creator of PositionPNL |
+| params.updatedBy | <code>string</code> | Latest user who updated the PositionPNL |
+| params.createdTime | <code>string</code> | Created Time of the PositionPNL |
+| params.updatedTime | <code>string</code> | Updated Time of the PositionPNL |
+| params.version | <code>number</code> | Version of the PositionPNL |
 

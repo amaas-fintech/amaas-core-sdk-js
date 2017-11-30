@@ -11,24 +11,24 @@ class TransactionPNL extends AMaaSModel {
    * Construct a new TransactionPNL object
    * @param {object} params - TransactionPNL creation options
    * @param {string} params.assetId - ID of the TransactionPNL's Asset
-   * @param {string} params.assetManagerId - ID of the TransactionPNL's Asset Manager
-   * @param {string} params.assetPnl - PNL of asset
+   * @param {number} params.assetManagerId - ID of the TransactionPNL's Asset Manager
+   * @param {number} params.assetPnl - PNL of asset
    * @param {string} params.bookId - ID of TransactionPNL's book
-   * @param {Date} params.businessDate - Date of TransactionPNL
-   * @param {string} params.clientId - Id of TransactionPNL's client
-   * @param {string} params.fxPnl - FX Profit & Loss
-   * @param {Date} params.pnlTimeStamp - Proft & Loss Timestamp
+   * @param {string} params.businessDate - Date of TransactionPNL
+   * @param {number} params.clientId - Id of TransactionPNL's client
+   * @param {number} params.fxPnl - FX Profit & Loss
+   * @param {string} params.pnlTimeStamp - Proft & Loss Timestamp
    * @param {number} params.quantity - Quantity of TransactionPNL
-   * @param {string} params.realisedPnl - Realised Profit & Loss of TransactionPNL
-   * @param {string} params.totalPnl - Total Profit & Loss of TransactionPNL
+   * @param {number} params.realisedPnl - Realised Profit & Loss of TransactionPNL
+   * @param {number} params.totalPnl - Total Profit & Loss of TransactionPNL
    * @param {string} params.transactionId - ID of the TransactionPNL's Transaction
-   * @param {string} params.unrealisedPnl - Unrealised Profit & Loss of TransactionPNL
+   * @param {number} params.unrealisedPnl - Unrealised Profit & Loss of TransactionPNL
    * @param {string} params.currency - Currency of TransactionPNL
    * @param {string} params.createdBy - Creator of TransactionPNL
    * @param {string} params.updatedBy - Latest user who updated the TransactionPNL
    * @param {string} params.createdTime - Created Time of the TransactionPNL
    * @param {string} params.updatedTime - Updated Time of the TransactionPNL
-   * @param {string} params.version - Version of the TransactionPNL
+   * @param {number} params.version - Version of the TransactionPNL
    */
   constructor({
     assetId,
