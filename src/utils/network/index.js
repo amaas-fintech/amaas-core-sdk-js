@@ -107,8 +107,7 @@ export function insertData(
       AMId,
       resourceId,
       stage,
-      apiVersion,
-      contentType
+      apiVersion
     })
   } catch (e) {
     if (typeof callback !== 'function') {
@@ -126,7 +125,14 @@ export function insertData(
   if (typeof queryParams === 'object' && Object.keys(queryParams).length > 0) {
     query = parseQueryParams(queryParams)
   }
-  let promise = utils.makeRequest({ method: 'POST', url, data, query, stage })
+  let promise = utils.makeRequest({
+    method: 'POST',
+    url,
+    data,
+    query,
+    stage,
+    contentType
+  })
   if (typeof callback !== 'function') {
     // return promise if callback is not provided
     return promise.then(response => response.body)
