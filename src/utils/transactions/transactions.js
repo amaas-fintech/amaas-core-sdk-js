@@ -268,7 +268,11 @@ export function cancel({ AMId, resourceId }, callback) {
  * @function uploadCSV
  * @memberof module:api.Transactions
  * @static
- * @param {}
+ * @param {object} params - Object of parameters
+ * @param {number} params.AMId - Asset Manager ID of the data to upload
+ * @param {string} params.data - CSV data
+ * @param {string} [params.contentType] - Request content-type
+ * @param {function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with the upload summary. Otherwise calls callback (err, result)
  */
 export function uploadCSV({ AMId, data, contentType }, callback) {
@@ -279,6 +283,60 @@ export function uploadCSV({ AMId, data, contentType }, callback) {
     contentType: contentType || 'text/csv'
   }
   let promise = insertData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
+ * Execute import job for CSV upload
+ * @function executeCSVJob
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - Object of parameters
+ * @param {string} params.importId - Import ID of the upload job (returned by successful call to uploadCSV)
+ * @param {function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import status
+ */
+export function executeCSVJob({ importId }, callback) {
+  const params = {
+    AMaaSClass: 'executeTransactionsUpload',
+    AMId: importId
+  }
+  let promise = insertData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
+ * Get import job details
+ * @function getCSVImportDetails
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - Object of parameters
+ * @param {string} params.importId
+ * @param {function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import details
+ */
+export function getCSVImportDetails({ importId }, callback) {
+  const params = {
+    AMaaSClass: 'csvImportDetails',
+    AMId: importId
+  }
+  let promise = retrieveData(params).then(result => {
     if (typeof callback === 'function') {
       callback(null, result)
     }

@@ -11,7 +11,9 @@ import {
   search,
   fieldsSearch,
   cancel,
-  uploadCSV
+  uploadCSV,
+  executeCSVJob,
+  getCSVImportDetails
 } from './transactions'
 
 export {
@@ -22,5 +24,7 @@ export {
   search,
   fieldsSearch,
   cancel,
-  uploadCSV
+  uploadCSV,
+  executeCSVJob,
+  getCSVImportDetails
 }

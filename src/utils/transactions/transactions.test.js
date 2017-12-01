@@ -6,7 +6,9 @@ import {
   search,
   fieldsSearch,
   cancel,
-  uploadCSV
+  uploadCSV,
+  executeCSVJob,
+  getCSVImportDetails
 } from './transactions'
 import * as api from '../../exports/api'
 import * as network from '../network'
@@ -50,6 +52,26 @@ const mockUploadResult = {
     warnings: [],
     importId: 'mockImportId'
   }
+}
+
+const mockImportDetails = {
+  status: 'Importing',
+  error: {
+    message: 'test message',
+    details: {},
+    type: 'testType'
+  },
+  details: [
+    {
+      row: 8,
+      transaction: {},
+      error: {
+        message: 'test message',
+        details: {},
+        type: 'testType'
+      }
+    }
+  ]
 }
 
 describe('retrieve', () => {
@@ -250,6 +272,48 @@ describe('uploadCSV', () => {
         AMId: 88,
         data: 'csv',
         contentType: 'text/csv'
+      })
+      done()
+    })
+  })
+})
+
+describe('executeCSVJob', () => {
+  beforeAll(() => {
+    network.insertData.mockImplementation(() =>
+      Promise.resolve({ status: 'importing' })
+    )
+  })
+  test('with promise', () => {
+    let promise = executeCSVJob({})
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls insertData with correct params', done => {
+    executeCSVJob({ importId: 'testId' }, (error, result) => {
+      expect(network.insertData).toHaveBeenCalledWith({
+        AMaaSClass: 'executeTransactionsUpload',
+        AMId: 'testId'
+      })
+      done()
+    })
+  })
+})
+
+describe('getCSVImportDetails', () => {
+  beforeAll(() => {
+    network.retrieveData.mockImplementation(() =>
+      Promise.resolve(mockImportDetails)
+    )
+  })
+  test('with promise', () => {
+    let promise = getCSVImportDetails({})
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls retrieveData with correct params', done => {
+    getCSVImportDetails({ importId: 'testId' }, (error, result) => {
+      expect(network.retrieveData).toHaveBeenCalledWith({
+        AMaaSClass: 'csvImportDetails',
+        AMId: 'testId'
       })
       done()
     })

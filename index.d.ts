@@ -653,6 +653,16 @@ declare module '@amaas/amaas-core-sdk-js' {
     type: string
   }
 
+  export interface IImportDetails {
+    status: string
+    error?: IErrorWarning
+    details: {
+      row: number
+      transaction: ITransaction
+      error: IErrorWarning
+    }[]
+  }
+
   // API
   namespace api {
     namespace AssetManagers {
@@ -1351,7 +1361,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           AMId,
           query
         }: {
-          AMId: number 
+          AMId: number
           query: {
             bookId: string | string[]
             businessDate: string
