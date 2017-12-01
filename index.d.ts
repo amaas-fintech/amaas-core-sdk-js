@@ -1261,6 +1261,14 @@ declare module '@amaas/amaas-core-sdk-js' {
         }: { AMId: number; data: string; contentType?: string },
         callback?: Function
       ): Promise<IUploadSummary> | void
+      function executeCSVJob(
+        { importId }: { importId: string },
+        callback?: Function
+      ): Promise<{ status: string }> | void
+      function getCSVImportDetails(
+        { importId }: { importId: string },
+        callback?: Function
+      ): Promise<IImportDetails> | void
     }
     function config({
       stage,
