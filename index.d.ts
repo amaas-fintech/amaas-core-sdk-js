@@ -1287,7 +1287,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           AMId: number
           query: {
             bookId: string | string[]
-            businessDate: string
+            assetId: string | string[]
           }
         },
         callback?: Function
