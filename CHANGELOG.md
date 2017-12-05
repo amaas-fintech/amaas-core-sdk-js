@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.1.1 - 2017-12-05
+### Added
+- Added `Trust Fund` to list of Asset Manager Types.
+
 ## v2.1.0 - 2017-11-29
 ### Added
 - Added Profit & Loss classes and functions.
