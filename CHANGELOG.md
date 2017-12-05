@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.1.3 - 2017-12-05
+### Added
+- Added `averagePrice` to Position class.
+
 ## v2.1.2 - 2017-12-05
 ### Changed
 - Replaced `businessDate` with `assetId` in TransactionPNL query object.
