@@ -1,4 +1,4 @@
-export const ACCOUNT_TYPES = [ 'Test', 'Basic', 'Professional', 'Demo' ]
+export const ACCOUNT_TYPES = ['Test', 'Basic', 'Professional', 'Demo']
 export const ASSET_MANAGER_TYPES = [
   'Accredited Investor',
   'Bank',
@@ -8,7 +8,8 @@ export const ASSET_MANAGER_TYPES = [
   'Fund Administrator',
   'Fund Manager',
   'Hedge Fund',
-  'Private Equity',
   'Individual',
+  'Private Equity',
+  'Trust Fund',
   'Venture Capital'
 ]
