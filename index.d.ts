@@ -12,8 +12,9 @@ declare module '@amaas/amaas-core-sdk-js' {
       | 'Fund Administrator'
       | 'Fund Manager'
       | 'Hedge Fund'
-      | 'Private Equity'
       | 'Individual'
+      | 'Private Equity'
+      | 'Trust Fund'
       | 'Venture Capital'
     assetManagerStatus?: string
     accountType?: 'Test' | 'Basic' | 'Professional' | 'Demo'
@@ -1328,7 +1329,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           AMId,
           query
         }: {
-          AMId: number 
+          AMId: number
           query: {
             bookId: string | string[]
             businessDate: string
@@ -1355,8 +1356,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         | 'Fund Administrator'
         | 'Fund Manager'
         | 'Hedge Fund'
-        | 'Private Equity'
         | 'Individual'
+        | 'Private Equity'
+        | 'Trust Fund'
         | 'Venture Capital'
       assetManagerStatus?: string
       accountType?: 'Test' | 'Basic' | 'Professional' | 'Demo'
