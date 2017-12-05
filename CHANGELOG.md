@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.1.2 - 2017-12-05
+### Changed
+- Replaced `businessDate` with `assetId` in TransactionPNL query object.
+
 ## v2.1.1 - 2017-12-05
 ### Added
 - Added `Trust Fund` to list of Asset Manager Types.
