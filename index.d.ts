@@ -615,6 +615,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     bookId?: string
     assetId?: string
     quantity?: any
+    averagePrice?: any
     validFrom?: string
     internalId?: string
     validTo?: string
@@ -2136,6 +2137,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       bookId?: string
       assetId?: string
       quantity?: any
+      averagePrice?: any
       validFrom?: string
       internalId?: string
       validTo?: string

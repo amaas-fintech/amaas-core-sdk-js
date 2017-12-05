@@ -24,6 +24,7 @@ class Position extends AMaaSModel {
     bookId,
     assetId,
     quantity,
+    averagePrice,
     validFrom,
     internalId,
     validTo,
@@ -51,12 +52,21 @@ class Position extends AMaaSModel {
           this._quantity = new Decimal(newQuantity)
         },
         enumerable: true
+      },
+      _averagePrice: { writable: true, enumerable: false },
+      averagePrice: {
+        get: () => this._averagePrice,
+        set: (newAveragePrice = 0) => {
+          this._averagePrice = new Decimal(newAveragePrice)
+        },
+        enumerable: true
       }
     })
     this.assetManagerId = assetManagerId
     this.bookId = bookId
     this.assetId = assetId
     this.quantity = quantity
+    this.averagePrice = averagePrice
     this.validFrom = validFrom
     this.internalId = internalId
     this.validTo = validTo
