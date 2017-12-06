@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.1.5 - 2017-12-06
+### Added
+- Added `currency` to TransactionPNL.
+
 ## v2.1.4 - 2017-12-06
 ### Changed
 - Changed the type declaration for `TransactionPNL`. Fix typo in `TransactionPNL.retrieve()` function parameters.
