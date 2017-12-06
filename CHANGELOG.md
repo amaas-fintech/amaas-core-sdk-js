@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.1.4 - 2017-12-06
+### Changed
+- Changed the type declaration for `TransactionPNL`. Fix typo in `TransactionPNL.retrieve()` function parameters.
+
 ## v2.1.3 - 2017-12-05
 ### Added
 - Added `averagePrice` to Position class.
