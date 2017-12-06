@@ -44,7 +44,7 @@ class Fund extends Asset {
    * @param {date} [params.createdTime] - Time that the Fund was created
    * @param {date} [params.updatedTime] - Time that the Fund was updated
    * @param {number} [params.version] - Version number
-  */
+   */
   constructor({
     assetManagerId,
     assetId,
@@ -126,11 +126,7 @@ class Fund extends Asset {
       expenseRatio: {
         get: () => this._expenseRatio,
         set: newExpenseRatio => {
-          if (!newExpenseRatio) {
-            this._expenseRatio = new Decimal(0)
-          } else {
-            this._expenseRatio = new Decimal(newExpenseRatio)
-          }
+          this._expenseRatio = new Decimal(newExpenseRatio || 0)
         },
         enumerable: true
       },
@@ -138,11 +134,7 @@ class Fund extends Asset {
       nav: {
         get: () => this._nav,
         set: newNav => {
-          if (!newNav) {
-            this._nav = new Decimal(0)
-          } else {
-            this._nav = new Decimal(newNav)
-          }
+          this._nav = new Decimal(newNav || 0)
         },
         enumerable: true
       }

@@ -33,5 +33,9 @@ describe('Position class', () => {
       expect(testPos.quantity).toBeInstanceOf(Decimal)
       expect(testPos.quantity).toEqual(new Decimal(5.66753))
     })
+    it('defaults averagePrice to 0', () => {
+      const pos = new Position({ averagePrice: null })
+      expect(pos.averagePrice).toBeInstanceOf(Decimal)
+    })
   })
 })

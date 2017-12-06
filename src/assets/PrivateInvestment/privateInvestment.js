@@ -2,7 +2,11 @@ import Decimal from 'decimal.js'
 import { forEach } from 'lodash'
 
 import Asset from '../Asset/asset'
-import { PRIVATE_INVESTMENT_CATEGORY, PRIVATE_INVESTMENT_SUBCATEGORY, PRIVATE_INVESTMENT_SHARE_TYPE } from '../enums'
+import {
+  PRIVATE_INVESTMENT_CATEGORY,
+  PRIVATE_INVESTMENT_SUBCATEGORY,
+  PRIVATE_INVESTMENT_SHARE_TYPE
+} from '../enums'
 
 /**
  * Class representing a Private Investment
@@ -28,7 +32,7 @@ class PrivateInvestment extends Asset {
    * @param {string} [params.description] - Description of the Private Investment
    * @param {string} [params.displayName] - Display name of the Private Investment
    * @param {boolean} [params.rollPrice=true] - Whether to roll the price for the Private Investment
-   * 
+   *
    * @param {string} [params.category]
    * @param {string} [params.subCategory]
    * @param {string} [params.investmentDate]
@@ -49,7 +53,7 @@ class PrivateInvestment extends Asset {
    * @param {string} [params.maturityDate]
    * @param {number} [params.lockUpPeriod]
    * @param {number} [params.investmentTerm]
-   * 
+   *
    * @param {string} [params.clientId] - ID of the associated client
    * @param {object} [params.comments] - Object of Comments attached to the Private Investment
    * @param {object} [params.links] - Object of array of Links attached to the Private Investment
@@ -63,17 +67,17 @@ class PrivateInvestment extends Asset {
   constructor({
     assetManagerId,
     assetId,
-    assetClass='PrivateInvestment',
+    assetClass = 'PrivateInvestment',
     fungible,
     assetIssuerId,
-    assetStatus='Active',
+    assetStatus = 'Active',
     countryId,
     venueId,
     currency,
     issueDate,
-    description='',
-    displayName='',
-    rollPrice=true,
+    description = '',
+    displayName = '',
+    rollPrice = true,
 
     category,
     subCategory,
@@ -106,7 +110,7 @@ class PrivateInvestment extends Asset {
     updatedBy,
     createdTime,
     updatedTime,
-    version,
+    version
   }) {
     super({
       assetManagerId,
@@ -137,77 +141,104 @@ class PrivateInvestment extends Asset {
       _category: { writable: true, enumerable: false },
       category: {
         get: () => this._category,
-        set: (newCategory) => {
+        set: newCategory => {
           if (!newCategory) return
-          if (PRIVATE_INVESTMENT_CATEGORY.indexOf(newCategory) === -1) throw new Error(`Invalid Category: ${newCategory}`)
+          if (PRIVATE_INVESTMENT_CATEGORY.indexOf(newCategory) === -1)
+            throw new Error(`Invalid Category: ${newCategory}`)
           this._category = newCategory
-        }, enumerable: true
+        },
+        enumerable: true
       },
       _subCategory: { writable: true, enumerable: false },
       subCategory: {
         get: () => this._subCategory,
-        set: (newSubCategory) => {
+        set: newSubCategory => {
           if (!newSubCategory) return
           let subC = PRIVATE_INVESTMENT_SUBCATEGORY[this.category]
-          if (subC.indexOf(newSubCategory) === -1) throw new Error(`Invalid Sub Category: ${newSubCategory}`)
+          if (subC.indexOf(newSubCategory) === -1)
+            throw new Error(`Invalid Sub Category: ${newSubCategory}`)
           this._subCategory = newSubCategory
-        }, enumerable: true
+        },
+        enumerable: true
       },
       _numShares: { writable: true, enumerable: false },
       numShares: {
         get: () => this._numShares,
-        set: (newNumShares) => {
+        set: newNumShares => {
           if (!newNumShares) return
-          if (!(new Decimal(newNumShares).isInt())) throw new Error(`Number of shares should be an integer. Received: ${newNumShares}`)
+          if (!new Decimal(newNumShares).isInt())
+            throw new Error(
+              `Number of shares should be an integer. Received: ${newNumShares}`
+            )
           this._numShares = newNumShares
-        }, enumerable: true
+        },
+        enumerable: true
       },
       _priceShare: { writable: true, enumerable: false },
       priceShare: {
         get: () => this._priceShare,
-        set: (newPriceShare) => {
-          if (!newPriceShare) return
-          this._priceShare = new Decimal(newPriceShare)
-        }, enumerable: true
+        set: (newPriceShare = 0) => {
+          this._priceShare = new Decimal(newPriceShare || 0)
+        },
+        enumerable: true
       },
       _shareType: { writable: true, enumerable: false },
       shareType: {
         get: () => this._shareType,
-        set: (newShareType) => {
+        set: newShareType => {
           if (!newShareType) return
-          if (PRIVATE_INVESTMENT_SHARE_TYPE.indexOf(newShareType) === -1) throw new Error(`Invalid Share Type: ${newShareType}`)
+          if (PRIVATE_INVESTMENT_SHARE_TYPE.indexOf(newShareType) === -1)
+            throw new Error(`Invalid Share Type: ${newShareType}`)
           this._shareType = newShareType
-        }, enumerable: true
+        },
+        enumerable: true
       },
       _lockUpPeriod: { writable: true, enumerable: false },
       lockUpPeriod: {
         get: () => this._lockUpPeriod,
-        set: (newLockUpPeriod) => {
+        set: newLockUpPeriod => {
           if (!newLockUpPeriod) return
-          if (!(new Decimal(newLockUpPeriod).isInt())) throw new Error(`Lock Up Period must be an integer. Received: ${newLockUpPeriod}`)
+          if (!new Decimal(newLockUpPeriod).isInt())
+            throw new Error(
+              `Lock Up Period must be an integer. Received: ${newLockUpPeriod}`
+            )
           this._lockUpPeriod = newLockUpPeriod
-        }, enumerable: true
+        },
+        enumerable: true
       },
       _investmentTerm: { writable: true, enumerable: false },
       investmentTerm: {
         get: () => this._investmentTerm,
-        set: (newInvestmentTerm) => {
+        set: newInvestmentTerm => {
           if (!newInvestmentTerm) return
-          if (!(new Decimal(newInvestmentTerm).isInt())) throw new Error(`Investment Term must be an integer. Received: ${newInvestmentTerm}`)
+          if (!new Decimal(newInvestmentTerm).isInt())
+            throw new Error(
+              `Investment Term must be an integer. Received: ${
+                newInvestmentTerm
+              }`
+            )
           this._investmentTerm = newInvestmentTerm
-        }, enumerable: true
+        },
+        enumerable: true
       },
       _ownership: { writable: true, enumerable: false },
       ownership: {
         get: () => this._ownership,
-        set: (newOwnership) => {
+        set: newOwnership => {
           if (!newOwnership) return
-          if (!Array.isArray(newOwnership)) throw new Error('Ownership must be an array.')
-          const total = newOwnership.map(owned => {
-            if (!owned.partyId) throw new Error('Missing partyId in ownership')
-            return new Decimal(owned.split)
-          }).reduce((sum, spl) => sum.plus(spl))
-          if (total != 1) throw new Error(`Ownership splits must sum to 1. Received: ${total}`)
+          if (!Array.isArray(newOwnership))
+            throw new Error('Ownership must be an array.')
+          const total = newOwnership
+            .map(owned => {
+              if (!owned.partyId)
+                throw new Error('Missing partyId in ownership')
+              return new Decimal(owned.split || 0)
+            })
+            .reduce((sum, spl) => sum.plus(spl))
+          if (total != 1)
+            throw new Error(
+              `Ownership splits must sum to 1. Received: ${total}`
+            )
           this._ownership = newOwnership
         }
       }
@@ -224,9 +255,9 @@ class PrivateInvestment extends Asset {
     this.coupon = coupon
     this.couponFreq = couponFreq
     this.upfrontFee = upfrontFee // TODO: These fees should probably be on the Transaction.
-    this.exitFee = exitFee  // TODO: These fees should probably be on the Transaction.
-    this.managementFee = managementFee  // TODO: These fees should probably be on the Transaction.
-    this.performanceFee = performanceFee  // TODO: These fees should probably be on the Transaction.
+    this.exitFee = exitFee // TODO: These fees should probably be on the Transaction.
+    this.managementFee = managementFee // TODO: These fees should probably be on the Transaction.
+    this.performanceFee = performanceFee // TODO: These fees should probably be on the Transaction.
     this.hurdle = hurdle
     this.margin = margin
     this.highWaterMark = highWaterMark

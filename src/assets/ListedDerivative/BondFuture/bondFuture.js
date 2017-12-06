@@ -62,7 +62,7 @@ class BondFuture extends Future {
    * @param {date} [params.createdTime] - Time that the Bond Future was created
    * @param {date} [params.updatedTime] - Time that the Bond Future was updated
    * @param {number} [params.version] - Version number of the Bond Future
-  */
+   */
   constructor({
     assetManagerId,
     assetId,
@@ -129,11 +129,7 @@ class BondFuture extends Future {
       underlyingBondCoupon: {
         get: () => this._underlyingBondCoupon,
         set: newCoupon => {
-          if (!newCoupon) {
-            this._underlyingBondCoupon = new Decimal(0)
-          } else {
-            this._underlyingBondCoupon = new Decimal(newCoupon)
-          }
+          this._underlyingBondCoupon = new Decimal(newCoupon || 0)
         },
         enumerable: true
       },

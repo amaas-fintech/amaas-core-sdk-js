@@ -24,12 +24,8 @@ class Charge extends AMaaSModel {
       _chargeValue: { writable: true, enumerable: false },
       chargeValue: {
         get: () => this._chargeValue,
-        set: (newChargeValue) => {
-          if (newChargeValue) {
-            this._chargeValue = new Decimal(chargeValue)
-          } else {
-            this._chargeValue = new Decimal(0)
-          }
+        set: (newChargeValue = 0) => {
+          this._chargeValue = new Decimal(chargeValue || 0)
         },
         enumerable: true
       }

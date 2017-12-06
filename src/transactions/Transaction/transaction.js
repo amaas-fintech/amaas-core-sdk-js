@@ -47,7 +47,7 @@ class Transaction extends AMaaSModel {
    * @param {object} params.rates - Object of all rates (Rate class)
    * @param {object} params.references - *
    * @param {*} params.postings - *
-  */
+   */
   constructor({
     assetManagerId,
     assetBookId,
@@ -93,7 +93,7 @@ class Transaction extends AMaaSModel {
       quantity: {
         get: () => this._quantity,
         set: (newQuantity = 0) => {
-          this._quantity = new Decimal(newQuantity)
+          this._quantity = new Decimal(newQuantity || 0)
         },
         enumerable: true
       },
@@ -101,7 +101,7 @@ class Transaction extends AMaaSModel {
       price: {
         get: () => this._price,
         set: (newPrice = 0) => {
-          this._price = new Decimal(newPrice)
+          this._price = new Decimal(newPrice || 0)
         },
         enumerable: true
       },
@@ -113,7 +113,7 @@ class Transaction extends AMaaSModel {
             : this.price.times(this.quantity),
         set: newGrossSettlement => {
           this._grossSettlement = newGrossSettlement
-            ? new Decimal(newGrossSettlement)
+            ? new Decimal(newGrossSettlement || 0)
             : undefined
         },
         enumerable: true
@@ -126,7 +126,7 @@ class Transaction extends AMaaSModel {
             : this.grossSettlement.minus(this.chargesNetEffect()),
         set: newNetSettlement => {
           this._netSettlement = newNetSettlement
-            ? new Decimal(newNetSettlement)
+            ? new Decimal(newNetSettlement || 0)
             : undefined
         },
         enumerable: true
@@ -197,7 +197,9 @@ class Transaction extends AMaaSModel {
             }
             if (primaryCount !== 1)
               throw new Error(
-                `Exactly 1 primary Reference must be supplied - found: ${primaryCount}`
+                `Exactly 1 primary Reference must be supplied - found: ${
+                  primaryCount
+                }`
               )
             this._references = newRefs
           }

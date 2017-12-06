@@ -55,17 +55,17 @@ class FutureOption extends Future {
    * @param {date} [params.createdTime] - Time that the Future Option was created
    * @param {date} [params.updatedTime] - Time that the Future Option was updated
    * @param {number} [params.version] - Version number
-  */
+   */
   constructor({
     assetManagerId,
     assetId,
     assetIssuerId,
-    assetStatus='Active',
+    assetStatus = 'Active',
     countryId,
     venueId,
     currency,
     issueDate,
-    description='',
+    description = '',
     displayName,
     clientId,
     settlementType,
@@ -119,7 +119,7 @@ class FutureOption extends Future {
       _optionType: { writable: true, enumerable: false },
       optionType: {
         get: () => this._optionType,
-        set: (newOptionType) => {
+        set: newOptionType => {
           if (newOptionType) {
             if (OPTION_TYPES.indexOf(newOptionType) === -1) {
               throw new Error(`Invalid Option Type: ${newOptionType}`)
@@ -132,7 +132,7 @@ class FutureOption extends Future {
       _optionStyle: { writable: true, enumerable: false },
       optionStyle: {
         get: () => this._optionStyle,
-        set: (newOptionStyle) => {
+        set: newOptionStyle => {
           if (newOptionStyle) {
             if (OPTION_STYLES.indexOf(newOptionStyle) === -1) {
               throw new Error(`Invalid Option Style: ${newOptionStyle}`)
@@ -145,12 +145,8 @@ class FutureOption extends Future {
       _strike: { writable: true, enumerable: false },
       strike: {
         get: () => this._strike,
-        set: (newStrike) => {
-          if (!newStrike) {
-            this._strike = new Decimal(0)
-          } else {
-            this._strike = new Decimal(newStrike)
-          }
+        set: (newStrike = 0) => {
+          this._strike = new Decimal(newStrike || 0)
         },
         enumerable: true
       }
