@@ -41,25 +41,25 @@ class BondBase extends Asset {
    * @param {date} [params.createdTime] - Time that the Bond was created
    * @param {date} [params.updatedTime] - Time that the Bond was updated
    * @param {number} [params.version] - Version number of the Bond
-  */
+   */
   constructor({
     assetManagerId,
     assetId,
     assetIssuerId,
-    assetStatus='Active',
+    assetStatus = 'Active',
     countryId,
     venueId,
     currency,
     issueDate,
-    maturityDate='9999-12-31',
-    description='',
+    maturityDate = '9999-12-31',
+    description = '',
     displayName,
     rollPrice,
     clientId,
     coupon,
     par,
     payFrequency,
-    defaulted=false,
+    defaulted = false,
     comments,
     links,
     references,
@@ -97,16 +97,18 @@ class BondBase extends Asset {
       _coupon: { writable: true, enumerable: false },
       coupon: {
         get: () => this._coupon,
-        set: (newCoupon) => {
-          this._coupon = newCoupon ? new Decimal(newCoupon) : new Decimal(0)
-        }, enumerable: true
+        set: (newCoupon = 0) => {
+          this._coupon = new Decimal(newCoupon || 0)
+        },
+        enumerable: true
       },
       _par: { writable: true, enumerable: false },
       par: {
         get: () => this._par,
-        set: (newPar) => {
-          this._par = newPar ? new Decimal(newPar) : new Decimal(0)
-        }, enumerable: true
+        set: (newPar = 0) => {
+          this._par = new Decimal(newPar || 0)
+        },
+        enumerable: true
       }
     })
     this.maturityDate = maturityDate
@@ -115,7 +117,6 @@ class BondBase extends Asset {
     this.par = par
     this.payFrequency = payFrequency
   }
-
 }
 
 export default BondBase

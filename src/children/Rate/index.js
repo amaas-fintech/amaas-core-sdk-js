@@ -22,12 +22,8 @@ class Rate extends AMaaSModel {
       _rateValue: { writable: true, enumerable: false },
       rateValue: {
         get: () => this._rateValue,
-        set: (newRateValue) => {
-          if (newRateValue) {
-            this._rateValue = new Decimal(rateValue)
-          } else {
-            this._rateValue = new Decimal(0)
-          }
+        set: newRateValue => {
+          this._rateValue = new Decimal(rateValue || 0)
         },
         enumerable: true
       }

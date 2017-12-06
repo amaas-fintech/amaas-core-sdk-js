@@ -49,7 +49,7 @@ class Position extends AMaaSModel {
       quantity: {
         get: () => this._quantity,
         set: (newQuantity = 0) => {
-          this._quantity = new Decimal(newQuantity)
+          this._quantity = new Decimal(newQuantity || 0)
         },
         enumerable: true
       },
@@ -57,7 +57,7 @@ class Position extends AMaaSModel {
       averagePrice: {
         get: () => this._averagePrice,
         set: (newAveragePrice = 0) => {
-          this._averagePrice = new Decimal(newAveragePrice)
+          this._averagePrice = new Decimal(newAveragePrice || 0)
         },
         enumerable: true
       }
