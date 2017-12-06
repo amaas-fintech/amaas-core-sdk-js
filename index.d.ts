@@ -516,6 +516,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     createdTime?: string
     updatedTime?: string
     version?: string
+    transactionId: string
   }
 
   export interface IAggregatePNL {
@@ -1287,7 +1288,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           AMId: number
           query: {
             bookId: string | string[]
-            assetId: string | string[]
+            assetIds: string | string[]
           }
         },
         callback?: Function
@@ -2190,6 +2191,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       createdTime?: string
       updatedTime?: string
       version?: string
+      transactionId: string
     }
   }
 }
