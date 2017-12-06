@@ -517,6 +517,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     updatedTime?: string
     version?: string
     transactionId: string
+    currency: string
   }
 
   export interface IAggregatePNL {
@@ -2192,6 +2193,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       updatedTime?: string
       version?: string
       transactionId: string
+      currency: string
     }
   }
 }
