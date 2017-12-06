@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.1.6 - 2017-12-06
+- Add checking to the argument of Decimal instantiation.
+
 ## v2.1.5 - 2017-12-06
 ### Added
 - Added `currency` to TransactionPNL.
