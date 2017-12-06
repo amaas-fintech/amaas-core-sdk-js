@@ -9,7 +9,7 @@
     "test:verbose": "jest --verbose --runInBand",
     "test:watch": "jest --verbose --watch",
     "build": "babel src --out-dir dist --ignore '**.test.js'",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "docs":
       "jsdoc2md --template ./docs/template.hbs --files './src/**/*.js' > ./docs/index.md",
     "esdoc": "esdoc"
