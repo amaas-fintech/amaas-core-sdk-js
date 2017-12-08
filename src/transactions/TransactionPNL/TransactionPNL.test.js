@@ -1,3 +1,5 @@
+import Decimal from 'decimal.js'
+
 import TransactionPNL from './TransactionPNL'
 
 describe('TransactionPNL', () => {
@@ -26,7 +28,16 @@ describe('TransactionPNL', () => {
       updatedTime: '2017-07-04',
       version: 1
     }
+    const expectedParams = {
+      ...params,
+      assetPnl: new Decimal(params.assetPnl),
+      fxPnl: new Decimal(params.fxPnl),
+      quantity: new Decimal(params.quantity),
+      realisedPnl: new Decimal(params.realisedPnl),
+      totalPnl: new Decimal(params.totalPnl),
+      unrealisedPnl: new Decimal(params.unrealisedPnl)
+    }
     const pnl = new TransactionPNL(params)
-    expect({ ...pnl }).toEqual(expect.objectContaining(params))
+    expect({ ...pnl }).toEqual(expect.objectContaining(expectedParams))
   })
 })

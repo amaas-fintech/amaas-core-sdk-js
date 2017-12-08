@@ -1,3 +1,5 @@
+import Decimal from 'decimal.js'
+
 import { AMaaSModel } from '../../core'
 
 /**
@@ -11,17 +13,17 @@ class TransactionPNL extends AMaaSModel {
    * @param {object} params - TransactionPNL creation options
    * @param {string} params.assetId - ID of the TransactionPNL's Asset
    * @param {number} params.assetManagerId - ID of the TransactionPNL's Asset Manager
-   * @param {number} params.assetPnl - PNL of asset
+   * @param {Decimal} params.assetPnl - PNL of asset
    * @param {string} params.bookId - ID of TransactionPNL's book
    * @param {string} params.businessDate - Date of TransactionPNL
    * @param {number} params.clientId - Id of TransactionPNL's client
-   * @param {number} params.fxPnl - FX Profit & Loss
+   * @param {Decimal} params.fxPnl - FX Profit & Loss
    * @param {string} params.pnlTimeStamp - Proft & Loss Timestamp
-   * @param {number} params.quantity - Quantity of TransactionPNL
-   * @param {number} params.realisedPnl - Realised Profit & Loss of TransactionPNL
-   * @param {number} params.totalPnl - Total Profit & Loss of TransactionPNL
+   * @param {Decimal} params.quantity - Quantity of TransactionPNL
+   * @param {Decimal} params.realisedPnl - Realised Profit & Loss of TransactionPNL
+   * @param {Decimal} params.totalPnl - Total Profit & Loss of TransactionPNL
    * @param {string} params.transactionId - ID of the TransactionPNL's Transaction
-   * @param {number} params.unrealisedPnl - Unrealised Profit & Loss of TransactionPNL
+   * @param {Decimal} params.unrealisedPnl - Unrealised Profit & Loss of TransactionPNL
    * @param {string} params.currency - Currency of TransactionPNL
    * @param {string} params.createdBy - Creator of TransactionPNL
    * @param {string} params.updatedBy - Latest user who updated the TransactionPNL
@@ -59,6 +61,57 @@ class TransactionPNL extends AMaaSModel {
       createdTime,
       updatedTime,
       version
+    })
+    // quantity
+    Object.defineProperties(this, {
+      _assetPnl: { writable: true, enumerable: false },
+      assetPnl: {
+        get: () => this._assetPnl,
+        set: (newAssetPnl = 0) => {
+          this._assetPnl = new Decimal(newAssetPnl || 0)
+        },
+        enumerable: true
+      },
+      _fxPnl: { writable: true, enumerable: false },
+      fxPnl: {
+        get: () => this._fxPnl,
+        set: (newFxPnl = 0) => {
+          this._fxPnl = new Decimal(newFxPnl || 0)
+        },
+        enumerable: true
+      },
+      _totalPnl: { writable: true, enumerable: false },
+      totalPnl: {
+        get: () => this._totalPnl,
+        set: (newTotalPnl = 0) => {
+          this._totalPnl = new Decimal(newTotalPnl || 0)
+        },
+        enumerable: true
+      },
+      _realisedPnl: { writable: true, enumerable: false },
+      realisedPnl: {
+        get: () => this._realisedPnl,
+        set: (newRealisedPnl = 0) => {
+          this._realisedPnl = new Decimal(newRealisedPnl || 0)
+        },
+        enumerable: true
+      },
+      _unrealisedPnl: { writable: true, enumerable: false },
+      unrealisedPnl: {
+        get: () => this._unrealisedPnl,
+        set: (newUnrealisedPnl = 0) => {
+          this._unrealisedPnl = new Decimal(newUnrealisedPnl || 0)
+        },
+        enumerable: true
+      },
+      _quantity: { writable: true, enumerable: false },
+      quantity: {
+        get: () => this._quantity,
+        set: (newQuantity = 0) => {
+          this._quantity = new Decimal(newQuantity || 0)
+        },
+        enumerable: true
+      }
     })
     this.assetId = assetId
     this.assetManagerId = assetManagerId
