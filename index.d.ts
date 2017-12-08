@@ -2166,7 +2166,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       period: any
       pnlStatus: string
       pnlTimestamp: string
-      quanity: any
+      quantity: any
       realisedPnl: any
       totalPnl: any
       unrealisedPnl: any
