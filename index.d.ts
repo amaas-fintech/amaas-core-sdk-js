@@ -476,19 +476,19 @@ declare module '@amaas/amaas-core-sdk-js' {
   export interface IPositionPNL {
     assetId: string
     assetManagerId: string
-    assetPnl: string
+    assetPnl: any
     bookId: string
     businessDate: string
     clientId: string
-    fxPnl: string
+    fxPnl: any
     message: string
     period: any
     pnlStatus: string
     pnlTimestamp: string
-    quanity: number
-    realisedPnl: string
-    totalPnl: string
-    unrealisedPnl: string
+    quantity: any
+    realisedPnl: any
+    totalPnl: any
+    unrealisedPnl: any
     createdBy?: string
     updatedBy?: string
     createdTime?: string
@@ -499,19 +499,19 @@ declare module '@amaas/amaas-core-sdk-js' {
   export interface ITransactionPNL {
     assetId: string
     assetManagerId: string
-    assetPnl: string
+    assetPnl: any
     bookId: string
     businessDate: string
     clientId: string
-    fxPnl: string
+    fxPnl: any
     message: string
     period: any
     pnlStatus: string
     pnlTimestamp: string
-    quantity: number
-    realisedPnl: string
-    totalPnl: string
-    unrealisedPnl: string
+    quantity: any
+    realisedPnl: any
+    totalPnl: any
+    unrealisedPnl: any
     createdBy?: string
     updatedBy?: string
     createdTime?: string
@@ -2157,42 +2157,43 @@ declare module '@amaas/amaas-core-sdk-js' {
     class PositionPNL {
       assetId: string
       assetManagerId: string
-      assetPnl: string
+      assetPnl: any
       bookId: string
       businessDate: string
       clientId: string
-      fxPnl: string
+      fxPnl: any
       message: string
       period: any
       pnlStatus: string
       pnlTimestamp: string
-      quanity: number
-      realisedPnl: string
-      totalPnl: string
-      unrealisedPnl: string
+      quanity: any
+      realisedPnl: any
+      totalPnl: any
+      unrealisedPnl: any
       createdBy?: string
       updatedBy?: string
       createdTime?: string
       updatedTime?: string
       version?: string
+      constructor(props: IPositionPNL)
     }
 
     class TransactionPNL {
       assetId: string
       assetManagerId: string
-      assetPnl: string
+      assetPnl: any
       bookId: string
       businessDate: string
       clientId: string
-      fxPnl: string
+      fxPnl: any
       message: string
       period: any
       pnlStatus: string
       pnlTimestamp: string
-      quantity: number
-      realisedPnl: string
-      totalPnl: string
-      unrealisedPnl: string
+      quantity: any
+      realisedPnl: any
+      totalPnl: any
+      unrealisedPnl: any
       createdBy?: string
       updatedBy?: string
       createdTime?: string
@@ -2200,6 +2201,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       version?: string
       transactionId: string
       currency: string
+      constructor(props: ITransactionPNL)
     }
   }
 }

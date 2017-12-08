@@ -1,3 +1,5 @@
+import Decimal from 'decimal.js'
+
 import PositionPNL from './PositionPNL'
 
 describe('PositionPNL', () => {
@@ -24,7 +26,16 @@ describe('PositionPNL', () => {
       updatedTime: '2017-07-04',
       version: 1
     }
+    const expectedParams = {
+      ...params,
+      assetPnl: new Decimal(params.assetPnl),
+      fxPnl: new Decimal(params.fxPnl),
+      quantity: new Decimal(params.quantity),
+      realisedPnl: new Decimal(params.realisedPnl),
+      totalPnl: new Decimal(params.totalPnl),
+      unrealisedPnl: new Decimal(params.unrealisedPnl)
+    }
     const pnl = new PositionPNL(params)
-    expect({ ...pnl }).toEqual(expect.objectContaining(params))
+    expect({ ...pnl }).toEqual(expect.objectContaining(expectedParams))
   })
 })
