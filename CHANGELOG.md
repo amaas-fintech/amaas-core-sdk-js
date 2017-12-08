@@ -1,7 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.1.7 - 2017-12-08
+### Changed
+- Changed PnL & quantity attributes in PnL classes to Decimal.
+
 ## v2.1.6 - 2017-12-06
+### Added
 - Add checking to the argument of Decimal instantiation.
 
 ## v2.1.5 - 2017-12-06
