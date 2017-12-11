@@ -1252,7 +1252,7 @@ declare module '@amaas/amaas-core-sdk-js' {
         }: {
           AMId: number
           query: {
-            bookIds: string | string[]
+            bookIds?: string | string[]
             businessDate: string
             periods?: string | string[]
             assetIds?: string | string[]
@@ -1293,7 +1293,7 @@ declare module '@amaas/amaas-core-sdk-js' {
         }: {
           AMId: number
           query: {
-            bookIds: string | string[]
+            bookIds?: string | string[]
             businessDate?: string
             periods?: string | string[]
             assetIds: string | string[]
