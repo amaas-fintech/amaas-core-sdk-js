@@ -12,8 +12,9 @@ declare module '@amaas/amaas-core-sdk-js' {
       | 'Fund Administrator'
       | 'Fund Manager'
       | 'Hedge Fund'
-      | 'Private Equity'
       | 'Individual'
+      | 'Private Equity'
+      | 'Trust Fund'
       | 'Venture Capital'
     assetManagerStatus?: string
     accountType?: 'Test' | 'Basic' | 'Professional' | 'Demo'
@@ -475,19 +476,19 @@ declare module '@amaas/amaas-core-sdk-js' {
   export interface IPositionPNL {
     assetId: string
     assetManagerId: string
-    assetPnl: string
+    assetPnl: any
     bookId: string
     businessDate: string
     clientId: string
-    fxPnl: string
+    fxPnl: any
     message: string
     period: any
     pnlStatus: string
     pnlTimestamp: string
-    quanity: number
-    realisedPnl: string
-    totalPnl: string
-    unrealisedPnl: string
+    quantity: any
+    realisedPnl: any
+    totalPnl: any
+    unrealisedPnl: any
     createdBy?: string
     updatedBy?: string
     createdTime?: string
@@ -498,24 +499,26 @@ declare module '@amaas/amaas-core-sdk-js' {
   export interface ITransactionPNL {
     assetId: string
     assetManagerId: string
-    assetPnl: string
+    assetPnl: any
     bookId: string
     businessDate: string
     clientId: string
-    fxPnl: string
+    fxPnl: any
     message: string
     period: any
     pnlStatus: string
     pnlTimestamp: string
-    quantity: number
-    realisedPnl: string
-    totalPnl: string
-    unrealisedPnl: string
+    quantity: any
+    realisedPnl: any
+    totalPnl: any
+    unrealisedPnl: any
     createdBy?: string
     updatedBy?: string
     createdTime?: string
     updatedTime?: string
     version?: string
+    transactionId: string
+    currency: string
   }
 
   export interface IAggregatePNL {
@@ -614,6 +617,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     bookId?: string
     assetId?: string
     quantity?: any
+    averagePrice?: any
     validFrom?: string
     internalId?: string
     validTo?: string
@@ -1289,8 +1293,10 @@ declare module '@amaas/amaas-core-sdk-js' {
         }: {
           AMId: number
           query: {
-            bookId: string | string[]
+            bookIds?: string | string[]
             businessDate: string
+            periods?: string | string[]
+            assetIds?: string | string[]
           }
         },
         callback?: Function
@@ -1328,8 +1334,10 @@ declare module '@amaas/amaas-core-sdk-js' {
         }: {
           AMId: number
           query: {
-            bookId: string | string[]
-            businessDate: string
+            bookIds?: string | string[]
+            businessDate?: string
+            periods?: string | string[]
+            assetIds: string | string[]
           }
         },
         callback?: Function
@@ -1396,8 +1404,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         | 'Fund Administrator'
         | 'Fund Manager'
         | 'Hedge Fund'
-        | 'Private Equity'
         | 'Individual'
+        | 'Private Equity'
+        | 'Trust Fund'
         | 'Venture Capital'
       assetManagerStatus?: string
       accountType?: 'Test' | 'Basic' | 'Professional' | 'Demo'
@@ -2175,6 +2184,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       bookId?: string
       assetId?: string
       quantity?: any
+      averagePrice?: any
       validFrom?: string
       internalId?: string
       validTo?: string
@@ -2192,47 +2202,51 @@ declare module '@amaas/amaas-core-sdk-js' {
     class PositionPNL {
       assetId: string
       assetManagerId: string
-      assetPnl: string
+      assetPnl: any
       bookId: string
       businessDate: string
       clientId: string
-      fxPnl: string
+      fxPnl: any
       message: string
       period: any
       pnlStatus: string
       pnlTimestamp: string
-      quanity: number
-      realisedPnl: string
-      totalPnl: string
-      unrealisedPnl: string
+      quantity: any
+      realisedPnl: any
+      totalPnl: any
+      unrealisedPnl: any
       createdBy?: string
       updatedBy?: string
       createdTime?: string
       updatedTime?: string
       version?: string
+      constructor(props: IPositionPNL)
     }
 
     class TransactionPNL {
       assetId: string
       assetManagerId: string
-      assetPnl: string
+      assetPnl: any
       bookId: string
       businessDate: string
       clientId: string
-      fxPnl: string
+      fxPnl: any
       message: string
       period: any
       pnlStatus: string
       pnlTimestamp: string
-      quantity: number
-      realisedPnl: string
-      totalPnl: string
-      unrealisedPnl: string
+      quantity: any
+      realisedPnl: any
+      totalPnl: any
+      unrealisedPnl: any
       createdBy?: string
       updatedBy?: string
       createdTime?: string
       updatedTime?: string
       version?: string
+      transactionId: string
+      currency: string
+      constructor(props: ITransactionPNL)
     }
   }
 }

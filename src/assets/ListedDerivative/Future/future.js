@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 
 import ListedDerivative from '../ListedDerivative/listedDerivative'
-import { FUTURE_SETTLEMENT_TYPES }  from '../../enums.js'
+import { FUTURE_SETTLEMENT_TYPES } from '../../enums.js'
 
 /**
  * Class representing a Future
@@ -45,18 +45,18 @@ class Future extends ListedDerivative {
    * @param {date} [params.createdTime] - Time that the Future was created
    * @param {date} [params.updatedTime] - Time that the Future was updated
    * @param {number} [params.version] - Version number
-  */
+   */
   constructor({
     assetManagerId,
     assetId,
-    assetClass='Future',
+    assetClass = 'Future',
     assetIssuerId,
-    assetStatus='Active',
+    assetStatus = 'Active',
     countryId,
     venueId,
     currency,
     issueDate,
-    description='',
+    description = '',
     displayName,
     clientId,
     settlementType,
@@ -101,7 +101,7 @@ class Future extends ListedDerivative {
       _settlementType: { writable: true, enumerable: false },
       settlementType: {
         get: () => this._settlementType,
-        set: (newSettlementType) => {
+        set: newSettlementType => {
           if (settlementType) {
             if (FUTURE_SETTLEMENT_TYPES.indexOf(newSettlementType) === -1) {
               throw new Error(`Invalid Settlement Type: ${newSettlementType}`)
@@ -114,44 +114,31 @@ class Future extends ListedDerivative {
       _pointValue: { writable: true, enumerable: false },
       pointValue: {
         get: () => this._pointValue,
-        set: (newPointValue) => {
-          // TODO: This should be replaced with a calculation
-          if (newPointValue) {
-            this._pointValue = new Decimal(newPointValue)
-          } else {
-            this._pointValue = new Decimal(0)
-          }
+        set: newPointValue => {
+          this._pointValue = new Decimal(newPointValue || 0)
         },
         enumerable: true
       },
       _tickSize: { writable: true, enumerable: false },
       tickSize: {
         get: () => this._tickSize,
-        set: (newTickSize) => {
-          if (!newTickSize) {
-             this._tickSize = new Decimal(0)
-          } else {
-            this._tickSize = new Decimal(newTickSize)
-          }
+        set: (newTickSize = 0) => {
+          this._tickSize = new Decimal(newTickSize || 0)
         },
         enumerable: true
       },
       _contractSize: { writable: true, enumerable: false },
       contractSize: {
         get: () => this._contractSize,
-        set: (newContractSize) => {
-          if (!newContractSize) {
-             this._contractSize = new Decimal(0)
-          } else {
-            this._contractSize = new Decimal(newContractSize)
-          }
+        set: (newContractSize = 0) => {
+          this._contractSize = new Decimal(newContractSize || 0)
         },
         enumerable: true
       },
       _expiryDate: { writable: true, enumerable: false },
       expiryDate: {
         get: () => this._expiryDate,
-        set: (newExpiryDate) => {
+        set: newExpiryDate => {
           if (newExpiryDate) {
             this._expiryDate = newExpiryDate
           } else {

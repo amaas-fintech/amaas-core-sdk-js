@@ -19,7 +19,7 @@ AMaaS Core features a secure, encrypted database, which serves as the foundation
 import { api } from '@amaas/amaas-core-sdk-js'
 
 const options = {
-  stage: 'dev' | 'staging' | 'prod',
+  stage: 'dev' | 'staging' | 'production',
   apiVersion: 'v1.0'
 }
 api.config(options)
@@ -27,7 +27,7 @@ api.config(options)
 Available versions:
 1. Dev and staging
   * `v1.0`
-2. Prod
+2. Production
   * `sg1.0`
 
 ## Numbers in the AMaaS Core SDK for JavaScript

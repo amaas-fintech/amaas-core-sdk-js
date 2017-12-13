@@ -47,18 +47,18 @@ class ForeignExchangeOption extends Derivative {
    * @param {date} [params.createdTime] - Time that the FX Option was created
    * @param {date} [params.updatedTime] - Time that the FX Option was updated
    * @param {number} [params.version] - Version number
-  */
+   */
   constructor({
     assetManagerId,
     assetId,
     assetIssuerId,
-    assetStatus='Active',
+    assetStatus = 'Active',
     countryId,
     venueId,
     currency,
     issueDate,
     expiryDate,
-    description='',
+    description = '',
     displayName,
     clientId,
     optionType,
@@ -101,7 +101,7 @@ class ForeignExchangeOption extends Derivative {
       _optionType: { writable: true, enumerable: false },
       optionType: {
         get: () => this._optionType,
-        set: (newOptionType) => {
+        set: newOptionType => {
           if (newOptionType) {
             if (OPTION_TYPES.indexOf(newOptionType) === -1) {
               throw new Error(`Invalid Option Type: ${newOptionType}`)
@@ -114,7 +114,7 @@ class ForeignExchangeOption extends Derivative {
       _optionStyle: { writable: true, enumerable: false },
       optionStyle: {
         get: () => this._optionStyle,
-        set: (newOptionStyle) => {
+        set: newOptionStyle => {
           if (newOptionStyle) {
             if (OPTION_STYLES.indexOf(newOptionStyle) === -1) {
               throw new Error(`Invalid Option Style: ${newOptionStyle}`)
@@ -127,19 +127,15 @@ class ForeignExchangeOption extends Derivative {
       _strike: { writable: true, enumerable: false },
       strike: {
         get: () => this._strike,
-        set: (newStrike) => {
-          if (!newStrike) {
-            this._strike = new Decimal(0)
-          } else {
-            this._strike = new Decimal(newStrike)
-          }
+        set: newStrike => {
+          this._strike = new Decimal(newStrike || 0)
         },
         enumerable: true
       },
       _expiryDate: { writable: true, enumerable: false },
       expiryDate: {
         get: () => this._expiryDate,
-        set: (newExpiryDate) => {
+        set: newExpiryDate => {
           if (newExpiryDate) {
             this._expiryDate = newExpiryDate
           } else {

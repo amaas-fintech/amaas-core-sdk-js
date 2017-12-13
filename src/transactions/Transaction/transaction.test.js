@@ -22,6 +22,10 @@ describe('Transaction class', () => {
     beforeEach(() => {
       testTrans = new Transaction(data)
     })
+    it('0E-10', () => {
+      const trans = new Transaction({ price: '0E-10' })
+      expect(trans.price).toEqual(new Decimal(0))
+    })
 
     it('should set References correctly', () => {
       const references = {

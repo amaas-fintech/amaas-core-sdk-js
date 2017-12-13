@@ -1,6 +1,34 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.1.7 - 2017-12-08
+### Changed
+- Changed PnL & quantity attributes in PnL classes to Decimal.
+
+## v2.1.6 - 2017-12-06
+### Added
+- Add checking to the argument of Decimal instantiation.
+
+## v2.1.5 - 2017-12-06
+### Added
+- Added `currency` to TransactionPNL.
+
+## v2.1.4 - 2017-12-06
+### Changed
+- Changed the type declaration for `TransactionPNL`. Fix typo in `TransactionPNL.retrieve()` function parameters.
+
+## v2.1.3 - 2017-12-05
+### Added
+- Added `averagePrice` to Position class.
+
+## v2.1.2 - 2017-12-05
+### Changed
+- Replaced `businessDate` with `assetId` in TransactionPNL query object.
+
+## v2.1.1 - 2017-12-05
+### Added
+- Added `Trust Fund` to list of Asset Manager Types.
+
 ## v2.1.0 - 2017-11-29
 ### Added
 - Added Profit & Loss classes and functions.
