@@ -1295,13 +1295,13 @@ declare module '@amaas/amaas-core-sdk-js' {
         {
           AMId,
           bookId,
-          assetId,
+          assetIds,
           date,
           startDate
         }: {
           AMId: number
           bookId: string
-          assetId?: string
+          assetIds?: string
           date: string
           startDate?: string
         },
