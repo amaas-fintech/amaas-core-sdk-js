@@ -8,7 +8,8 @@ import {
   cancel,
   uploadCSV,
   executeCSVJob,
-  getCSVImportDetails
+  getCSVImportDetails,
+  retrieveMTM
 } from './transactions'
 import * as api from '../../exports/api'
 import * as network from '../network'
@@ -73,6 +74,26 @@ const mockImportDetails = {
     }
   ]
 }
+
+const mockMTM = [
+  {
+    createdBy: 'amaas_system',
+    version: 1,
+    mtmStatus: 'Active',
+    updatedTime: '2017-10-25T10:21:59.663765',
+    clientId: 1,
+    assetId: 'FWDEURGBP20171106',
+    mtmValue: '-6004.8185524499',
+    updatedBy: 'amaas_system',
+    internalId: 5,
+    bookId: 'FWD_PNL',
+    message: '',
+    assetManagerId: 520,
+    createdTime: '2017-10-25T10:21:59.663765',
+    mtmTimestamp: '2017-10-25T18:21:30.448357+00:00',
+    businessDate: '2017-10-03'
+  }
+]
 
 describe('retrieve', () => {
   beforeAll(() => {
@@ -319,5 +340,68 @@ describe('getCSVImportDetails', () => {
       })
       done()
     })
+  })
+})
+
+describe('retriveMTM', () => {
+  beforeAll(() => {
+    network.retrieveData.mockImplementation(() => Promise.resolve(mockMTM))
+  })
+  test('with promise', () => {
+    let promise = retrieveMTM({})
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls retrieveData with correct params (no assetId)', done => {
+    retrieveMTM(
+      {
+        AMId: 88,
+        bookId: 'book-1',
+        date: '2017-01-01',
+        startDate: '2016-01-01'
+      },
+      (error, result) => {
+        expect(network.retrieveData).toHaveBeenCalledWith({
+          AMaaSClass: 'mtm',
+          AMId: 88,
+          query: {
+            bookId: 'book-1',
+            startBusinessDate: '2016-01-01',
+            endBusinessDate: '2017-01-01'
+          }
+        })
+        done()
+      }
+    )
+  })
+  it('calls retrieveData with correct params (assetId)', done => {
+    retrieveMTM(
+      {
+        AMId: 88,
+        bookId: 'book-1',
+        assetId: 'asset-1',
+        date: '2017-01-01'
+      },
+      (error, result) => {
+        expect(network.retrieveData).toHaveBeenCalledWith({
+          AMaaSClass: 'mtm',
+          AMId: 88,
+          query: {
+            bookId: 'book-1',
+            assetId: 'asset-1',
+            startBusinessDate: '2017-01-01',
+            endBusinessDate: '2017-01-01'
+          }
+        })
+        done()
+      }
+    )
+  })
+  it('throws if startDate is supplied without date', () => {
+    const willThrow = () => {
+      retrieveMTM({ AMId: 88, bookId: 'book-1', startDate: '2017-01-01' })
+    }
+    expect(willThrow).toThrowError(
+      new Error('If startDate is supplied, date must also be supplied')
+    )
   })
 })

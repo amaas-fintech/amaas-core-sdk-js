@@ -300,6 +300,7 @@ export function uploadCSV({ AMId, data, contentType }, callback) {
  * @memberof module:api.Transactions
  * @static
  * @param {object} params - Object of parameters
+ * @param {number} params.AMId - Asset Manager ID of job owner
  * @param {string} params.importId - Import ID of the upload job (returned by successful call to uploadCSV)
  * @param {function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import status
@@ -328,6 +329,7 @@ export function executeCSVJob({ AMId, importId }, callback) {
  * @memberof module:api.Transactions
  * @static
  * @param {object} params - Object of parameters
+ * @param {number} params.AMId - Asset Manager ID of job owner
  * @param {string} params.importId
  * @param {function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import details
@@ -339,6 +341,53 @@ export function getCSVImportDetails({ AMId, importId }, callback) {
     resourceId: importId
   }
   let promise = retrieveData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
+ * Get MTM for a particular Book
+ * @function retrieveMTM
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - Object of parameters
+ * @param {number} params.AMId - Asset Manager ID of MTM owner
+ * @param {string} params.bookId - Book for which to retrieve MTM data
+ * @param {string} [params.assetId] - Asset for which to retrieve MTM data. Omit to return MTM for all Assets in Book
+ * @param {string} params.date - Date for which to retrieve MTM data
+ * @param {string} [params.startDate] - Starting date to retrieve MTM (will return until params.date). Omit to return a single day
+ * @param {function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback supplied, returns Promise that resolves with MTM data
+ */
+export function retrieveMTM(
+  { AMId, bookId, assetId, date, startDate },
+  callback
+) {
+  if (startDate && !date) {
+    throw new Error('If startDate is supplied, date must also be supplied')
+  }
+  let query = {
+    bookId,
+    startBusinessDate: startDate || date,
+    endBusinessDate: date
+  }
+  if (assetId) query = { ...query, assetId }
+  const params = {
+    AMaaSClass: 'mtm',
+    AMId,
+    query
+  }
+  let promise = retrieveData(params).then(result => {
+    if (result) {
+      result = { ...result, mtmValue: new Decimal(result.mtmValue || 0) }
+    }
     if (typeof callback === 'function') {
       callback(null, result)
     }

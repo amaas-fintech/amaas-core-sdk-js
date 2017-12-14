@@ -667,6 +667,24 @@ declare module '@amaas/amaas-core-sdk-js' {
     }[]
   }
 
+  export interface IMTMResult {
+    createdBy: string
+    version: number
+    mtmStatus: string
+    updatedTime: string
+    clientId: number
+    assetId: string
+    mtmValue: any
+    updatedBy: string
+    internalId: number
+    bookId: string
+    message: string
+    assetManagerId: number
+    createdTime: string
+    mtmTimestamp: string
+    businessDate: string
+  }
+
   // API
   namespace api {
     namespace AssetManagers {
@@ -1273,6 +1291,22 @@ declare module '@amaas/amaas-core-sdk-js' {
         { AMId, importId }: { AMId: number; importId: string },
         callback?: Function
       ): Promise<IImportDetails> | void
+      function retrieveMTM(
+        {
+          AMId,
+          bookId,
+          assetId,
+          date,
+          startDate
+        }: {
+          AMId: number
+          bookId: string
+          assetId?: string
+          date: string
+          startDate?: string
+        },
+        callback?: Function
+      ): Promise<IMTMResult[]> | void
     }
     function config({
       stage,
