@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.2.20 - 2017-12-14
+### Added
+- Added API functions for CSV upload.
+
+## v2.1.9 - 2017-12-11
+### Changed
+- Amended type declaration for PNL APIs.
+
 ## v2.1.7 - 2017-12-08
 ### Changed
 - Changed PnL & quantity attributes in PnL classes to Decimal.
