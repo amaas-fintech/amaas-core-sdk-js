@@ -642,6 +642,31 @@ declare module '@amaas/amaas-core-sdk-js' {
     SessionToken: string
   }
 
+  export interface IUploadSummary {
+    summary: {
+      new: number
+      amend: number
+    }
+    errors: { row: number; error: IErrorWarning }[]
+    warnings: { row: number; warning: IErrorWarning }[]
+    importId?: string
+  }
+  export interface IErrorWarning {
+    message: string
+    details: any
+    type: string
+  }
+
+  export interface IImportDetails {
+    status: string
+    error?: IErrorWarning
+    details: {
+      row: number
+      transaction: ITransaction
+      error: IErrorWarning
+    }[]
+  }
+
   // API
   namespace api {
     namespace AssetManagers {
@@ -1232,6 +1257,22 @@ declare module '@amaas/amaas-core-sdk-js' {
         { AMId, resourceId }: { AMId: number; resourceId: string },
         callback?: Function
       ): Promise<transactions.Transaction> | void
+      function uploadCSV(
+        {
+          AMId,
+          data,
+          contentType
+        }: { AMId: number; data: string; contentType?: string },
+        callback?: Function
+      ): Promise<IUploadSummary> | void
+      function executeCSVJob(
+        { AMId, importId }: { AMId: number; importId: string },
+        callback?: Function
+      ): Promise<{ status: string }> | void
+      function getCSVImportDetails(
+        { AMId, importId }: { AMId: number; importId: string },
+        callback?: Function
+      ): Promise<IImportDetails> | void
     }
     function config({
       stage,

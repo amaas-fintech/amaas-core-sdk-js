@@ -154,6 +154,24 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
     case 'allocations':
       baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/allocations`
       break
+    case 'uploadTransactions':
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/imports`
+      break
+    case 'executeTransactionsUpload':
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/import`
+      break
+    case 'csvImportDetails':
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/imports`
+      break
     case 'monitorItems':
       baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/items`
       break
@@ -209,13 +227,22 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
       baseURL = `${getEndpoint({ stage, apiVersion })}/fundamental/holidays`
       break
     case 'positionpnl':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/position_pnls`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/position_pnls`
       break
     case 'transactionpnl':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/transaction_pnls`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/transaction_pnls`
       break
     case 'aggregatepnl':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/aggregate_pnls`
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/transaction/aggregate_pnls`
       break
     default:
       throw new Error(`Invalid class type: ${AMaaSClass}`)
@@ -233,45 +260,54 @@ export function setAuthorization(stage) {
   return 'Authorization'
 }
 
-export function makeRequest({ method, url, data, query, stage, credPath }) {
+export function makeRequest({
+  method,
+  url,
+  data,
+  query,
+  stage,
+  credPath,
+  contentType
+}) {
   return getToken(stage, credPath)
     .then(res => {
+      let requestToMake
       switch (method) {
         case 'GET':
-          return request
-            .get(url)
-            .set(setAuthorization(stage), res)
-            .query({ ...query, camelcase: true })
+          requestToMake = request.get(url).query({ ...query, camelcase: true })
+          break
         case 'SEARCH':
-          return request
-            .get(url)
-            .set(setAuthorization(stage), res)
-            .query({ ...data, camelcase: true })
+          requestToMake = request.get(url).query({ ...data, camelcase: true })
+          break
         case 'POST':
-          return request
+          requestToMake = request
             .post(url)
             .send(data)
-            .set(setAuthorization(stage), res)
             .query({ ...query, camelcase: true })
+          break
         case 'PUT':
-          return request
+          requestToMake = request
             .put(url)
             .send(data)
-            .set(setAuthorization(stage), res)
             .query({ ...query, camelcase: true })
+          break
         case 'PATCH':
-          return request
+          requestToMake = request
             .patch(url)
             .send(data)
-            .set(setAuthorization(stage), res)
             .query({ ...query, camelcase: true })
+          break
         case 'DELETE':
-          return request
+          requestToMake = request
             .delete(url)
-            .set(setAuthorization(stage), res)
             .query({ ...query, camelcase: true })
+          break
         default:
       }
+      if (contentType) {
+        requestToMake = requestToMake.type(contentType)
+      }
+      return requestToMake.set(setAuthorization(stage), res)
     })
     .catch(err => Promise.reject(err))
 }

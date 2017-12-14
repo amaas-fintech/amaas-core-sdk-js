@@ -1,18 +1,25 @@
-import { retrieveData, insertData, patchData, putData, searchData, deleteData } from '../network'
+import {
+  retrieveData,
+  insertData,
+  patchData,
+  putData,
+  searchData,
+  deleteData
+} from '../network'
 import { Transaction } from '../../transactions'
 
 /**
-* Retrieve a Transaction from the database
-* @function retrieve
-* @memberof module:api.Transactions
-* @static
-* @param {object} params - object of parameters:
-* @param {number} params.AMId - Asset Manager ID of the Transaction's owner
-* @param {string} [params.resourceId] - Transaction ID. Omit to return all Transactions for the supplied AMId
-* @param {string} [params.query] - Optional query to allow version to be specified (`query: { version: 3 }`)
-* @param {function} [callback] - Called with two arguments (error, result) on completion. `result` is an Array of Transactions or a single Transaction instance. Omit to return Promise
-* @returns {Promise|null} If no callback supplied, returns Promise that resolves with an Array of Transactions or a single Transaction instance
-*/
+ * Retrieve a Transaction from the database
+ * @function retrieve
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - object of parameters:
+ * @param {number} params.AMId - Asset Manager ID of the Transaction's owner
+ * @param {string} [params.resourceId] - Transaction ID. Omit to return all Transactions for the supplied AMId
+ * @param {string} [params.query] - Optional query to allow version to be specified (`query: { version: 3 }`)
+ * @param {function} [callback] - Called with two arguments (error, result) on completion. `result` is an Array of Transactions or a single Transaction instance. Omit to return Promise
+ * @returns {Promise|null} If no callback supplied, returns Promise that resolves with an Array of Transactions or a single Transaction instance
+ */
 export function retrieve({ AMId, resourceId, query }, callback) {
   const params = {
     AMaaSClass: 'transactions',
@@ -50,41 +57,41 @@ export function retrieve({ AMId, resourceId, query }, callback) {
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with the inserted Transaction instance
  */
 export function insert({ AMId, transaction }, callback) {
- let data
- if (transaction) {
-   data = JSON.parse(JSON.stringify(transaction))
- }
- const params = {
-   AMaaSClass: 'transactions',
-   AMId,
-   data
- }
- let promise = insertData(params).then(result => {
-   result = _parseTransaction(result)
-   if (typeof callback === 'function') {
-     callback(null, result)
-   }
-   return result
- })
- if (typeof callback !== 'function') {
-   // return promise if callback is not provided
-   return promise
- }
- promise.catch(error => callback(error))
+  let data
+  if (transaction) {
+    data = JSON.parse(JSON.stringify(transaction))
+  }
+  const params = {
+    AMaaSClass: 'transactions',
+    AMId,
+    data
+  }
+  let promise = insertData(params).then(result => {
+    result = _parseTransaction(result)
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    // return promise if callback is not provided
+    return promise
+  }
+  promise.catch(error => callback(error))
 }
 
- /**
-  * Amend a Transaction
-  * @function amend
-  * @memberof module:api.Transactions
-  * @static
-  * @param {object} params - object of parameters:
-  * @param {Transaction} params.transaction - The amended Transaction instance
-  * @param {number} params.AMId - Asset Manager ID of the Transaction's owner
-  * @param {string} params.resourceId - Transaction ID
-  * @param {function} [callback] - Called with two arguments (error, result) on completion. `result` is the amended Transaction instance. Omit to return Promise
-  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with the amended Transaction instance
-  */
+/**
+ * Amend a Transaction
+ * @function amend
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - object of parameters:
+ * @param {Transaction} params.transaction - The amended Transaction instance
+ * @param {number} params.AMId - Asset Manager ID of the Transaction's owner
+ * @param {string} params.resourceId - Transaction ID
+ * @param {function} [callback] - Called with two arguments (error, result) on completion. `result` is the amended Transaction instance. Omit to return Promise
+ * @returns {Promise|null} If no callback supplied, returns Promise that resolves with the amended Transaction instance
+ */
 export function amend({ transaction, AMId, resourceId }, callback) {
   let data
   if (transaction) {
@@ -209,7 +216,7 @@ export function search({ AMId, query }, callback) {
 export function fieldsSearch(query, callback) {
   if (!query.assetManagerIds) {
     throw new Error('You must specify at least one Asset Manager ID')
-  }    
+  }
   const params = {
     AMaaSClass: 'transactions',
     query
@@ -237,26 +244,112 @@ export function fieldsSearch(query, callback) {
  * @param {function} [callback] - Called with two arguments (error, result) on completion. `result` is the cancelled Transaction instance. Omit to return Promise
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with the cancelled Transaction instance. Note that this is the only time the API returns a Transaction instance where transactionStatus === 'Cancelled'
  */
- export function cancel({ AMId, resourceId }, callback) {
-   const params = {
-     AMaaSClass: 'transactions',
-     AMId,
-     resourceId
-   }
-   let promise = deleteData(params).then(result => {
-     result = _parseTransaction(result)
-     if (typeof callback === 'function') {
-       callback(null, result)
-     }
-     return result
-   })
-   if (typeof callback !== 'function') {
-     return promise
-   }
-   promise.catch(error => callback(error))
- }
+export function cancel({ AMId, resourceId }, callback) {
+  const params = {
+    AMaaSClass: 'transactions',
+    AMId,
+    resourceId
+  }
+  let promise = deleteData(params).then(result => {
+    result = _parseTransaction(result)
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
+ * Upload csv data
+ * @function uploadCSV
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - Object of parameters
+ * @param {number} params.AMId - Asset Manager ID of the data to upload
+ * @param {string} params.data - CSV data
+ * @param {string} [params.contentType] - Request content-type
+ * @param {function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback supplied, returns Promise that resolves with the upload summary. Otherwise calls callback (err, result)
+ */
+export function uploadCSV({ AMId, data, contentType }, callback) {
+  const params = {
+    AMaaSClass: 'uploadTransactions',
+    AMId,
+    data,
+    contentType: contentType || 'text/csv'
+  }
+  let promise = insertData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
+ * Execute import job for CSV upload
+ * @function executeCSVJob
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - Object of parameters
+ * @param {string} params.importId - Import ID of the upload job (returned by successful call to uploadCSV)
+ * @param {function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import status
+ */
+export function executeCSVJob({ AMId, importId }, callback) {
+  const params = {
+    AMaaSClass: 'executeTransactionsUpload',
+    AMId,
+    resourceId: `${importId}/execute`
+  }
+  let promise = insertData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
+ * Get import job details
+ * @function getCSVImportDetails
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - Object of parameters
+ * @param {string} params.importId
+ * @param {function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import details
+ */
+export function getCSVImportDetails({ AMId, importId }, callback) {
+  const params = {
+    AMaaSClass: 'csvImportDetails',
+    AMId,
+    resourceId: importId
+  }
+  let promise = retrieveData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
 
 function _parseTransaction(t) {
   return new Transaction(t)
 }
-
