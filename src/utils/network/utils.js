@@ -158,19 +158,19 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
       baseURL = `${getEndpoint({
         stage,
         apiVersion
-      })}/transaction/import/upload`
+      })}/transaction/imports`
       break
     case 'executeTransactionsUpload':
       baseURL = `${getEndpoint({
         stage,
         apiVersion
-      })}/transaction/import/execute`
+      })}/transaction/import`
       break
     case 'csvImportDetails':
       baseURL = `${getEndpoint({
         stage,
         apiVersion
-      })}/transaction/import/details`
+      })}/transaction/imports`
       break
     case 'monitorItems':
       baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/items`

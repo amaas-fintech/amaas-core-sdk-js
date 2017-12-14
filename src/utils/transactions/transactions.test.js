@@ -289,10 +289,11 @@ describe('executeCSVJob', () => {
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls insertData with correct params', done => {
-    executeCSVJob({ importId: 'testId' }, (error, result) => {
+    executeCSVJob({ AMId: 88, importId: 'testId' }, (error, result) => {
       expect(network.insertData).toHaveBeenCalledWith({
         AMaaSClass: 'executeTransactionsUpload',
-        AMId: 'testId'
+        AMId: 88,
+        resourceId: 'testId/execute'
       })
       done()
     })
@@ -310,10 +311,11 @@ describe('getCSVImportDetails', () => {
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls retrieveData with correct params', done => {
-    getCSVImportDetails({ importId: 'testId' }, (error, result) => {
+    getCSVImportDetails({ AMId: 88, importId: 'testId' }, (error, result) => {
       expect(network.retrieveData).toHaveBeenCalledWith({
         AMaaSClass: 'csvImportDetails',
-        AMId: 'testId'
+        AMId: 88,
+        resourceId: 'testId'
       })
       done()
     })

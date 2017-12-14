@@ -304,10 +304,11 @@ export function uploadCSV({ AMId, data, contentType }, callback) {
  * @param {function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import status
  */
-export function executeCSVJob({ importId }, callback) {
+export function executeCSVJob({ AMId, importId }, callback) {
   const params = {
     AMaaSClass: 'executeTransactionsUpload',
-    AMId: importId
+    AMId,
+    resourceId: `${importId}/execute`
   }
   let promise = insertData(params).then(result => {
     if (typeof callback === 'function') {
@@ -331,10 +332,11 @@ export function executeCSVJob({ importId }, callback) {
  * @param {function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import details
  */
-export function getCSVImportDetails({ importId }, callback) {
+export function getCSVImportDetails({ AMId, importId }, callback) {
   const params = {
     AMaaSClass: 'csvImportDetails',
-    AMId: importId
+    AMId,
+    resourceId: importId
   }
   let promise = retrieveData(params).then(result => {
     if (typeof callback === 'function') {

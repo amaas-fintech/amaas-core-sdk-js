@@ -1266,11 +1266,11 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<IUploadSummary> | void
       function executeCSVJob(
-        { importId }: { importId: string },
+        { AMId, importId }: { AMId: number; importId: string },
         callback?: Function
       ): Promise<{ status: string }> | void
       function getCSVImportDetails(
-        { importId }: { importId: string },
+        { AMId, importId }: { AMId: number; importId: string },
         callback?: Function
       ): Promise<IImportDetails> | void
     }
