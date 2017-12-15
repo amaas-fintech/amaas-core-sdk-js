@@ -367,22 +367,23 @@ export function getCSVImportDetails({ AMId, importId }, callback) {
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with MTM data
  */
 export function retrieveMTM(
-  { AMId, bookId, assetId, date, startDate },
+  { AMId, bookIds, assetIds, date, startDate, query },
   callback
 ) {
   if (startDate && !date) {
     throw new Error('If startDate is supplied, date must also be supplied')
   }
-  let query = {
-    bookId,
+  let resolvedQuery = {
+    bookIds,
     startBusinessDate: startDate || date,
-    endBusinessDate: date
+    endBusinessDate: date,
+    ...query
   }
-  if (assetId) query = { ...query, assetId }
+  if (assetId) resolvedQuery = { ...resolvedQuery, assetIds }
   const params = {
     AMaaSClass: 'mtm',
     AMId,
-    query
+    query: resolvedQuery
   }
   let promise = retrieveData(params).then(result => {
     if (result) {

@@ -1297,13 +1297,15 @@ declare module '@amaas/amaas-core-sdk-js' {
           bookIds,
           assetIds,
           date,
-          startDate
+          startDate,
+          query
         }: {
           AMId: number
           bookIds: string | string[]
           assetIds?: string | string[]
           date: string
           startDate?: string
+          query?: any
         },
         callback?: Function
       ): Promise<IMTMResult[]> | void
