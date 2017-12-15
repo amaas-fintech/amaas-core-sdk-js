@@ -1300,8 +1300,8 @@ declare module '@amaas/amaas-core-sdk-js' {
           startDate
         }: {
           AMId: number
-          bookIds: string
-          assetIds?: string
+          bookIds: string | string[]
+          assetIds?: string | string[]
           date: string
           startDate?: string
         },
