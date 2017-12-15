@@ -1294,13 +1294,13 @@ declare module '@amaas/amaas-core-sdk-js' {
       function retrieveMTM(
         {
           AMId,
-          bookId,
+          bookIds,
           assetIds,
           date,
           startDate
         }: {
           AMId: number
-          bookId: string
+          bookIds: string
           assetIds?: string
           date: string
           startDate?: string
