@@ -369,6 +369,7 @@ describe('retriveMTM', () => {
             endBusinessDate: '2017-01-01'
           }
         })
+        expect(error).toBeNull()
         done()
       }
     )
@@ -392,6 +393,7 @@ describe('retriveMTM', () => {
             endBusinessDate: '2017-01-01'
           }
         })
+        expect(error).toBeNull()
         done()
       }
     )
