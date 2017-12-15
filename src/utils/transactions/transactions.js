@@ -379,7 +379,7 @@ export function retrieveMTM(
     endBusinessDate: date,
     ...query
   }
-  if (assetId) resolvedQuery = { ...resolvedQuery, assetIds }
+  if (assetIds) resolvedQuery = { ...resolvedQuery, assetIds }
   const params = {
     AMaaSClass: 'mtm',
     AMId,

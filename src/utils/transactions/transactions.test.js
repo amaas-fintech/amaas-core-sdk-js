@@ -355,7 +355,7 @@ describe('retriveMTM', () => {
     retrieveMTM(
       {
         AMId: 88,
-        bookId: 'book-1',
+        bookIds: 'book-1',
         date: '2017-01-01',
         startDate: '2016-01-01'
       },
@@ -364,7 +364,7 @@ describe('retriveMTM', () => {
           AMaaSClass: 'mtm',
           AMId: 88,
           query: {
-            bookId: 'book-1',
+            bookIds: 'book-1',
             startBusinessDate: '2016-01-01',
             endBusinessDate: '2017-01-01'
           }
@@ -377,8 +377,8 @@ describe('retriveMTM', () => {
     retrieveMTM(
       {
         AMId: 88,
-        bookId: 'book-1',
-        assetId: 'asset-1',
+        bookIds: 'book-1',
+        assetIds: 'asset-1',
         date: '2017-01-01'
       },
       (error, result) => {
@@ -386,8 +386,8 @@ describe('retriveMTM', () => {
           AMaaSClass: 'mtm',
           AMId: 88,
           query: {
-            bookId: 'book-1',
-            assetId: 'asset-1',
+            bookIds: 'book-1',
+            assetIds: 'asset-1',
             startBusinessDate: '2017-01-01',
             endBusinessDate: '2017-01-01'
           }
@@ -398,7 +398,7 @@ describe('retriveMTM', () => {
   })
   it('throws if startDate is supplied without date', () => {
     const willThrow = () => {
-      retrieveMTM({ AMId: 88, bookId: 'book-1', startDate: '2017-01-01' })
+      retrieveMTM({ AMId: 88, bookIds: 'book-1', startDate: '2017-01-01' })
     }
     expect(willThrow).toThrowError(
       new Error('If startDate is supplied, date must also be supplied')
