@@ -389,7 +389,11 @@ export function retrieveMTM(
   }
   let promise = retrieveData(params).then(result => {
     if (result) {
-      result = { ...result, mtmValue: new Decimal(result.mtmValue || 0) }
+      if (Array.isArray(result)) {
+        result.map(res => ({ ...res, mtmValue: res.mtmValue }))
+      } else {
+        result = { ...result, mtmValue: res.mtmValue }
+      }
     }
     if (typeof callback === 'function') {
       callback(null, result)
