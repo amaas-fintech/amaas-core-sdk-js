@@ -484,6 +484,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     message: string
     period: any
     pnlStatus: string
+    currency: string
     pnlTimestamp: string
     quantity: any
     realisedPnl: any
@@ -2243,6 +2244,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       businessDate: string
       clientId: string
       fxPnl: any
+      currency: string
       message: string
       period: any
       pnlStatus: string
