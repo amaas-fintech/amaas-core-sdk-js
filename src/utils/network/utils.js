@@ -244,6 +244,30 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
         apiVersion
       })}/transaction/aggregate_pnls`
       break
+    case 'eod':
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/marketdata/eod-prices`
+        break
+    case 'curve':
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/marketdata/curves`
+      break
+    case 'fxRate':
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/marketdata/fx-rates`
+      break
+    case 'forwardRate':
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion,
+      })}/marketdata/forward-rates/${resourceId}`
+      break
     default:
       throw new Error(`Invalid class type: ${AMaaSClass}`)
   }

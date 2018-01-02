@@ -1,4 +1,5 @@
 declare module '@amaas/amaas-core-sdk-js' {
+
   // Interfaces
   // AssetManagers
   export interface IAssetManager {
@@ -1459,8 +1460,10 @@ declare module '@amaas/amaas-core-sdk-js' {
       function retrieve(
         { 
           AMId,
+          resourceId
         }: {
           AMId: number
+          resourceId? string
         },
         callback?: Function
       ): Promise<ICurve> | void
