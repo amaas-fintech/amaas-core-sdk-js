@@ -667,6 +667,58 @@ declare module '@amaas/amaas-core-sdk-js' {
     }[]
   }
 
+  export interface IEOD {
+    assetManagerId: string
+    assetId: string
+    businessDate: string
+    price: string
+    active: number
+    internalId: string
+    createdId: string
+    updatedTime: string
+    clientId: string
+    createdBy: string
+    updatedBy: string
+  }
+
+  export interface ICurve {
+    assetManagerId: string  
+    assetId: string
+    curveType: string
+    fixingType: string
+    businessDate: string
+    curveTimestamp: string
+    curveRates: {}
+    additional: {}
+    active: number
+    internalId: string
+    createdTime: string
+    updatedTime: string
+    clientId: string
+    createdBy: string
+    updatedBy: string
+  }
+
+  export interface IFXRate {
+    assetManagerId: string
+    assetId: string
+    rateType: string
+    businessDate: string
+    rateTimeStamp; string
+    rate: string
+    active; number
+    internalId: string
+    createdTime: string
+    updatedTime: string
+    clientId: string
+    createdBy: string
+    updatedBy: string
+  }
+
+  export interface IForwardRate {
+    any
+  }
+
   // API
   namespace api {
     namespace AssetManagers {
@@ -1386,6 +1438,63 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<IAggregatePNL> | void
+    }
+    namespace EOD {
+      function retrieve(
+        {
+          AMId,
+          query
+        }: {
+          AMId: number
+          query: {
+            businessDateStart: string
+            businessDateEnd: string
+            assetIds: string
+          }
+        },
+        callback?: Function
+      ): Promise<IEOD> | void
+    }
+    namespace Curve {
+      function retrieve(
+        { 
+          AMId,
+        }: {
+          AMId: number
+        },
+        callback?: Function
+      ): Promise<ICurve> | void
+    }
+    namespace FXRate {
+      function retrieve(
+        {
+          AMId,
+          query
+        }: {
+          AMId: number
+          query: {
+            businessDateStart: string
+            businessDateEnd: string
+            assetIds: string
+          }
+        }
+      ) : Promise<IFXRate> | void
+    }
+    namespace ForwardRate {
+      function retrieve(
+        {
+          AMId,
+          query
+        }: {
+          AMId: number
+          query: {
+            businessDateStart: string
+            businessDateEnd: string
+            tenor: string
+          }
+        },
+        callback?: Function
+      ): Promise<IForwardRate> | void
     }
   }
 
