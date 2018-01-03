@@ -19,6 +19,10 @@ import * as csv from '../csv_upload/csvUpload.js'
 import * as PositionPNL from '../utils/positionpnl/positionpnl'
 import * as TransactionPNL from '../utils/transactionpnl/transactionpnl'
 import * as AggregatePNL from '../utils/aggregatepnl/aggregatepnl'
+import * as Curve from '../utils/curve/curve'
+import * as ForwardRate from '../utils/forwardrate/forwardrate'
+import * as FXRate from '../utils/fxrate/fxrate'
+import * as EOD from '../utils/eod/eod'
 
 import { configureStage, configureAuth } from '../utils/network'
 
@@ -38,7 +42,11 @@ export {
   config,
   PositionPNL,
   TransactionPNL,
-  AggregatePNL
+  AggregatePNL,
+  Curve,
+  ForwardRate,
+  FXRate,
+  EOD
 }
 
 function config(config) {
