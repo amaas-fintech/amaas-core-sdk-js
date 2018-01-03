@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.3.0
+### Added
+- Added Transaction MTM features.
+
 ## v2.2.1 - 2017-12-15
 ### Changed
 - Fixed wrong path for endpoint.

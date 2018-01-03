@@ -172,6 +172,9 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
         apiVersion
       })}/transaction/imports`
       break
+    case 'mtm':
+      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/mtm`
+      break
     case 'monitorItems':
       baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/items`
       break

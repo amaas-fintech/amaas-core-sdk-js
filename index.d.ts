@@ -484,6 +484,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     message: string
     period: any
     pnlStatus: string
+    currency: string
     pnlTimestamp: string
     quantity: any
     realisedPnl: any
@@ -665,6 +666,24 @@ declare module '@amaas/amaas-core-sdk-js' {
       transaction: ITransaction
       error: IErrorWarning
     }[]
+  }
+
+  export interface IMTMResult {
+    createdBy: string
+    version: number
+    mtmStatus: string
+    updatedTime: string
+    clientId: number
+    assetId: string
+    mtmValue: any
+    updatedBy: string
+    internalId: number
+    bookId: string
+    message: string
+    assetManagerId: number
+    createdTime: string
+    mtmTimestamp: string
+    businessDate: string
   }
 
   // API
@@ -1273,6 +1292,24 @@ declare module '@amaas/amaas-core-sdk-js' {
         { AMId, importId }: { AMId: number; importId: string },
         callback?: Function
       ): Promise<IImportDetails> | void
+      function retrieveMTM(
+        {
+          AMId,
+          bookIds,
+          assetIds,
+          date,
+          startDate,
+          query
+        }: {
+          AMId: number
+          bookIds: string | string[]
+          assetIds?: string | string[]
+          date: string
+          startDate?: string
+          query?: any
+        },
+        callback?: Function
+      ): Promise<IMTMResult[]> | void
     }
     function config({
       stage,
@@ -2207,6 +2244,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       businessDate: string
       clientId: string
       fxPnl: any
+      currency: string
       message: string
       period: any
       pnlStatus: string
