@@ -1,7 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## v2.2.20 - 2017-12-14
+## v2.3.0
+### Added
+- Added Transaction MTM features.
+
+## v2.2.1 - 2017-12-14
+### Changed
+- Patch fix.
+
+## v2.2.0 - 2017-12-14
 ### Added
 - Added API functions for CSV upload.
 
