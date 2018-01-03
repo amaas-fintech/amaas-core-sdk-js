@@ -9,7 +9,7 @@ import { retrieveData } from '../network'
  * @param {Function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns a Promise
  */
-export function retrieve({ AMId, resourceId }, callback) {
+export function retrieve({ AMId, businessDate, assetIds }, callback) {
   const params = {
     AMaaSClass: 'curve',
     AMId,
