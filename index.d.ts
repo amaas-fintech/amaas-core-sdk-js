@@ -716,7 +716,7 @@ declare module '@amaas/amaas-core-sdk-js' {
   }
 
   export interface IForwardRate {
-    any
+    [date: string]: string
   }
 
   // API
