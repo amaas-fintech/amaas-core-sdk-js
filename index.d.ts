@@ -1,5 +1,4 @@
 declare module '@amaas/amaas-core-sdk-js' {
-
   // Interfaces
   // AssetManagers
   export interface IAssetManager {
