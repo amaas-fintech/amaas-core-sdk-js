@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Added Transaction MTM features.
 
-## v2.2.1 - 2017-12-14
+## v2.2.1 - 2017-12-15
 ### Changed
-- Patch fix.
+- Fixed wrong path for endpoint.
 
 ## v2.2.0 - 2017-12-14
 ### Added

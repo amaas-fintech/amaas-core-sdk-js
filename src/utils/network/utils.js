@@ -164,7 +164,7 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
       baseURL = `${getEndpoint({
         stage,
         apiVersion
-      })}/transaction/import`
+      })}/transaction/imports`
       break
     case 'csvImportDetails':
       baseURL = `${getEndpoint({
