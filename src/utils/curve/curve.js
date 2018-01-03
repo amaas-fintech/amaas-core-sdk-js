@@ -13,8 +13,7 @@ export function retrieve({ AMId, businessDate, assetIds }, callback) {
   const params = {
     AMaaSClass: 'curve',
     AMId,
-    businessDate,
-    assetIds
+    resourceId: `${businessDate}/${assetIds}`
   }
   let promise = retrieveData(params).then(result => {
     if (typeof callback === 'function') {
