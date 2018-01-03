@@ -266,7 +266,7 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
       baseURL = `${getEndpoint({
         stage,
         apiVersion,
-      })}/marketdata/forward-rates/${resourceId}`
+      })}/marketdata/forward-rates`
       break
     default:
       throw new Error(`Invalid class type: ${AMaaSClass}`)

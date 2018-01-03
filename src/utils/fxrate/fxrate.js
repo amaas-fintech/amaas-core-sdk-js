@@ -16,7 +16,7 @@ import { retrieveData } from '../network'
  */
 export function retrieve({ AMId, query }, callback) {
   const params = {
-    AMaaSClass: 'fxrate',
+    AMaaSClass: 'fxRate',
     AMId,
     query
   }

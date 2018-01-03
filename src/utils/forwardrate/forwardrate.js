@@ -19,6 +19,7 @@ export function retrieve({ AMId, query }, callback) {
   const params = {
     AMaaSClass: 'forwardrate',
     AMId,
+    assetIds,
     query
   }
   let promise = retrieveData(params).then(result => {

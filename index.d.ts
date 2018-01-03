@@ -689,8 +689,8 @@ declare module '@amaas/amaas-core-sdk-js' {
     fixingType: string
     businessDate: string
     curveTimestamp: string
-    curveRates: {}
-    additional: {}
+    curveRates: any
+    additional: any
     active: number
     internalId: string
     createdTime: string
@@ -705,9 +705,9 @@ declare module '@amaas/amaas-core-sdk-js' {
     assetId: string
     rateType: string
     businessDate: string
-    rateTimeStamp; string
+    rateTimeStamp: string
     rate: string
-    active; number
+    active: number
     internalId: string
     createdTime: string
     updatedTime: string
@@ -1454,19 +1454,21 @@ declare module '@amaas/amaas-core-sdk-js' {
           }
         },
         callback?: Function
-      ): Promise<IEOD> | void
+      ): Promise<IEOD[]> | void
     }
     namespace Curve {
       function retrieve(
         { 
           AMId,
-          resourceId
+          businessDate,
+          assetIds
         }: {
-          AMId: number
-          resourceId? string
+          AMId: number,
+          businessDate: string,
+          assetIds: string
         },
         callback?: Function
-      ): Promise<ICurve> | void
+      ): Promise<ICurve[]> | void
     }
     namespace FXRate {
       function retrieve(
@@ -1481,15 +1483,17 @@ declare module '@amaas/amaas-core-sdk-js' {
             assetIds: string
           }
         }
-      ) : Promise<IFXRate> | void
+      ) : Promise<IFXRate[]> | void
     }
     namespace ForwardRate {
       function retrieve(
         {
           AMId,
+          assetIds,
           query
         }: {
           AMId: number
+          assetIds: string
           query: {
             businessDateStart: string
             businessDateEnd: string
@@ -1497,7 +1501,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           }
         },
         callback?: Function
-      ): Promise<IForwardRate> | void
+      ): Promise<IForwardRate[]> | void
     }
   }
 
