@@ -6,6 +6,7 @@ import { retrieveData } from '../network'
  * @static
  * @param {object} params - object of parameters:
  * @param {number} params.AMId - Asset Manager ID
+ * @param {number} params.assetIds - Asset Id
  * @param {object} params.query - Object of query params:<br/>
  * Available keys are:
  * <li>`string` businessDateStart</li>
@@ -15,7 +16,7 @@ import { retrieveData } from '../network'
  * @returns {Promise|null} If no callback supplied, returns a Promise
  */
 
-export function retrieve({ AMId, query }, callback) {
+export function retrieve({ AMId, assetIds, query }, callback) {
   const params = {
     AMaaSClass: 'forwardrate',
     AMId,
