@@ -13,7 +13,8 @@ import {
   cancel,
   uploadCSV,
   executeCSVJob,
-  getCSVImportDetails
+  getCSVImportDetails,
+  retrieveMTM
 } from './transactions'
 
 export {
@@ -26,5 +27,6 @@ export {
   cancel,
   uploadCSV,
   executeCSVJob,
-  getCSVImportDetails
+  getCSVImportDetails,
+  retrieveMTM
 }

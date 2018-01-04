@@ -41,6 +41,7 @@ class PositionPNL extends AMaaSModel {
     clientId,
     fxPnl,
     message,
+    currency,
     period,
     pnlStatus,
     pnlTimestamp,
@@ -126,6 +127,7 @@ class PositionPNL extends AMaaSModel {
     this.realisedPnl = realisedPnl
     this.totalPnl = totalPnl
     this.unrealisedPnl = unrealisedPnl
+    this.currency = currency
   }
 }
 
