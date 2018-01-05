@@ -326,6 +326,33 @@ export function executeCSVJob({ AMId, importId }, callback) {
 }
 
 /**
+ * List all import jobs for an AMId
+ * @function listImportJobs
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - Object of parameters
+ * @param {number} params.AMId - Asset Manager ID to retrieve jobs for
+ * @param {function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import list
+ */
+export function listImportJobs({ AMId }, callback) {
+  const params = {
+    AMaaSClass: 'csvImportDetails',
+    AMId
+  }
+  let promise = retrieveData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
  * Get import job details
  * @function getCSVImportDetails
  * @memberof module:api.Transactions

@@ -643,29 +643,56 @@ declare module '@amaas/amaas-core-sdk-js' {
     SessionToken: string
   }
 
-  export interface IUploadSummary {
-    summary: {
-      new: number
-      amend: number
-    }
-    errors: { row: number; error: IErrorWarning }[]
-    warnings: { row: number; warning: IErrorWarning }[]
-    importId?: string
+  export interface IUploadResult {
+    status: string
+    error: IErrorWarning
+    owner: number
+    import_id: string
   }
+
+  export interface IImportSummary {
+    total: number
+    new?: number
+    amended?: number
+    errors?: number
+    imported?: number
+  }
+
   export interface IErrorWarning {
     message: string
     details: any
     type: string
   }
 
+  export interface IImportList {
+    items: {
+      import_id: string
+      status: string
+      error: IErrorWarning
+      owner: number
+      summary: IImportSummary
+    }[]
+    more: string
+  }
+
   export interface IImportDetails {
     status: string
     error?: IErrorWarning
+    owner: number
+    summary: IImportSummary
     details: {
       row: number
-      transaction: ITransaction
-      error: IErrorWarning
+      status: string
+      transactionId?: string
+      error?: IErrorWarning
     }[]
+  }
+
+  export interface IExecuteResult {
+    status: string
+    error?: IErrorWarning
+    owner: number
+    summary: IImportSummary
   }
 
   export interface IMTMResult {
@@ -1283,11 +1310,15 @@ declare module '@amaas/amaas-core-sdk-js' {
           contentType
         }: { AMId: number; data: string; contentType?: string },
         callback?: Function
-      ): Promise<IUploadSummary> | void
+      ): Promise<IUploadResult> | void
       function executeCSVJob(
         { AMId, importId }: { AMId: number; importId: string },
         callback?: Function
-      ): Promise<{ status: string }> | void
+      ): Promise<IExecuteResult> | void
+      function listImportJobs(
+        { AMId: number },
+        callback?: Function
+      ): Promise<IImportList> | void
       function getCSVImportDetails(
         { AMId, importId }: { AMId: number; importId: string },
         callback?: Function

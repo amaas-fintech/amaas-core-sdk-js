@@ -8,6 +8,7 @@ import {
   cancel,
   uploadCSV,
   executeCSVJob,
+  listImportJobs,
   getCSVImportDetails,
   retrieveMTM
 } from './transactions'
@@ -53,6 +54,24 @@ const mockUploadResult = {
     warnings: [],
     importId: 'mockImportId'
   }
+}
+
+const mockImportList = {
+  items: [
+    {
+      import_id: 'import-1',
+      status: 'error',
+      error: {
+        message: 'error-1',
+        details: {},
+        type: 'error'
+      },
+      owner: 88,
+      summary: {
+        total: 10
+      }
+    }
+  ]
 }
 
 const mockImportDetails = {
@@ -315,6 +334,28 @@ describe('executeCSVJob', () => {
         AMaaSClass: 'executeTransactionsUpload',
         AMId: 88,
         resourceId: 'testId/execute'
+      })
+      done()
+    })
+  })
+})
+
+describe('listImportJobs', () => {
+  beforeAll(() => {
+    network.retrieveData.mockImplementation(() =>
+      Promise.resolve(mockImportList)
+    )
+  })
+  test('with promise', () => {
+    let promise = listImportJobs({})
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls retrieveData with correct params', done => {
+    listImportJobs({ AMId: 88 }, (error, result) => {
+      expect(error).toBeNull()
+      expect(network.retrieveData).toHaveBeenCalledWith({
+        AMaaSClass: 'csvImportDetails',
+        AMId: 88
       })
       done()
     })
