@@ -665,14 +665,16 @@ declare module '@amaas/amaas-core-sdk-js' {
   }
 
   export interface IImportList {
-    items: {
-      importId: string
-      status: string
-      error: IErrorWarning
-      owner: number
-      summary: IImportSummary
-    }[]
+    items: IImportRecord[]
     more?: string
+  }
+
+  export interface IImportRecord {
+    importId: string
+    status: string
+    error?: IErrorWarning
+    owner: number
+    summary: IImportSummary
   }
 
   export interface IImportDetails {
