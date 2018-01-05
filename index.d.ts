@@ -672,7 +672,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       owner: number
       summary: IImportSummary
     }[]
-    more: string
+    more?: string
   }
 
   export interface IImportDetails {
