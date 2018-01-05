@@ -28,6 +28,7 @@ export {
   cancel,
   uploadCSV,
   executeCSVJob,
+  listImportJobs,
   getCSVImportDetails,
   retrieveMTM
 }
