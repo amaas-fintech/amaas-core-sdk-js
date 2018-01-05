@@ -647,7 +647,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     status: string
     error?: IErrorWarning
     owner: number
-    import_id: string
+    importId: string
   }
 
   export interface IImportSummary {
@@ -666,7 +666,7 @@ declare module '@amaas/amaas-core-sdk-js' {
 
   export interface IImportList {
     items: {
-      import_id: string
+      importId: string
       status: string
       error: IErrorWarning
       owner: number
