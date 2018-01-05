@@ -645,7 +645,7 @@ declare module '@amaas/amaas-core-sdk-js' {
 
   export interface IUploadResult {
     status: string
-    error: IErrorWarning
+    error?: IErrorWarning
     owner: number
     import_id: string
   }
