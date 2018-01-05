@@ -1,8 +1,7 @@
 {
   "name": "@amaas/amaas-core-sdk-js",
-  "version": "2.3.0",
-  "description":
-    "Asset Management as a Service (AMaaS) Software Development Kit (SDK) for JavaScript",
+  "version": "2.4.0-rc-1",
+  "description": "Asset Management as a Service (AMaaS) Software Development Kit (SDK) for JavaScript",
   "main": "dist/index",
   "scripts": {
     "test": "jest --runInBand",
@@ -10,13 +9,15 @@
     "test:watch": "jest --verbose --watch",
     "build": "babel src --out-dir dist --ignore '**.test.js'",
     "prepare": "npm run build",
-    "docs":
-      "jsdoc2md --template ./docs/template.hbs --files './src/**/*.js' > ./docs/index.md",
+    "docs": "jsdoc2md --template ./docs/template.hbs --files './src/**/*.js' > ./docs/index.md",
     "esdoc": "esdoc"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.js",
-    "testPathIgnorePatterns": ["<rootDir>/node_modules/", "<rootDir>/dist/"],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/"
+    ],
     "testEnvironment": "node"
   },
   "repository": {
@@ -32,23 +33,26 @@
   "engines": {
     "node": ">= 4.0.0"
   },
-  "files": ["dist", "index.d.ts"],
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
   "devDependencies": {
-    "babel-cli": "^6.22.2",
+    "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "esdoc": "^0.5.2",
     "jest": "19.0.2",
-    "jsdoc-to-markdown": "^3.0.0",
-    "nock": "^9.0.2"
+    "jsdoc-to-markdown": "^3.0.3",
+    "nock": "^9.1.5"
   },
   "dependencies": {
-    "amazon-cognito-identity-js": "^1.19.0",
-    "decimal.js": "^7.1.1",
+    "amazon-cognito-identity-js": "^1.29.0",
+    "decimal.js": "^7.5.1",
     "dotenv": "^4.0.0",
     "expand-tilde": "^2.0.2",
     "lodash": "^4.17.4",
-    "superagent": "^3.5.0",
+    "superagent": "^3.8.2",
     "uuid": "^3.0.1"
   },
   "types": "index.d.ts"
