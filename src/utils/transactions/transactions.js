@@ -339,7 +339,8 @@ export function executeCSVJob({ AMId, importId }, callback) {
 export function listImportJobs({ AMId, more }, callback) {
   const params = {
     AMaaSClass: 'csvImportDetails',
-    AMId
+    AMId,
+    query: { more }
   }
   let promise = retrieveData(params).then(result => {
     if (typeof callback === 'function') {

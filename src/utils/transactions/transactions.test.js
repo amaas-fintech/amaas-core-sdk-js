@@ -351,11 +351,12 @@ describe('listImportJobs', () => {
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls retrieveData with correct params', done => {
-    listImportJobs({ AMId: 88 }, (error, result) => {
+    listImportJobs({ AMId: 88, more: 'more' }, (error, result) => {
       expect(error).toBeNull()
       expect(network.retrieveData).toHaveBeenCalledWith({
         AMaaSClass: 'csvImportDetails',
-        AMId: 88
+        AMId: 88,
+        query: { more: 'more' }
       })
       done()
     })
