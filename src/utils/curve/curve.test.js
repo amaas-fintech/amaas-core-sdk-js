@@ -14,11 +14,11 @@ describe('retrieve', () => {
     )
   })
   test('with promise', () => {
-    let promise = api.eod.retrieve({ AMId: 88 })
+    let promise = api.Curve.retrieve({ AMId: 88 })
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls retrieveData with correct params', done => {
-    api.eod.retrieve(
+    api.Curve.retrieve(
       { 
         AMId: 88,
         assetIds: 'EURUSD',

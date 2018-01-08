@@ -14,11 +14,11 @@ describe('retrieve', () => {
     )
   })
   test('with promise', () => {
-    let promise = api.eod.retrieve({ AMId: 88 })
+    let promise = api.ForwardRate.retrieve({ AMId: 88 })
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls retrieveData with correct params', done => {
-    api.eod.retrieve(
+    api.ForwardRate.retrieve(
       { AMId: 88, assetIds: '358.HK', query: {
         businessDateStart: '2017-11-27',
         businessDateEnd: '2017-12-31',
