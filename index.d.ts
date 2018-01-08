@@ -1318,7 +1318,7 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<IExecuteResult> | void
       function listImportJobs(
-        { AMId }: { AMId: number },
+        { AMId, more }: { AMId: number, more?: string },
         callback?: Function
       ): Promise<IImportList> | void
       function getCSVImportDetails(

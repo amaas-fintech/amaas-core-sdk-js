@@ -332,10 +332,11 @@ export function executeCSVJob({ AMId, importId }, callback) {
  * @static
  * @param {object} params - Object of parameters
  * @param {number} params.AMId - Asset Manager ID to retrieve jobs for
+ * @param {string} [params.more] - Optional argument for pagination
  * @param {function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with import list
  */
-export function listImportJobs({ AMId }, callback) {
+export function listImportJobs({ AMId, more }, callback) {
   const params = {
     AMaaSClass: 'csvImportDetails',
     AMId
