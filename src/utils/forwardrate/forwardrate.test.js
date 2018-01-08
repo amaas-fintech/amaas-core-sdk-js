@@ -38,17 +38,17 @@ describe('retrieve', () => {
       },
       (error, result) => {
         expect(network.retrieveData).toHaveBeenCalledWith({
-          AMaaSClass: 'forwardrate',
           AMId: 88,
+          AMaaSClass: "forwardrate",
           query: {
-            businessDateStart: '2017-11-27',
-            businessDateEnd: '2017-12-31',
-            tenor: 'ON'
+            businessDateEnd: "2017-12-31",
+            businessDateStart: "2017-11-27",
+            tenor: "ON"
           },
-          resourceId: { assetIds: '358.HK' }
+          resourceId: "358.HK"
         })
+        done()
       }
     )
-    done()
   })
 })

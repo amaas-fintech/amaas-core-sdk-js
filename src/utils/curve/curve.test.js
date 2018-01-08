@@ -14,25 +14,28 @@ describe('retrieve', () => {
     )
   })
   test('with promise', () => {
-    let promise = api.Curve.retrieve({ AMId: 88 })
+    let promise = api.Curve.retrieve({ 
+      AMId: 88,
+      assetIds: '358.HK',
+      businessDate: '2016-01-01',
+    })
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls retrieveData with correct params', done => {
     api.Curve.retrieve(
       { 
         AMId: 88,
-        assetIds: 'EURUSD',
+        assetIds: '358.HK',
         businessDate: '2016-01-01',
       },
       (error, result) => {
         expect(network.retrieveData).toHaveBeenCalledWith({
-          AMaaSClass: 'curve',
+          AMaaSClass: "curve",
           AMId: 88,
-          resourceId: { assetIds: 'EURUSD' },
-          query: { businessDate: '2016-01-01' },
-        })
+          resourceId: "2016-01-01/358.HK" 
+          })
+        done()
       }
     )
-    done()
   })
 })
