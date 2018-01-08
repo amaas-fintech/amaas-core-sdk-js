@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v2.4.0 - 2018-01-05
+### Changed
+- Updated dependencies.
+
 ## v2.3.0 - 2018-01-03
 ### Added
 - Added Transaction MTM features.
