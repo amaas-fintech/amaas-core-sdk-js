@@ -10,31 +10,37 @@ api.config({
 describe('retrieve', () => {
   beforeAll(() => {
     network.retrieveData.mockImplementation(() =>
-      Promise.resolve('fxrate')
+      Promise.resolve('fxRate')
     )
   })
   test('with promise', () => {
-    let promise = api.FXRate.retrieve({ AMId: 88 })
+    let promise = api.FXRate.retrieve({ AMId: 88, query: {
+      businessDateStart: '2016-01-01',
+      businessDateEnd: '2017-12-31',
+      assetIds: 'USDJPY'
+    }  })
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls retrieveData with correct params', done => {
-    api.FXRate.retrieve(
-      { AMId: 88, query : { 
+    api.FXRate.retrieve({
+      AMId: 88,
+      query: {
         businessDateStart: '2016-01-01',
         businessDateEnd: '2017-12-31',
         assetIds: 'USDJPY'
-      } },
+      }},
       (error, result) => {
         expect(network.retrieveData).toHaveBeenCalledWith({
-          AMaaSClass: 'fxrate',
+          AMaaSClass: 'fxRate',
           AMId: 88,
           query: {
             businessDateStart: '2016-01-01',
             businessDateEnd: '2017-12-31',
-            assetIds: 'USDJPY'
+            assetIds: 'USDJPY',
           }
         })
       }
     )
+    done()
   })
 })

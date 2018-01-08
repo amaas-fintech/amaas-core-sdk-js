@@ -14,29 +14,41 @@ describe('retrieve', () => {
     )
   })
   test('with promise', () => {
-    let promise = api.ForwardRate.retrieve({ AMId: 88 })
+    let promise = api.ForwardRate.retrieve({ 
+      AMId: 88,
+      assetIds: '358.HK',
+      query: {
+        businessDateStart: '2017-11-27',
+        businessDateEnd: '2017-12-31',
+        tenor: 'ON'
+      }
+    })
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls retrieveData with correct params', done => {
     api.ForwardRate.retrieve(
-      { AMId: 88, resourceId: '358.HK', query: {
-        businessDateStart: '2017-11-27',
-        businessDateEnd: '2017-12-31',
-        tenor: 'ON'
-      } },
+      {
+        AMId: 88,
+        assetIds: '358.HK',
+        query: {
+          businessDateStart: '2017-11-27',
+          businessDateEnd: '2017-12-31',
+          tenor: 'ON'
+        }
+      },
       (error, result) => {
         expect(network.retrieveData).toHaveBeenCalledWith({
           AMaaSClass: 'forwardrate',
-          resourceId: '358.HK',
           AMId: 88,
           query: {
             businessDateStart: '2017-11-27',
             businessDateEnd: '2017-12-31',
             tenor: 'ON'
-          }
+          },
+          resourceId: { assetIds: '358.HK' }
         })
-        done()
       }
     )
+    done()
   })
 })

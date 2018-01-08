@@ -28,11 +28,11 @@ describe('retrieve', () => {
         expect(network.retrieveData).toHaveBeenCalledWith({
           AMaaSClass: 'curve',
           AMId: 88,
-          assetIds: 'EURUSD',
-          businessDate: '2016-01-01',
+          resourceId: { assetIds: 'EURUSD' },
+          query: { businessDate: '2016-01-01' },
         })
-        done()
       }
     )
+    done()
   })
 })

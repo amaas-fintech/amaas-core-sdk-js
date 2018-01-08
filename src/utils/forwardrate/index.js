@@ -1,6 +1,7 @@
 /**
  * @namespace ForwardRate
 
+
  * @memberof module:api
  */
 
