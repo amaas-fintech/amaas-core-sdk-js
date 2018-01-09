@@ -705,7 +705,7 @@ declare module '@amaas/amaas-core-sdk-js' {
   }
 
   export interface ICurve {
-    assetManagerId: string  
+    assetManagerId: string
     assetId: string
     curveType: string
     fixingType: string
@@ -1369,7 +1369,7 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<IExecuteResult> | void
       function listImportJobs(
-        { AMId, more }: { AMId: number, more?: string },
+        { AMId, more }: { AMId: number; more?: string },
         callback?: Function
       ): Promise<IImportList> | void
       function getCSVImportDetails(
@@ -1526,32 +1526,30 @@ declare module '@amaas/amaas-core-sdk-js' {
     }
     namespace Curve {
       function retrieve(
-        { 
+        {
           AMId,
           businessDate,
           assetIds
         }: {
-          AMId: number,
-          businessDate: string,
+          AMId: number
+          businessDate: string
           assetIds: string
         },
         callback?: Function
       ): Promise<ICurve[]> | void
     }
     namespace FXRate {
-      function retrieve(
-        {
-          AMId,
-          query
-        }: {
-          AMId: number
-          query: {
-            businessDateStart: string
-            businessDateEnd: string
-            assetIds: string
-          }
+      function retrieve({
+        AMId,
+        query
+      }: {
+        AMId: number
+        query: {
+          businessDateStart: string
+          businessDateEnd: string
+          assetIds: string
         }
-      ) : Promise<IFXRate[]> | void
+      }): Promise<IFXRate[]> | void
     }
     namespace ForwardRate {
       function retrieve(
