@@ -690,6 +690,57 @@ declare module '@amaas/amaas-core-sdk-js' {
     }[]
   }
 
+  export interface IEOD {
+    assetManagerId: string
+    assetId: string
+    businessDate: string
+    price: string
+    active: number
+    internalId: string
+    createdId: string
+    updatedTime: string
+    clientId: string
+    createdBy: string
+    updatedBy: string
+  }
+
+  export interface ICurve {
+    assetManagerId: string  
+    assetId: string
+    curveType: string
+    fixingType: string
+    businessDate: string
+    curveTimestamp: string
+    curveRates: any
+    additional: any
+    active: number
+    internalId: string
+    createdTime: string
+    updatedTime: string
+    clientId: string
+    createdBy: string
+    updatedBy: string
+  }
+
+  export interface IFXRate {
+    assetManagerId: string
+    assetId: string
+    rateType: string
+    businessDate: string
+    rateTimeStamp: string
+    rate: string
+    active: number
+    internalId: string
+    createdTime: string
+    updatedTime: string
+    clientId: string
+    createdBy: string
+    updatedBy: string
+  }
+
+  export interface IForwardRate {
+    [date: string]: string
+  }
   export interface IExecuteResult {
     status: string
     error?: IErrorWarning
@@ -1456,6 +1507,69 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<IAggregatePNL> | void
+    }
+    namespace EOD {
+      function retrieve(
+        {
+          AMId,
+          query
+        }: {
+          AMId: number
+          query: {
+            businessDateStart: string
+            businessDateEnd: string
+            assetIds: string
+          }
+        },
+        callback?: Function
+      ): Promise<IEOD[]> | void
+    }
+    namespace Curve {
+      function retrieve(
+        { 
+          AMId,
+          businessDate,
+          assetIds
+        }: {
+          AMId: number,
+          businessDate: string,
+          assetIds: string
+        },
+        callback?: Function
+      ): Promise<ICurve[]> | void
+    }
+    namespace FXRate {
+      function retrieve(
+        {
+          AMId,
+          query
+        }: {
+          AMId: number
+          query: {
+            businessDateStart: string
+            businessDateEnd: string
+            assetIds: string
+          }
+        }
+      ) : Promise<IFXRate[]> | void
+    }
+    namespace ForwardRate {
+      function retrieve(
+        {
+          AMId,
+          assetIds,
+          query
+        }: {
+          AMId: number
+          assetIds: string
+          query: {
+            businessDateStart: string
+            businessDateEnd: string
+            tenor: string
+          }
+        },
+        callback?: Function
+      ): Promise<IForwardRate[]> | void
     }
   }
 
