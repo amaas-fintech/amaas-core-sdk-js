@@ -1166,7 +1166,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           options
         }: {
           AMId: number
-          options: { includeInactive: boolean[]; relationshipType: string[] }
+          options?: { includeInactive?: boolean[]; relationshipType?: string[] }
         },
         callback?: Function
       ): Promise<
@@ -1318,7 +1318,7 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<IExecuteResult> | void
       function listImportJobs(
-        { AMId, more }: { AMId: number, more?: string },
+        { AMId, more }: { AMId: number; more?: string },
         callback?: Function
       ): Promise<IImportList> | void
       function getCSVImportDetails(
