@@ -154,11 +154,19 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.search(params, [callback])](#module_api.CorporateActions.search) ⇒ <code>Promise</code> \| <code>null</code>
         * [.cancel(params, [callback])](#module_api.CorporateActions.cancel) ⇒ <code>Promise</code> \| <code>null</code>
         * [.reopen(params, [callback])](#module_api.CorporateActions.reopen) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.Curve](#module_api.Curve) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.Curve.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.EOD](#module_api.EOD) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.EOD.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.ForwardRate](#module_api.ForwardRate) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.ForwardRate.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Fundamentals](#module_api.Fundamentals) : <code>object</code>
         * [.countries(params, [callback])](#module_api.Fundamentals.countries) ⇒ <code>Promise</code> \| <code>null</code>
         * [.calcBusinessDate(params, [callback])](#module_api.Fundamentals.calcBusinessDate) ⇒ <code>Promise</code> \| <code>null</code>
         * [.processDateInfo(params, [callback])](#module_api.Fundamentals.processDateInfo) ⇒ <code>Promise</code> \| <code>null</code>
         * [.holidays(params, [callback])](#module_api.Fundamentals.holidays) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.FXRate](#module_api.FXRate) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.FXRate.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Monitor](#module_api.Monitor) : <code>object</code>
         * [.retrieveItem(params, callback)](#module_api.Monitor.retrieveItem) ⇒ <code>Promise</code> \| <code>null</code>
         * [.insertNewItem(params, [callback])](#module_api.Monitor.insertNewItem) ⇒ <code>Promise</code> \| <code>null</code>
@@ -213,6 +221,11 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.partialAmend(params, [callback])](#module_api.Transactions.partialAmend) ⇒ <code>Promise</code> \| <code>null</code>
         * [.search(params, [callback])](#module_api.Transactions.search) ⇒ <code>Promise</code> \| <code>null</code>
         * [.cancel(params, [callback])](#module_api.Transactions.cancel) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.uploadCSV(params, [callback])](#module_api.Transactions.uploadCSV) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.executeCSVJob(params, [callback])](#module_api.Transactions.executeCSVJob) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.listImportJobs(params, [callback])](#module_api.Transactions.listImportJobs) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.getCSVImportDetails(params, [callback])](#module_api.Transactions.getCSVImportDetails) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.retrieveMTM(params, [callback])](#module_api.Transactions.retrieveMTM) ⇒ <code>Promise</code> \| <code>null</code>
 
 <a name="module_api.csv"></a>
 
@@ -245,7 +258,7 @@ Convert csv object string into class instance
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
-| params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
+| params.AMId | <code>number</code> | Asset Manager ID |
 | params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string or string[]` bookIds</li> <li>`string` businessDate</li> <li>`string` currency</li> |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
@@ -928,6 +941,59 @@ Reopen a cancelled Corporate Action
 | params.resourceId | <code>array</code> | ID of the Corporate Action to reopen |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the reopened CorporateAction instance. Omit to return Promise |
 
+<a name="module_api.Curve"></a>
+
+### api.Curve : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+<a name="module_api.Curve.retrieve"></a>
+
+#### Curve.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>Curve</code>](#module_api.Curve)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of curve data |
+| params.businessDate | <code>string</code> | Business date (yyyy-mm-dd) of the curve data |
+| params.assetIds | <code>string</code> | Which asset to retrieve curve data for |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.EOD"></a>
+
+### api.EOD : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+<a name="module_api.EOD.retrieve"></a>
+
+#### EOD.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>EOD</code>](#module_api.EOD)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID |
+| params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string` businessDateStart</li> <li>`string` businessDateEnd</li> <li>`string` assetIds</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.ForwardRate"></a>
+
+### api.ForwardRate : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+<a name="module_api.ForwardRate.retrieve"></a>
+
+#### ForwardRate.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>ForwardRate</code>](#module_api.ForwardRate)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID |
+| params.assetIds | <code>number</code> | Asset Id |
+| params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string` businessDateStart</li> <li>`string` businessDateEnd</li> <li>`string` tenor</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
 <a name="module_api.Fundamentals"></a>
 
 ### api.Fundamentals : <code>object</code>
@@ -996,6 +1062,23 @@ Make request and search data
 | params.codes | <code>string</code> \| <code>array</code> | A country code string or an array of country codes strings |
 | params.years | <code>string</code> \| <code>array</code> | A year string or an array of |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is a country name returned or country names. Omit to return Promise |
+
+<a name="module_api.FXRate"></a>
+
+### api.FXRate : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+<a name="module_api.FXRate.retrieve"></a>
+
+#### FXRate.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>FXRate</code>](#module_api.FXRate)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID |
+| params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string` businessDateStart</li> <li>`string` businessDateEnd</li> <li>`string` assetIds</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
 <a name="module_api.Monitor"></a>
 
@@ -1676,6 +1759,11 @@ Register a new user in the database
     * [.partialAmend(params, [callback])](#module_api.Transactions.partialAmend) ⇒ <code>Promise</code> \| <code>null</code>
     * [.search(params, [callback])](#module_api.Transactions.search) ⇒ <code>Promise</code> \| <code>null</code>
     * [.cancel(params, [callback])](#module_api.Transactions.cancel) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.uploadCSV(params, [callback])](#module_api.Transactions.uploadCSV) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.executeCSVJob(params, [callback])](#module_api.Transactions.executeCSVJob) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.listImportJobs(params, [callback])](#module_api.Transactions.listImportJobs) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.getCSVImportDetails(params, [callback])](#module_api.Transactions.getCSVImportDetails) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.retrieveMTM(params, [callback])](#module_api.Transactions.retrieveMTM) ⇒ <code>Promise</code> \| <code>null</code>
 
 <a name="module_api.Transactions.retrieve"></a>
 
@@ -1769,6 +1857,85 @@ Cancel a Transaction
 | params.AMId | <code>number</code> | Asset Manager ID of the Transaction's owner |
 | params.resourceId | <code>string</code> | Transaction ID |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the cancelled Transaction instance. Omit to return Promise |
+
+<a name="module_api.Transactions.uploadCSV"></a>
+
+#### Transactions.uploadCSV(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Upload csv data
+
+**Kind**: static method of [<code>Transactions</code>](#module_api.Transactions)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns Promise that resolves with the upload summary. Otherwise calls callback (err, result)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | Object of parameters |
+| params.AMId | <code>number</code> | Asset Manager ID of the data to upload |
+| params.data | <code>string</code> | CSV data |
+| [params.contentType] | <code>string</code> | Request content-type |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.Transactions.executeCSVJob"></a>
+
+#### Transactions.executeCSVJob(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Execute import job for CSV upload
+
+**Kind**: static method of [<code>Transactions</code>](#module_api.Transactions)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns Promise that resolves with import status  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | Object of parameters |
+| params.AMId | <code>number</code> | Asset Manager ID of job owner |
+| params.importId | <code>string</code> | Import ID of the upload job (returned by successful call to uploadCSV) |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.Transactions.listImportJobs"></a>
+
+#### Transactions.listImportJobs(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+List all import jobs for an AMId
+
+**Kind**: static method of [<code>Transactions</code>](#module_api.Transactions)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns Promise that resolves with import list  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | Object of parameters |
+| params.AMId | <code>number</code> | Asset Manager ID to retrieve jobs for |
+| [params.more] | <code>string</code> | Optional argument for pagination |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.Transactions.getCSVImportDetails"></a>
+
+#### Transactions.getCSVImportDetails(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Get import job details
+
+**Kind**: static method of [<code>Transactions</code>](#module_api.Transactions)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns Promise that resolves with import details  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | Object of parameters |
+| params.AMId | <code>number</code> | Asset Manager ID of job owner |
+| params.importId | <code>string</code> |  |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.Transactions.retrieveMTM"></a>
+
+#### Transactions.retrieveMTM(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Get MTM for a particular Book
+
+**Kind**: static method of [<code>Transactions</code>](#module_api.Transactions)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns Promise that resolves with MTM data  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | Object of parameters |
+| params.AMId | <code>number</code> | Asset Manager ID of MTM owner |
+| params.bookId | <code>string</code> | Book for which to retrieve MTM data |
+| [params.assetId] | <code>string</code> | Asset for which to retrieve MTM data. Omit to return MTM for all Assets in Book |
+| params.date | <code>string</code> | Date for which to retrieve MTM data |
+| [params.startDate] | <code>string</code> | Starting date to retrieve MTM (will return until params.date). Omit to return a single day |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
 <a name="module_assetManagers"></a>
 
@@ -4955,19 +5122,19 @@ Construct a new PositionPNL object
 | params | <code>object</code> | PositionPNL creation options |
 | params.assetId | <code>string</code> | ID of the PositionPNL's Asset |
 | params.assetManagerId | <code>number</code> | ID of the PositionPNL's Asset Manager |
-| params.assetPnl | <code>string</code> | PNL of asset |
+| params.assetPnl | <code>Decimal</code> | PNL of asset |
 | params.bookId | <code>string</code> | ID of PositionPNL's book |
 | params.clientId | <code>number</code> | Id of TransactionPNL's client |
 | params.businessDate | <code>string</code> | Date of PositionPNL |
-| params.fxPnl | <code>number</code> | FX Profit & Loss |
+| params.fxPnl | <code>Decimal</code> | FX Profit & Loss |
 | params.message | <code>string</code> | Message |
 | params.periods | <code>string</code> | Sort of PNL |
 | params.pnlStatus- | <code>string</code> | Status of PositionPNL |
 | params.pnlTimeStamp | <code>string</code> | Proft & Loss Timestamp |
-| params.quantity | <code>number</code> | Quantity of PositionpNL |
-| params.realisedPnl | <code>number</code> | Realised Profit & Loss of PositionPNL |
-| params.totalPnl | <code>number</code> | Total Profit & Loss of PositionPNL |
-| params.unrealisedPnl | <code>number</code> | Unrealised Profit & Loss of PositionPNL |
+| params.quantity | <code>Decimal</code> | Quantity of PositionpNL |
+| params.realisedPnl | <code>Decimal</code> | Realised Profit & Loss of PositionPNL |
+| params.totalPnl | <code>Decimal</code> | Total Profit & Loss of PositionPNL |
+| params.unrealisedPnl | <code>Decimal</code> | Unrealised Profit & Loss of PositionPNL |
 | params.createdBy | <code>string</code> | Creator of PositionPNL |
 | params.updatedBy | <code>string</code> | Latest user who updated the PositionPNL |
 | params.createdTime | <code>string</code> | Created Time of the PositionPNL |
@@ -5058,17 +5225,17 @@ Construct a new TransactionPNL object
 | params | <code>object</code> | TransactionPNL creation options |
 | params.assetId | <code>string</code> | ID of the TransactionPNL's Asset |
 | params.assetManagerId | <code>number</code> | ID of the TransactionPNL's Asset Manager |
-| params.assetPnl | <code>number</code> | PNL of asset |
+| params.assetPnl | <code>Decimal</code> | PNL of asset |
 | params.bookId | <code>string</code> | ID of TransactionPNL's book |
 | params.businessDate | <code>string</code> | Date of TransactionPNL |
 | params.clientId | <code>number</code> | Id of TransactionPNL's client |
-| params.fxPnl | <code>number</code> | FX Profit & Loss |
+| params.fxPnl | <code>Decimal</code> | FX Profit & Loss |
 | params.pnlTimeStamp | <code>string</code> | Proft & Loss Timestamp |
-| params.quantity | <code>number</code> | Quantity of TransactionPNL |
-| params.realisedPnl | <code>number</code> | Realised Profit & Loss of TransactionPNL |
-| params.totalPnl | <code>number</code> | Total Profit & Loss of TransactionPNL |
+| params.quantity | <code>Decimal</code> | Quantity of TransactionPNL |
+| params.realisedPnl | <code>Decimal</code> | Realised Profit & Loss of TransactionPNL |
+| params.totalPnl | <code>Decimal</code> | Total Profit & Loss of TransactionPNL |
 | params.transactionId | <code>string</code> | ID of the TransactionPNL's Transaction |
-| params.unrealisedPnl | <code>number</code> | Unrealised Profit & Loss of TransactionPNL |
+| params.unrealisedPnl | <code>Decimal</code> | Unrealised Profit & Loss of TransactionPNL |
 | params.currency | <code>string</code> | Currency of TransactionPNL |
 | params.createdBy | <code>string</code> | Creator of TransactionPNL |
 | params.updatedBy | <code>string</code> | Latest user who updated the TransactionPNL |
