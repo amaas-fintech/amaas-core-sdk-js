@@ -340,7 +340,7 @@ export function listImportJobs({ AMId, more }, callback) {
   const params = {
     AMaaSClass: 'csvImportDetails',
     AMId,
-    query: { more }
+    query: more ? { more } : {}
   }
   let promise = retrieveData(params).then(result => {
     if (typeof callback === 'function') {
