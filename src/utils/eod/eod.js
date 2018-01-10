@@ -1,4 +1,4 @@
-import { retrieveData } from '../network'
+import { insertData, retrieveData } from '../network'
 
 /**
  * @function retrieve
@@ -14,7 +14,6 @@ import { retrieveData } from '../network'
  * @param {Function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns a Promise
  */
-
 export function retrieve({ AMId, query }, callback) {
   const params = {
     AMaaSClass: 'eod',
@@ -30,4 +29,41 @@ export function retrieve({ AMId, query }, callback) {
     return promise
   }
   promise.catch(error => callback(error))
+}
+
+/**
+ * @function triggerEODJob
+ * @memberof module:api.EOD
+ * @static
+ * @param {object} params - object of parameters:
+ * @param {number} params.AMId - Asset Manager ID for the Book
+ * @param {string} params.bookId - Book ID to run the EOD batch job for
+ * @param {string} params.businessDate - Which date to run the batch for (max allowed is T - 1 where T === today)
+ * @param {string} [params.closeTime] - Close time at which to run the batch job for (defaults to book close time)
+ * @param {string} [params.timezone] - Timezone in which to run the batch job (from which the close time will be calculated). Defaults to book timezone
+ * @param {Function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback supplied, returns a Promise
+ */
+export function triggerEODJob(
+  { AMId, bookId, businessDate, closeTime, timezone },
+  callback
+) {
+  let query = { businessDate }
+  if (closeTime) query = { ...query, closeTime }
+  if (timezone) query = { ...query, timezone }
+  const params = {
+    AMaaSClass: 'eodBatch',
+    AMId,
+    resourceId: bookId,
+    query
+  }
+  let promise = insertData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => calback(error))
 }

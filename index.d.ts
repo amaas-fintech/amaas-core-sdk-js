@@ -690,6 +690,23 @@ declare module '@amaas/amaas-core-sdk-js' {
     }[]
   }
 
+  export interface IEODBatch {
+    batchType: string
+    businessDate: string
+    status: string
+    executionId: string
+    expirationTime: string
+    assetManagerId: number
+    bookId: string
+    closeTime: string
+    timezone: string
+    createdBy: string
+    updatedBy: string
+    createdTime: string
+    updatedTime: string
+    version: number
+  }
+
   export interface IEOD {
     assetManagerId: string
     assetId: string
@@ -1523,6 +1540,22 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<IEOD[]> | void
+      function triggerEODJob(
+        {
+          AMId,
+          bookId,
+          businessDate,
+          closeTime,
+          timezone
+        }: {
+          AMId: number
+          bookId: string
+          businessDate: string
+          closeTime?: string
+          timezone?: string
+        },
+        callback?: Function
+      ): Promise<IEODBatch> | void
     }
     namespace Curve {
       function retrieve(
