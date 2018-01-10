@@ -67,3 +67,37 @@ export function triggerEODJob(
   }
   promise.catch(error => calback(error))
 }
+
+/**
+ * @function listBatchJobs
+ * @memberof module:api.EOD
+ * @static
+ * @param {object} params - object of parameters:
+ * @param {number} params.AMId - Asset Manager ID for the Book
+ * @param {string} params.businessDate - Which date to retrieve the batch for (max allowed is T - 1 where T === today)
+ * @param {string} [params.executionId] - Specific batch execution ID
+ * @param {Function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback supplied, returns a Promsie
+ */
+export function listBatchJobs(
+  { AMId, bookId, businessDate, executionId },
+  callback
+) {
+  let query = { businessDate }
+  if (executionId) query = { ...query, executionId }
+  const params = {
+    AMaaSClass: 'eodBatch',
+    AMId,
+    resourceId: bookId,
+    query
+  }
+  let promise = retrieveData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}

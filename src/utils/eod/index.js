@@ -4,5 +4,5 @@
  * @memberof module:api
  */
 
-import { retrieve, triggerEODJob } from './eod'
-export { retrieve, triggerEODJob }
+import { retrieve, triggerEODJob, listBatchJobs } from './eod'
+export { retrieve, triggerEODJob, listBatchJobs }

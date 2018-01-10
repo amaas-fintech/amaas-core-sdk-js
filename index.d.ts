@@ -704,7 +704,6 @@ declare module '@amaas/amaas-core-sdk-js' {
     updatedBy: string
     createdTime: string
     updatedTime: string
-    version: number
   }
 
   export interface IEOD {
@@ -1556,6 +1555,20 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<IEODBatch> | void
+      function listBatchJobs(
+        {
+          AMId,
+          bookId,
+          businessDate,
+          executionId
+        }: {
+          AMId: number
+          bookId: string
+          businessDate: string
+          executionId?: string
+        },
+        callback?: Function
+      ): Promise<IEODBatch | IEODBatch[]> | void
     }
     namespace Curve {
       function retrieve(

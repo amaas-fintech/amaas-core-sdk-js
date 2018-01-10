@@ -108,3 +108,53 @@ describe('triggerEODJob', () => {
     )
   })
 })
+
+describe('listBatchJobs', () => {
+  beforeAll(() => {
+    network.retrieveData.mockImplementation(() => Promise.resolve(mockBatch))
+  })
+  afterEach(() => {
+    network.retrieveData.mockClear()
+  })
+  test('with promise', () => {
+    const promise = api.EOD.listBatchJobs({})
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls retrieveData with correct params', done => {
+    api.EOD.listBatchJobs(
+      { AMId: 88, bookId: 'book-1', businessDate: '2018-07-04' },
+      (error, result) => {
+        const expectedParams = expect.objectContaining({
+          AMaaSClass: 'eodBatch',
+          AMId: 88,
+          resourceId: 'book-1',
+          query: { businessDate: '2018-07-04' }
+        })
+        expect(error).toBeNull()
+        expect(network.retrieveData).toHaveBeenCalledWith(expectedParams)
+        done()
+      }
+    )
+  })
+  it('calls retrieveData with correct params (with executionId)', done => {
+    api.EOD.listBatchJobs(
+      {
+        AMId: 88,
+        bookId: 'book-1',
+        businessDate: '2018-07-04',
+        executionId: '123abc'
+      },
+      (error, result) => {
+        const expectedParams = expect.objectContaining({
+          AMaaSClass: 'eodBatch',
+          AMId: 88,
+          resourceId: 'book-1',
+          query: { businessDate: '2018-07-04', executionId: '123abc' }
+        })
+        expect(error).toBeNull()
+        expect(network.retrieveData).toHaveBeenCalledWith(expectedParams)
+        done()
+      }
+    )
+  })
+})
