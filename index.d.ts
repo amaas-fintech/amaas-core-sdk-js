@@ -1217,7 +1217,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           options
         }: {
           AMId: number
-          options: { includeInactive: boolean[]; relationshipType: string[] }
+          options?: { includeInactive?: boolean[]; relationshipType?: string[] }
         },
         callback?: Function
       ): Promise<

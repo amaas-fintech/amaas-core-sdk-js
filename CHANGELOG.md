@@ -1,6 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v3.0.1 - 2018-01-10
+### Changed
+- Fixed passing of `more` param in `listImportJobs`.
+
+## v3.0.0 - 2018-01-09
+### Changed
+- Updated csv upload functions.
+
+### Added
+- Added listImportJobs function for csv upload.
+
 ## v2.4.0 - 2018-01-05
 ### Changed
 - Updated dependencies.
