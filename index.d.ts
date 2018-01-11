@@ -782,7 +782,7 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<assetManagers.EODBook | assetManagers.EODBook[]> | void
       function getCredentialsForPubSub(
-        { AMId }: { AMId: number },
+        { AMId, next }: { AMId: number; next?: number },
         callback?: Function
       ): Promise<IPubSubConnectionDetails> | void
     }
