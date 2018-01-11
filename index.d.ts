@@ -633,11 +633,12 @@ declare module '@amaas/amaas-core-sdk-js' {
   }
 
   export interface IPubSubConnectionDetails {
-    data: {
-      Credentials: IPubSubCredentials
-      Topics: string[]
-    }[]
+    data: IPubSubConnectionData[]
     next?: number
+  }
+  export interface IPubSubConnectionData {
+    Credentials: IPubSubCredentials
+    Topics: string[]
   }
   export interface IPubSubCredentials {
     AccessKeyId: string
