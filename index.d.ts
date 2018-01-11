@@ -633,6 +633,10 @@ declare module '@amaas/amaas-core-sdk-js' {
   }
 
   export interface IPubSubConnectionDetails {
+    data: IPubSubConnectionData[]
+    next?: number
+  }
+  export interface IPubSubConnectionData {
     Credentials: IPubSubCredentials
     Topics: string[]
   }
@@ -778,9 +782,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<assetManagers.EODBook | assetManagers.EODBook[]> | void
       function getCredentialsForPubSub(
-        { AMId }: { AMId: number },
+        { AMId, next }: { AMId: number; next?: number },
         callback?: Function
-      ): Promise<IPubSubConnectionDetails[]> | void
+      ): Promise<IPubSubConnectionDetails> | void
     }
     namespace Assets {
       function retrieve(
