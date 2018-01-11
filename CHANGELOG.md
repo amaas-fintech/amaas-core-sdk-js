@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v3.0.2 - 2018-01-11
+### Changed
+- Changed the interface for pubsub credentials.
+
 ## v3.0.1 - 2018-01-10
 ### Changed
 - Fixed passing of `more` param in `listImportJobs`.
