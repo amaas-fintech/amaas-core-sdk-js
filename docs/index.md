@@ -158,6 +158,8 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.retrieve(params, [callback])](#module_api.Curve.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
     * [.EOD](#module_api.EOD) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.EOD.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.triggerEODJob(params, [callback])](#module_api.EOD.triggerEODJob) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.listBatchJobs(params, [callback])](#module_api.EOD.listBatchJobs) ⇒ <code>Promise</code> \| <code>null</code>
     * [.ForwardRate](#module_api.ForwardRate) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.ForwardRate.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Fundamentals](#module_api.Fundamentals) : <code>object</code>
@@ -964,6 +966,12 @@ Reopen a cancelled Corporate Action
 
 ### api.EOD : <code>object</code>
 **Kind**: static namespace of [<code>api</code>](#module_api)  
+
+* [.EOD](#module_api.EOD) : <code>object</code>
+    * [.retrieve(params, [callback])](#module_api.EOD.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.triggerEODJob(params, [callback])](#module_api.EOD.triggerEODJob) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.listBatchJobs(params, [callback])](#module_api.EOD.listBatchJobs) ⇒ <code>Promise</code> \| <code>null</code>
+
 <a name="module_api.EOD.retrieve"></a>
 
 #### EOD.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
@@ -975,6 +983,36 @@ Reopen a cancelled Corporate Action
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | Asset Manager ID |
 | params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string` businessDateStart</li> <li>`string` businessDateEnd</li> <li>`string` assetIds</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.EOD.triggerEODJob"></a>
+
+#### EOD.triggerEODJob(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>EOD</code>](#module_api.EOD)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID for the Book |
+| params.bookId | <code>string</code> | Book ID to run the EOD batch job for |
+| params.businessDate | <code>string</code> | Which date to run the batch for (max allowed is T - 1 where T === today) |
+| [params.closeTime] | <code>string</code> | Close time at which to run the batch job for (defaults to book close time) |
+| [params.timezone] | <code>string</code> | Timezone in which to run the batch job (from which the close time will be calculated). Defaults to book timezone |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.EOD.listBatchJobs"></a>
+
+#### EOD.listBatchJobs(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>EOD</code>](#module_api.EOD)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promsie  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID for the Book |
+| params.businessDate | <code>string</code> | Which date to retrieve the batch for (max allowed is T - 1 where T === today) |
+| [params.executionId] | <code>string</code> | Specific batch execution ID |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
 <a name="module_api.ForwardRate"></a>

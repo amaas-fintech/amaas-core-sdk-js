@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v3.1.0 - 2018-01-12
+### Added
+- Added various EOD price APIs
+
 ## v3.0.2 - 2018-01-11
 ### Changed
 - Changed the interface for pubsub credentials.
