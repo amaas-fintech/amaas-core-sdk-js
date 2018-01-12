@@ -154,11 +154,19 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.search(params, [callback])](#module_api.CorporateActions.search) ⇒ <code>Promise</code> \| <code>null</code>
         * [.cancel(params, [callback])](#module_api.CorporateActions.cancel) ⇒ <code>Promise</code> \| <code>null</code>
         * [.reopen(params, [callback])](#module_api.CorporateActions.reopen) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.Curve](#module_api.Curve) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.Curve.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.EOD](#module_api.EOD) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.EOD.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.ForwardRate](#module_api.ForwardRate) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.ForwardRate.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Fundamentals](#module_api.Fundamentals) : <code>object</code>
         * [.countries(params, [callback])](#module_api.Fundamentals.countries) ⇒ <code>Promise</code> \| <code>null</code>
         * [.calcBusinessDate(params, [callback])](#module_api.Fundamentals.calcBusinessDate) ⇒ <code>Promise</code> \| <code>null</code>
         * [.processDateInfo(params, [callback])](#module_api.Fundamentals.processDateInfo) ⇒ <code>Promise</code> \| <code>null</code>
         * [.holidays(params, [callback])](#module_api.Fundamentals.holidays) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.FXRate](#module_api.FXRate) : <code>object</code>
+        * [.retrieve(params, [callback])](#module_api.FXRate.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Monitor](#module_api.Monitor) : <code>object</code>
         * [.retrieveItem(params, callback)](#module_api.Monitor.retrieveItem) ⇒ <code>Promise</code> \| <code>null</code>
         * [.insertNewItem(params, [callback])](#module_api.Monitor.insertNewItem) ⇒ <code>Promise</code> \| <code>null</code>
@@ -250,7 +258,7 @@ Convert csv object string into class instance
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
-| params.AMId | <code>number</code> | Owning Asset Manager ID of the Profit and Loss record |
+| params.AMId | <code>number</code> | Asset Manager ID |
 | params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string or string[]` bookIds</li> <li>`string` businessDate</li> <li>`string` currency</li> |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
@@ -934,6 +942,59 @@ Reopen a cancelled Corporate Action
 | params.resourceId | <code>array</code> | ID of the Corporate Action to reopen |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the reopened CorporateAction instance. Omit to return Promise |
 
+<a name="module_api.Curve"></a>
+
+### api.Curve : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+<a name="module_api.Curve.retrieve"></a>
+
+#### Curve.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>Curve</code>](#module_api.Curve)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of curve data |
+| params.businessDate | <code>string</code> | Business date (yyyy-mm-dd) of the curve data |
+| params.assetIds | <code>string</code> | Which asset to retrieve curve data for |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.EOD"></a>
+
+### api.EOD : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+<a name="module_api.EOD.retrieve"></a>
+
+#### EOD.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>EOD</code>](#module_api.EOD)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID |
+| params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string` businessDateStart</li> <li>`string` businessDateEnd</li> <li>`string` assetIds</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.ForwardRate"></a>
+
+### api.ForwardRate : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+<a name="module_api.ForwardRate.retrieve"></a>
+
+#### ForwardRate.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>ForwardRate</code>](#module_api.ForwardRate)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID |
+| params.assetIds | <code>number</code> | Asset Id |
+| params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string` businessDateStart</li> <li>`string` businessDateEnd</li> <li>`string` tenor</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
 <a name="module_api.Fundamentals"></a>
 
 ### api.Fundamentals : <code>object</code>
@@ -1002,6 +1063,23 @@ Make request and search data
 | params.codes | <code>string</code> \| <code>array</code> | A country code string or an array of country codes strings |
 | params.years | <code>string</code> \| <code>array</code> | A year string or an array of |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is a country name returned or country names. Omit to return Promise |
+
+<a name="module_api.FXRate"></a>
+
+### api.FXRate : <code>object</code>
+**Kind**: static namespace of [<code>api</code>](#module_api)  
+<a name="module_api.FXRate.retrieve"></a>
+
+#### FXRate.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>FXRate</code>](#module_api.FXRate)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Asset Manager ID |
+| params.query | <code>object</code> | Object of query params:<br/> Available keys are: <li>`string` businessDateStart</li> <li>`string` businessDateEnd</li> <li>`string` assetIds</li> |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
 <a name="module_api.Monitor"></a>
 
