@@ -48,14 +48,14 @@ export function triggerEODJob(
   { AMId, bookId, businessDate, closeTime, timezone },
   callback
 ) {
-  let query = { businessDate }
-  if (closeTime) query = { ...query, closeTime }
-  if (timezone) query = { ...query, timezone }
+  let queryParams = { businessDate }
+  if (closeTime) queryParams = { ...queryParams, closeTime }
+  if (timezone) queryParams = { ...queryParams, timezone }
   const params = {
     AMaaSClass: 'eodBatch',
     AMId,
     resourceId: bookId,
-    query
+    queryParams
   }
   let promise = insertData(params).then(result => {
     if (typeof callback === 'function') {

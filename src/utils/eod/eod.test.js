@@ -73,7 +73,7 @@ describe('triggerEODJob', () => {
           AMaaSClass: 'eodBatch',
           AMId: 88,
           resourceId: 'book-1',
-          query: { businessDate: '2017-07-04' }
+          queryParams: { businessDate: '2017-07-04' }
         })
         expect(error).toBeNull()
         expect(network.insertData).toHaveBeenCalledWith(expectedParams)
@@ -95,7 +95,7 @@ describe('triggerEODJob', () => {
           AMaaSClass: 'eodBatch',
           AMId: 88,
           resourceId: 'book-1',
-          query: {
+          queryParams: {
             businessDate: '2017-07-04',
             closeTime: '12:00:00',
             timezone: 'Asia/Singapore'
