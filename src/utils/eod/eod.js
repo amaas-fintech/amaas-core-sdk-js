@@ -24,6 +24,7 @@ export function retrieve({ AMId, query }, callback) {
     if (typeof callback === 'function') {
       callback(null, result)
     }
+    return result
   })
   if (typeof callback !== 'function') {
     return promise
@@ -61,6 +62,7 @@ export function triggerEODJob(
     if (typeof callback === 'function') {
       callback(null, result)
     }
+    return result
   })
   if (typeof callback !== 'function') {
     return promise
@@ -95,6 +97,7 @@ export function listBatchJobs(
     if (typeof callback === 'function') {
       callback(null, result)
     }
+    return result
   })
   if (typeof callback !== 'function') {
     return promise
