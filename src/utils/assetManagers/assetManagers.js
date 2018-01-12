@@ -334,13 +334,19 @@ export function retrieveEODBooks({ AMId, bookID }, callback) {
  * @static
  * @param {object} params - object of parameters:
  * @param {number} params.AMId - AMId of user for whom you want to retrieve credentials
+ * @param {number} [params.next] - Pass to get additional credentials
  * @param {function} [callback] - Called with two arguments (error, result) on completion. `result` is the credentials object containing `AccessKeyId`, `SecretAccessKey` and `SessionToken`, along with an array of available subscription topics.
  * @returns {Promise|null} If no callback supplied, returns a promise that resolves with the credentials object as well as an array of available subscriptions.
  */
-export function getCredentialsForPubSub({ AMId }, callback) {
+export function getCredentialsForPubSub({ AMId, next }, callback) {
+  let query = {}
+  if (next || next === 0) {
+    query = { ...query, next }
+  }
   const params = {
     AMaaSClass: 'assetManagerPubSubCredentials',
-    AMId
+    AMId,
+    query
   }
   let promise = retrieveData(params).then(result => {
     if (typeof callback === 'function') {

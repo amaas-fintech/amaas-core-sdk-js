@@ -401,7 +401,8 @@ describe('utils/assetManagers', () => {
       getCredentialsForPubSub({ AMId: 1 }, (error, result) => {
         expect(network.retrieveData).toHaveBeenCalledWith({
           AMaaSClass: 'assetManagerPubSubCredentials',
-          AMId: 1
+          AMId: 1,
+          query: {}
         })
         done()
       })

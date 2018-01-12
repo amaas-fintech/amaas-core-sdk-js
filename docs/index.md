@@ -462,6 +462,7 @@ Retrieve temporary credentials for pub/sub connection
 | --- | --- | --- |
 | params | <code>object</code> | object of parameters: |
 | params.AMId | <code>number</code> | AMId of user for whom you want to retrieve credentials |
+| [params.next] | <code>number</code> | Pass to get additional credentials |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is the credentials object containing `AccessKeyId`, `SecretAccessKey` and `SessionToken`, along with an array of available subscription topics. |
 
 <a name="module_api.Assets"></a>
