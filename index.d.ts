@@ -1526,7 +1526,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           }
         },
         callback?: Function
-      ): Promise<IAggregatePNL> | void
+      ): Promise<transactions.AggregatePNL> | void
     }
     namespace EOD {
       function retrieve(
@@ -2409,6 +2409,25 @@ declare module '@amaas/amaas-core-sdk-js' {
 
     class CashTransaction extends Transaction {
       constructor(props: ICashTransaction)
+    }
+
+    class AggregatePNL {
+      YTD: {
+        total: any
+        asset: any
+        fx: any
+      }
+      MTD: {
+        total: any
+        asset: any
+        fx: any
+      }
+      DTD: {
+        total: any
+        asset: any
+        fx: any
+      }
+      constructor(props: IAggregatePNL)
     }
 
     class Position {

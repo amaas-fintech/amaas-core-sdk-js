@@ -5134,6 +5134,7 @@ Classes for the Transactions service.
 
 
 * [transactions](#module_transactions)
+    * [.AggregatePNL](#module_transactions.AggregatePNL) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
     * [.PositionPNL](#module_transactions.PositionPNL) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new PositionPNL(params)](#new_module_transactions.PositionPNL_new)
     * [.Position](#module_transactions.Position) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
@@ -5143,6 +5144,13 @@ Classes for the Transactions service.
     * [.TransactionPNL](#module_transactions.TransactionPNL) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new TransactionPNL(params)](#new_module_transactions.TransactionPNL_new)
 
+<a name="module_transactions.AggregatePNL"></a>
+
+### transactions.AggregatePNL ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+Class representing Aggregate Profit and Loss
+
+**Kind**: static class of [<code>transactions</code>](#module_transactions)  
+**Extends**: [<code>AMaaSModel</code>](#module_core.AMaaSModel)  
 <a name="module_transactions.PositionPNL"></a>
 
 ### transactions.PositionPNL ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)

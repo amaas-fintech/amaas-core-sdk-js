@@ -1,4 +1,5 @@
 import { retrieveData } from '../network'
+import AggregatePNL from '../../transactions/AggregatePNL/aggregatePNL'
 
 /**
  * @function retrieve
@@ -21,6 +22,7 @@ export function retrieve({ AMId, query }, callback) {
     query
   }
   let promise = retrieveData(params).then(result => {
+    result = _parseAggregatePNL(result)
     if (typeof callback === 'function') {
       callback(null, result)
     }
@@ -30,4 +32,8 @@ export function retrieve({ AMId, query }, callback) {
     return promise
   }
   promise.catch(error => callback(error))
+}
+
+function _parseAggregatePNL(data) {
+  return new AggregatePNL(data)
 }
