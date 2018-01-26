@@ -34,3 +34,42 @@ export function retrieve({ AMId, assetIds, query }, callback) {
   }
   promise.catch(error => callback(error))
 }
+
+export function insert({ AMID, businessDate }, callback) {
+  const params = {
+    AMaaSClass: 'forwardRate',
+    AMId,
+    resourceId: `${businessDate}`
+  }
+  let promise = insertData(params).then(result => {
+    result = _parseAM(result)
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+export function amend({ AMId, businessDate, assetIds }, callback) {
+  const params = {
+    AMaaSClass: 'forwardRate',
+    AMId,
+    resourceId: `${businessDate}/${assetIds}`
+  }
+  let promise = putData(params).then(result => {
+    result = _parseAM(result)
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    // return promise if callback is not provided
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
