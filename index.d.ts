@@ -1380,8 +1380,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         {
           AMId,
           data,
+          filename,
           contentType
-        }: { AMId: number; data: string; contentType?: string },
+        }: { AMId: number; data: string; filename?: string; contentType?: string },
         callback?: Function
       ): Promise<IUploadResult> | void
       function executeCSVJob(

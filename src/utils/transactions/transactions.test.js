@@ -320,17 +320,21 @@ describe('uploadCSV', () => {
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls insertData with correct params', done => {
-    uploadCSV({ AMId: 88, data: 'csv' }, (error, result) => {
-      expect(network.insertData).toHaveBeenCalledWith(
-        expect.objectContaining({
-          AMaaSClass: 'uploadTransactions',
-          AMId: 88,
-          data: 'csv',
-          contentType: 'text/csv'
-        })
-      )
-      done()
-    })
+    uploadCSV(
+      { AMId: 88, data: 'csv', filename: 'assets.csv' },
+      (error, result) => {
+        expect(network.insertData).toHaveBeenCalledWith(
+          expect.objectContaining({
+            AMaaSClass: 'uploadTransactions',
+            AMId: 88,
+            data: 'csv',
+            contentType: 'text/csv',
+            queryParams: { filename: 'assets.csv' }
+          })
+        )
+        done()
+      }
+    )
   })
 })
 
