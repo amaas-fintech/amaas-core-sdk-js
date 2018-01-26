@@ -42,7 +42,6 @@ export function insert({ AMID, businessDate }, callback) {
     resourceId: `${businessDate}`
   }
   let promise = insertData(params).then(result => {
-    result = _parseAM(result)
     if (typeof callback === 'function') {
       callback(null, result)
     }
@@ -61,7 +60,6 @@ export function amend({ AMId, businessDate, assetIds }, callback) {
     resourceId: `${businessDate}/${assetIds}`
   }
   let promise = putData(params).then(result => {
-    result = _parseAM(result)
     if (typeof callback === 'function') {
       callback(null, result)
     }

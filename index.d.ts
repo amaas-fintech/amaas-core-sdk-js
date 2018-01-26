@@ -1581,6 +1581,18 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<ICurve[]> | void
+      function deactivate(
+        {
+          AMId,
+          businessDate,
+          assetIds
+        }: {
+          AMId: number
+          businessDate: string,
+          assetIds: string
+        },
+        callback?: Function
+      ): Promise<ICurve[]> | void
     }
     namespace FXRate {
       function retrieve(
@@ -1607,6 +1619,18 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<IFXRate[]> | void
       function amend(
+        {
+          AMId,
+          businessDate,
+          assetIds
+        }: {
+          AMId: number
+          businessDate: string,
+          assetIds: string
+        },
+        callback?: Function
+      ): Promise<IFXRate[]> | void
+      function deactivate(
         {
           AMId,
           businessDate,
