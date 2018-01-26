@@ -653,7 +653,6 @@ declare module '@amaas/amaas-core-sdk-js' {
     owner: number
     importId: string
     timeExpires: string
-    timeLoaded: string
     timeNew: string
   }
 
