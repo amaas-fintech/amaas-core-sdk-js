@@ -32,11 +32,12 @@ export function retrieve({ AMId, query }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function insert({ AMID, businessDate }, callback) {
+export function insert({ AMID, businessDate, data }, callback) {
   const params = {
     AMaaSClass: 'eod',
     AMId,
-    resourceId: `${businessDate}`
+    resourceId: `${businessDate}`,
+    data: JSON.parse(JSON.stringify(data || {}))
   }
   let promise = insertData(params).then(result => {
     if (typeof callback === 'function') {
@@ -50,11 +51,12 @@ export function insert({ AMID, businessDate }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function amend({ AMId, businessDate, assetIds }, callback) {
+export function amend({ AMId, businessDate, assetIds, data }, callback) {
   const params = {
     AMaaSClass: 'eod',
     AMId,
-    resourceId: `${businessDate}/${assetIds}`
+    resourceId: `${businessDate}/${assetIds}`,
+    data: JSON.parse(JSON.stringify(data || {}))
   }
   let promise = putData(params).then(result => {
     if (typeof callback === 'function') {

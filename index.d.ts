@@ -1526,73 +1526,79 @@ declare module '@amaas/amaas-core-sdk-js' {
       function insert(
         {
           AMId,
-          businessDate: string
+          businessDate: string,
+          data
         }: {
           AMId: number
-          businessDate: string
+          businessDate: string,
+          data: {
+            asseetManagerId: string,
+            assetId: string,
+            businessDate: string,
+            price: string
+          }
         },
         callback?: Function
-      ): Promise<IEOD[]> | void
+      ): Promise<any> | void
       function amend(
         {
           AMId,
           businessDate,
-          assetIds
+          assetIds,
+          data
         }: {
           AMId: number
           businessDate: string,
-          assetIds: string
+          assetIds: string,
+          data: {
+            asseetManagerId: string,
+            assetId: string,
+            businessDate: string,
+            price: string
+          }
         },
         callback?: Function
-      ): Promise<IEOD[]> | void
+      ): Promise<any> | void
     }
     namespace Curve {
       function retrieve(
         {
           AMId,
           businessDate,
-          assetIds
+          assetIds,
         }: {
           AMId: number,
           businessDate: string,
-          assetIds: string
+          assetIds: string,
         },
         callback?: Function
       ): Promise<ICurve[]> | void
       function insert(
         {
           AMId,
-          businessDate: string
+          businessDate: string,
+          data
         }: {
           AMId: number
-          businessDate: string
+          businessDate: string,
+          data: ICurve | ICurve[]
         },
         callback?: Function
-      ): Promise<ICurve[]> | void
+      ): Promise<any> | void
       function amend(
         {
           AMId,
           businessDate,
-          assetIds
+          assetIds,
+          data
         }: {
           AMId: number
           businessDate: string,
-          assetIds: string
+          assetIds: string,
+          data: ICurve | ICurve[]
         },
         callback?: Function
-      ): Promise<ICurve[]> | void
-      function deactivate(
-        {
-          AMId,
-          businessDate,
-          assetIds
-        }: {
-          AMId: number
-          businessDate: string,
-          assetIds: string
-        },
-        callback?: Function
-      ): Promise<ICurve[]> | void
+      ): Promise<any> | void
     }
     namespace FXRate {
       function retrieve(
@@ -1611,37 +1617,65 @@ declare module '@amaas/amaas-core-sdk-js' {
       function insert(
         {
           AMId,
-          businessDate: string
+          businessDate: string,
+          data: string
         }: {
           AMId: number
-          businessDate: string
+          businessDate: string,
+          data: {
+            assetManagerId: string,
+            assetId: string,
+            businessDate: string,
+            rateTimestamp: string,
+            rateType: string,
+            rate: string
+          }
         },
         callback?: Function
-      ): Promise<IFXRate[]> | void
+      ): Promise<any> | void
       function amend(
         {
           AMId,
           businessDate,
-          assetIds
+          assetIds,
+          data
         }: {
-          AMId: number
+          AMId: number,
           businessDate: string,
-          assetIds: string
+          assetIds: string,
+          data: {
+            assetManagerId: string,
+            assetId: string,
+            businessDate: string,
+            rateTimestamp: string,
+            rateType: string,
+            rate: string
+          }
         },
         callback?: Function
-      ): Promise<IFXRate[]> | void
+      ): Promise<any> | void
       function deactivate(
         {
           AMId,
           businessDate,
-          assetIds
+          assetIds,
+          data
         }: {
           AMId: number
           businessDate: string,
-          assetIds: string
+          assetIds: string,
+          data: {
+            assetManagerId: string,
+            assetId: string,
+            businessDate: string,
+            rateTimestamp: string,
+            rateType: string,
+            rate: string,
+            active: boolean
+          }
         },
         callback?: Function
-      ): Promise<IFXRate[]> | void
+      ): Promise<any> | void
     }
     namespace ForwardRate {
       function retrieve(
@@ -1657,28 +1691,6 @@ declare module '@amaas/amaas-core-sdk-js' {
             businessDateEnd: string
             tenor: string
           }
-        },
-        callback?: Function
-      ): Promise<IForwardRate[]> | void
-      function insert(
-        {
-          AMId,
-          businessDate: string
-        }: {
-          AMId: number
-          businessDate: string
-        },
-        callback?: Function
-      ): Promise<IForwardRate[]> | void
-      function amend(
-        {
-          AMId,
-          businessDate,
-          assetIds
-        }: {
-          AMId: number
-          businessDate: string,
-          assetIds: string
         },
         callback?: Function
       ): Promise<IForwardRate[]> | void

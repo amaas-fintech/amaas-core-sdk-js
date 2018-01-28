@@ -45,11 +45,12 @@ export function insert({ AMID, businessDate }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function amend({ AMId, businessDate, assetIds }, callback) {
+export function amend({ AMId, businessDate, assetIds, data }, callback) {
   const params = {
     AMaaSClass: 'curve',
     AMId,
-    resourceId: `${businessDate}/${assetIds}`
+    resourceId: `${businessDate}/${assetIds}`,
+    data: JSON.parse(JSON.stringify(data || {}))
   }
   let promise = putData(params).then(result => {
     if (typeof callback === 'function') {
@@ -64,11 +65,12 @@ export function amend({ AMId, businessDate, assetIds }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function deactivate({ AMId, businessDate, assetIds }, callback) {
+export function deactivate({ AMId, businessDate, assetIds, data }, callback) {
   const params = {
     AMaaSClass: 'curve',
     AMId,
-    resourceId: `${businessDate}/${assetIds}`
+    resourceId: `${businessDate}/${assetIds}`,
+    data: JSON.parse(JSON.stringify(data || {}))
   }
   let promise = putData(params).then(result => {
     if (typeof callback === 'function') {
