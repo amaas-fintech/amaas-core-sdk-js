@@ -27,7 +27,7 @@ export function retrieve({ AMId, businessDate, assetIds }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function insert({ AMID, businessDate }, callback) {
+export function insert({ AMId, businessDate }, callback) {
   const params = {
     AMaaSClass: 'curve',
     AMId,
