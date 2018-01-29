@@ -1,6 +1,6 @@
 {
   "name": "@amaas/amaas-core-sdk-js",
-  "version": "3.3.0",
+  "version": "3.4.0-rc-1",
   "description": "Asset Management as a Service (AMaaS) Software Development Kit (SDK) for JavaScript",
   "main": "dist/index",
   "scripts": {
