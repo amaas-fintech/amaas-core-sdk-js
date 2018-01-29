@@ -30,11 +30,12 @@ export function retrieve({ AMId, businessDate, assetIds, query }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function insert({ AMId, businessDate }, callback) {
+export function insert({ AMId, businessDate, data }, callback) {
   const params = {
     AMaaSClass: 'curve',
     AMId,
-    resourceId: `${businessDate}`
+    resourceId: `${businessDate}`,
+    data: JSON.parse(JSON.stringify(data || {}))
   }
   let promise = insertData(params).then(result => {
     if (typeof callback === 'function') {

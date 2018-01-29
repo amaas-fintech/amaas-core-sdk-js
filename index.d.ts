@@ -1684,17 +1684,8 @@ declare module '@amaas/amaas-core-sdk-js' {
             assetIds: string
             activeStates: boolean
           }
-      function retrieve({
-        AMId,
-        query
-      }: {
-        AMId: number
-        query: {
-          businessDateStart: string
-          businessDateEnd: string
-          assetIds: string
         }
-      ) : Promise<IFXRate[]> | void
+      )
       function insert(
         {
           AMId,
@@ -1757,7 +1748,6 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<any> | void
-      }): Promise<IFXRate[]> | void
     }
     namespace ForwardRate {
       function retrieve(
