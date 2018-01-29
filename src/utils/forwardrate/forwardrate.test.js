@@ -10,7 +10,7 @@ api.config({
 describe('retrieve', () => {
   beforeAll(() => {
     network.retrieveData.mockImplementation(() =>
-      Promise.resolve('forwardrate')
+      Promise.resolve('forwardRate')
     )
   })
   test('with promise', () => {
@@ -39,7 +39,7 @@ describe('retrieve', () => {
       (error, result) => {
         expect(network.retrieveData).toHaveBeenCalledWith({
           AMId: 88,
-          AMaaSClass: "forwardrate",
+          AMaaSClass: "forwardRate",
           query: {
             businessDateEnd: "2017-12-31",
             businessDateStart: "2017-11-27",
