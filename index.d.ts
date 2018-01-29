@@ -1519,6 +1519,7 @@ declare module '@amaas/amaas-core-sdk-js' {
             businessDateStart: string
             businessDateEnd: string
             assetIds: string
+            activeStates: boolean
           }
         },
         callback?: Function
@@ -1566,10 +1567,14 @@ declare module '@amaas/amaas-core-sdk-js' {
           AMId,
           businessDate,
           assetIds,
+          query
         }: {
           AMId: number,
           businessDate: string,
           assetIds: string,
+          query: {
+            activeStates: boolean
+          }
         },
         callback?: Function
       ): Promise<ICurve[]> | void
@@ -1611,6 +1616,7 @@ declare module '@amaas/amaas-core-sdk-js' {
             businessDateStart: string
             businessDateEnd: string
             assetIds: string
+            activeStates: boolean
           }
         }
       ) : Promise<IFXRate[]> | void
@@ -1690,6 +1696,7 @@ declare module '@amaas/amaas-core-sdk-js' {
             businessDateStart: string
             businessDateEnd: string
             tenor: string
+            activeStates: boolean
           }
         },
         callback?: Function

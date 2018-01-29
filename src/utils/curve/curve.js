@@ -9,11 +9,12 @@ import { retrieveData } from '../network'
  * @param {Function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns a Promise
  */
-export function retrieve({ AMId, businessDate, assetIds }, callback) {
+export function retrieve({ AMId, businessDate, assetIds, query }, callback) {
   const params = {
     AMaaSClass: 'curve',
     AMId,
-    resourceId: `${businessDate}/${assetIds}`
+    resourceId: `${businessDate}/${assetIds}`,
+    query
   }
   let promise = retrieveData(params).then(result => {
     if (typeof callback === 'function') {
