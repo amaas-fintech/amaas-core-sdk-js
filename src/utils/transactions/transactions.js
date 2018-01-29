@@ -277,12 +277,17 @@ export function cancel({ AMId, resourceId }, callback) {
  * @param {function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns Promise that resolves with the upload summary. Otherwise calls callback (err, result)
  */
-export function uploadCSV({ AMId, data, contentType }, callback) {
+export function uploadCSV({ AMId, data, filename, contentType }, callback) {
+  let queryParams = {}
+  if (filename) {
+    queryParams = { ...queryParams, filename: filename }
+  }
   const params = {
     AMaaSClass: 'uploadTransactions',
     AMId,
     data,
-    contentType: contentType || 'text/csv'
+    contentType: contentType || 'text/csv',
+    queryParams
   }
   let promise = insertData(params).then(result => {
     if (typeof callback === 'function') {
@@ -339,7 +344,8 @@ export function executeCSVJob({ AMId, importId }, callback) {
 export function listImportJobs({ AMId, more }, callback) {
   const params = {
     AMaaSClass: 'csvImportDetails',
-    AMId
+    AMId,
+    query: more ? { more } : {}
   }
   let promise = retrieveData(params).then(result => {
     if (typeof callback === 'function') {

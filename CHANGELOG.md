@@ -1,6 +1,39 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v3.3.0 - 2018-01-26
+### Added
+- Added time properties to the UploadResult
+
+### Changed
+- Allow file name to be passed to upload path
+
+## v3.2.0 - 2018-01-25
+### Added
+- Added AggregatePNL class
+
+### Changed
+- Retrieve aggregate pnl returns class
+
+## v3.1.0 - 2018-01-12
+### Added
+- Added various EOD price APIs
+
+## v3.0.2 - 2018-01-11
+### Changed
+- Changed the interface for pubsub credentials.
+
+## v3.0.1 - 2018-01-10
+### Changed
+- Fixed passing of `more` param in `listImportJobs`.
+
+## v3.0.0 - 2018-01-09
+### Changed
+- Updated csv upload functions.
+
+### Added
+- Added listImportJobs function for csv upload.
+
 ## v2.4.0 - 2018-01-05
 ### Changed
 - Updated dependencies.

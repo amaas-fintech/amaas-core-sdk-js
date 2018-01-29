@@ -128,12 +128,14 @@ describe('retrieve', () => {
     retrieve(
       { AMId: 1, resourceId: 'testID', query: { version: 8 } },
       (error, result) => {
-        expect(network.retrieveData).toHaveBeenCalledWith({
-          AMaaSClass: 'transactions',
-          AMId: 1,
-          resourceId: 'testID',
-          query: { version: 8 }
-        })
+        expect(network.retrieveData).toHaveBeenCalledWith(
+          expect.objectContaining({
+            AMaaSClass: 'transactions',
+            AMId: 1,
+            resourceId: 'testID',
+            query: { version: 8 }
+          })
+        )
         done()
       }
     )
@@ -152,11 +154,13 @@ describe('insert', () => {
   })
   it('calls insertData with correct params', done => {
     insert({ AMId: 1, transaction: mockTransaction }, (error, result) => {
-      expect(network.insertData).toHaveBeenCalledWith({
-        AMaaSClass: 'transactions',
-        AMId: 1,
-        data: JSON.parse(JSON.stringify(mockTransaction))
-      })
+      expect(network.insertData).toHaveBeenCalledWith(
+        expect.objectContaining({
+          AMaaSClass: 'transactions',
+          AMId: 1,
+          data: JSON.parse(JSON.stringify(mockTransaction))
+        })
+      )
       done()
     })
   })
@@ -174,12 +178,14 @@ describe('amend', () => {
     amend(
       { AMId: 1, resourceId: 'testID', transaction: mockTransaction },
       (error, result) => {
-        expect(network.putData).toHaveBeenCalledWith({
-          AMaaSClass: 'transactions',
-          AMId: 1,
-          resourceId: 'testID',
-          data: JSON.parse(JSON.stringify(mockTransaction))
-        })
+        expect(network.putData).toHaveBeenCalledWith(
+          expect.objectContaining({
+            AMaaSClass: 'transactions',
+            AMId: 1,
+            resourceId: 'testID',
+            data: JSON.parse(JSON.stringify(mockTransaction))
+          })
+        )
         done()
       }
     )
@@ -198,12 +204,14 @@ describe('partialAmend', () => {
     partialAmend(
       { AMId: 1, resourceId: 'testID', changes: { changed: 'changed' } },
       (error, result) => {
-        expect(network.patchData).toHaveBeenCalledWith({
-          AMaaSClass: 'transactions',
-          AMId: 1,
-          resourceId: 'testID',
-          data: { changed: 'changed' }
-        })
+        expect(network.patchData).toHaveBeenCalledWith(
+          expect.objectContaining({
+            AMaaSClass: 'transactions',
+            AMId: 1,
+            resourceId: 'testID',
+            data: { changed: 'changed' }
+          })
+        )
         done()
       }
     )
@@ -224,11 +232,13 @@ describe('search', () => {
     search(
       { AMId: 1, query: { queryKey: ['queryValues'] } },
       (error, result) => {
-        expect(network.searchData).toHaveBeenCalledWith({
-          AMaaSClass: 'transactions',
-          AMId: 1,
-          query: { queryKey: ['queryValues'] }
-        })
+        expect(network.searchData).toHaveBeenCalledWith(
+          expect.objectContaining({
+            AMaaSClass: 'transactions',
+            AMId: 1,
+            query: { queryKey: ['queryValues'] }
+          })
+        )
         done()
       }
     )
@@ -260,13 +270,15 @@ describe('fieldsSearch', () => {
         fields: ['description', 'comments', 'settlementCurrency']
       },
       (error, result) => {
-        expect(network.searchData).toHaveBeenCalledWith({
-          AMaaSClass: 'transactions',
-          query: {
-            assetManagerIds: [1, 2],
-            fields: ['description', 'comments', 'settlementCurrency']
-          }
-        })
+        expect(network.searchData).toHaveBeenCalledWith(
+          expect.objectContaining({
+            AMaaSClass: 'transactions',
+            query: {
+              assetManagerIds: [1, 2],
+              fields: ['description', 'comments', 'settlementCurrency']
+            }
+          })
+        )
         done()
       }
     )
@@ -285,11 +297,13 @@ describe('cancel', () => {
   })
   it('calls deleteData with correct params', done => {
     cancel({ AMId: 1, resourceId: 'testID' }, (error, result) => {
-      expect(network.deleteData).toHaveBeenCalledWith({
-        AMaaSClass: 'transactions',
-        AMId: 1,
-        resourceId: 'testID'
-      })
+      expect(network.deleteData).toHaveBeenCalledWith(
+        expect.objectContaining({
+          AMaaSClass: 'transactions',
+          AMId: 1,
+          resourceId: 'testID'
+        })
+      )
       done()
     })
   })
@@ -306,15 +320,21 @@ describe('uploadCSV', () => {
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls insertData with correct params', done => {
-    uploadCSV({ AMId: 88, data: 'csv' }, (error, result) => {
-      expect(network.insertData).toHaveBeenCalledWith({
-        AMaaSClass: 'uploadTransactions',
-        AMId: 88,
-        data: 'csv',
-        contentType: 'text/csv'
-      })
-      done()
-    })
+    uploadCSV(
+      { AMId: 88, data: 'csv', filename: 'assets.csv' },
+      (error, result) => {
+        expect(network.insertData).toHaveBeenCalledWith(
+          expect.objectContaining({
+            AMaaSClass: 'uploadTransactions',
+            AMId: 88,
+            data: 'csv',
+            contentType: 'text/csv',
+            queryParams: { filename: 'assets.csv' }
+          })
+        )
+        done()
+      }
+    )
   })
 })
 
@@ -330,11 +350,13 @@ describe('executeCSVJob', () => {
   })
   it('calls insertData with correct params', done => {
     executeCSVJob({ AMId: 88, importId: 'testId' }, (error, result) => {
-      expect(network.insertData).toHaveBeenCalledWith({
-        AMaaSClass: 'executeTransactionsUpload',
-        AMId: 88,
-        resourceId: 'testId/execute'
-      })
+      expect(network.insertData).toHaveBeenCalledWith(
+        expect.objectContaining({
+          AMaaSClass: 'executeTransactionsUpload',
+          AMId: 88,
+          resourceId: 'testId/execute'
+        })
+      )
       done()
     })
   })
@@ -346,17 +368,36 @@ describe('listImportJobs', () => {
       Promise.resolve(mockImportList)
     )
   })
+  afterEach(() => {
+    network.retrieveData.mockClear()
+  })
   test('with promise', () => {
     let promise = listImportJobs({})
     expect(promise).toBeInstanceOf(Promise)
   })
   it('calls retrieveData with correct params', done => {
+    listImportJobs({ AMId: 88, more: 'more' }, (error, result) => {
+      expect(error).toBeNull()
+      expect(network.retrieveData).toHaveBeenCalledWith(
+        expect.objectContaining({
+          AMaaSClass: 'csvImportDetails',
+          AMId: 88,
+          query: { more: 'more' }
+        })
+      )
+      done()
+    })
+  })
+  it('calls retrieveData with correct params (without more)', done => {
     listImportJobs({ AMId: 88 }, (error, result) => {
       expect(error).toBeNull()
-      expect(network.retrieveData).toHaveBeenCalledWith({
-        AMaaSClass: 'csvImportDetails',
-        AMId: 88
-      })
+      expect(network.retrieveData).toHaveBeenCalledWith(
+        expect.objectContaining({
+          AMaaSClass: 'csvImportDetails',
+          AMId: 88,
+          query: {}
+        })
+      )
       done()
     })
   })
@@ -374,11 +415,13 @@ describe('getCSVImportDetails', () => {
   })
   it('calls retrieveData with correct params', done => {
     getCSVImportDetails({ AMId: 88, importId: 'testId' }, (error, result) => {
-      expect(network.retrieveData).toHaveBeenCalledWith({
-        AMaaSClass: 'csvImportDetails',
-        AMId: 88,
-        resourceId: 'testId'
-      })
+      expect(network.retrieveData).toHaveBeenCalledWith(
+        expect.objectContaining({
+          AMaaSClass: 'csvImportDetails',
+          AMId: 88,
+          resourceId: 'testId'
+        })
+      )
       done()
     })
   })
@@ -401,15 +444,17 @@ describe('retriveMTM', () => {
         startDate: '2016-01-01'
       },
       (error, result) => {
-        expect(network.retrieveData).toHaveBeenCalledWith({
-          AMaaSClass: 'mtm',
-          AMId: 88,
-          query: {
-            bookIds: 'book-1',
-            startBusinessDate: '2016-01-01',
-            endBusinessDate: '2017-01-01'
-          }
-        })
+        expect(network.retrieveData).toHaveBeenCalledWith(
+          expect.objectContaining({
+            AMaaSClass: 'mtm',
+            AMId: 88,
+            query: {
+              bookIds: 'book-1',
+              startBusinessDate: '2016-01-01',
+              endBusinessDate: '2017-01-01'
+            }
+          })
+        )
         expect(error).toBeNull()
         done()
       }
@@ -424,16 +469,18 @@ describe('retriveMTM', () => {
         date: '2017-01-01'
       },
       (error, result) => {
-        expect(network.retrieveData).toHaveBeenCalledWith({
-          AMaaSClass: 'mtm',
-          AMId: 88,
-          query: {
-            bookIds: 'book-1',
-            assetIds: 'asset-1',
-            startBusinessDate: '2017-01-01',
-            endBusinessDate: '2017-01-01'
-          }
-        })
+        expect(network.retrieveData).toHaveBeenCalledWith(
+          expect.objectContaining({
+            AMaaSClass: 'mtm',
+            AMId: 88,
+            query: {
+              bookIds: 'book-1',
+              assetIds: 'asset-1',
+              startBusinessDate: '2017-01-01',
+              endBusinessDate: '2017-01-01'
+            }
+          })
+        )
         expect(error).toBeNull()
         done()
       }

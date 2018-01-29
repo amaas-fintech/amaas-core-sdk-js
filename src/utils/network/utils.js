@@ -252,7 +252,13 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
         stage,
         apiVersion
       })}/marketdata/eod-prices`
-        break
+      break
+    case 'eodBatch':
+      baseURL = `${getEndpoint({
+        stage,
+        apiVersion
+      })}/eod/batches`
+      break
     case 'curve':
       baseURL = `${getEndpoint({
         stage,
@@ -268,7 +274,7 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
     case 'forwardRate':
       baseURL = `${getEndpoint({
         stage,
-        apiVersion,
+        apiVersion
       })}/marketdata/forward-rates`
       break
     default:

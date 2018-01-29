@@ -5,7 +5,9 @@ import { retrieveData } from '../network'
  * @memberof module:api.Curve
  * @static
  * @param {object} params - object of parameters:
- * @param {number} params.AMId - Owning Asset Manager ID of the Profit and Loss record
+ * @param {number} params.AMId - Owning Asset Manager ID of curve data
+ * @param {string} params.businessDate - Business date (yyyy-mm-dd) of the curve data
+ * @param {string} params.assetIds - Which asset to retrieve curve data for
  * @param {Function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns a Promise
  */

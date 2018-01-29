@@ -633,6 +633,10 @@ declare module '@amaas/amaas-core-sdk-js' {
   }
 
   export interface IPubSubConnectionDetails {
+    data: IPubSubConnectionData[]
+    next?: number
+  }
+  export interface IPubSubConnectionData {
     Credentials: IPubSubCredentials
     Topics: string[]
   }
@@ -648,6 +652,8 @@ declare module '@amaas/amaas-core-sdk-js' {
     error?: IErrorWarning
     owner: number
     importId: string
+    timeExpires: string
+    timeNew: string
   }
 
   export interface IImportSummary {
@@ -675,6 +681,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     error?: IErrorWarning
     owner: number
     summary: IImportSummary
+    timeNew: string
   }
 
   export interface IImportDetails {
@@ -688,6 +695,26 @@ declare module '@amaas/amaas-core-sdk-js' {
       transactionId?: string
       error?: IErrorWarning
     }[]
+    timeExpires: string
+    timeLoaded: string
+    timeNew: string
+    timePrepared: string
+  }
+
+  export interface IEODBatch {
+    batchType: string
+    businessDate: string
+    status: string
+    executionId: string
+    expirationTime: string
+    assetManagerId: number
+    bookId: string
+    closeTime: string
+    timezone: string
+    createdBy: string
+    updatedBy: string
+    createdTime: string
+    updatedTime: string
   }
 
   export interface IEOD {
@@ -705,7 +732,7 @@ declare module '@amaas/amaas-core-sdk-js' {
   }
 
   export interface ICurve {
-    assetManagerId: string  
+    assetManagerId: string
     assetId: string
     curveType: string
     fixingType: string
@@ -829,9 +856,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<assetManagers.EODBook | assetManagers.EODBook[]> | void
       function getCredentialsForPubSub(
-        { AMId }: { AMId: number },
+        { AMId, next }: { AMId: number; next?: number },
         callback?: Function
-      ): Promise<IPubSubConnectionDetails[]> | void
+      ): Promise<IPubSubConnectionDetails> | void
     }
     namespace Assets {
       function retrieve(
@@ -1217,7 +1244,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           options
         }: {
           AMId: number
-          options: { includeInactive: boolean[]; relationshipType: string[] }
+          options?: { includeInactive?: boolean[]; relationshipType?: string[] }
         },
         callback?: Function
       ): Promise<
@@ -1360,8 +1387,14 @@ declare module '@amaas/amaas-core-sdk-js' {
         {
           AMId,
           data,
+          filename,
           contentType
-        }: { AMId: number; data: string; contentType?: string },
+        }: {
+          AMId: number
+          data: string
+          filename?: string
+          contentType?: string
+        },
         callback?: Function
       ): Promise<IUploadResult> | void
       function executeCSVJob(
@@ -1369,7 +1402,7 @@ declare module '@amaas/amaas-core-sdk-js' {
         callback?: Function
       ): Promise<IExecuteResult> | void
       function listImportJobs(
-        { AMId, more }: { AMId: number, more?: string },
+        { AMId, more }: { AMId: number; more?: string },
         callback?: Function
       ): Promise<IImportList> | void
       function getCSVImportDetails(
@@ -1506,7 +1539,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           }
         },
         callback?: Function
-      ): Promise<IAggregatePNL> | void
+      ): Promise<transactions.AggregatePNL> | void
     }
     namespace EOD {
       function retrieve(
@@ -1560,6 +1593,36 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<any> | void
+      function triggerEODJob(
+        {
+          AMId,
+          bookId,
+          businessDate,
+          closeTime,
+          timezone
+        }: {
+          AMId: number
+          bookId: string
+          businessDate: string
+          closeTime?: string
+          timezone?: string
+        },
+        callback?: Function
+      ): Promise<IEODBatch> | void
+      function listBatchJobs(
+        {
+          AMId,
+          bookId,
+          businessDate,
+          executionId
+        }: {
+          AMId: number
+          bookId: string
+          businessDate: string
+          executionId?: string
+        },
+        callback?: Function
+      ): Promise<IEODBatch | IEODBatch[]> | void
     }
     namespace Curve {
       function retrieve(
@@ -1575,6 +1638,9 @@ declare module '@amaas/amaas-core-sdk-js' {
           query: {
             activeStates: boolean
           }
+          AMId: number
+          businessDate: string
+          assetIds: string
         },
         callback?: Function
       ): Promise<ICurve[]> | void
@@ -1618,6 +1684,15 @@ declare module '@amaas/amaas-core-sdk-js' {
             assetIds: string
             activeStates: boolean
           }
+      function retrieve({
+        AMId,
+        query
+      }: {
+        AMId: number
+        query: {
+          businessDateStart: string
+          businessDateEnd: string
+          assetIds: string
         }
       ) : Promise<IFXRate[]> | void
       function insert(
@@ -1682,6 +1757,7 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<any> | void
+      }): Promise<IFXRate[]> | void
     }
     namespace ForwardRate {
       function retrieve(
@@ -2492,6 +2568,25 @@ declare module '@amaas/amaas-core-sdk-js' {
 
     class CashTransaction extends Transaction {
       constructor(props: ICashTransaction)
+    }
+
+    class AggregatePNL {
+      YTD: {
+        total: any
+        asset: any
+        fx: any
+      }
+      MTD: {
+        total: any
+        asset: any
+        fx: any
+      }
+      DTD: {
+        total: any
+        asset: any
+        fx: any
+      }
+      constructor(props: IAggregatePNL)
     }
 
     class Position {
