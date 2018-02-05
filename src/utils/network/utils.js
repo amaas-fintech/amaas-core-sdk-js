@@ -8,15 +8,21 @@ import {
 } from 'amazon-cognito-identity-js'
 import expandTilde from 'expand-tilde'
 
-export function poolConfig(stage) {
-  return userPoolConfig[stage]
-}
 
-const userPool = stage =>
-  new CognitoUserPool({
-    UserPoolId: poolConfig(stage).userPoolId,
-    ClientId: poolConfig(stage).clientAppId
+export function getCognitoPool({ stage, cognitoPoolId, cognitoClientId }) {
+  // Legacy configurations
+  if (stage in userPoolConfig) {
+    return new CognitoUserPool({
+      UserPoolId: userPoolConfig[stage].userPoolId,
+      ClientId: userPoolConfig[stage].clientAppId,
+    })
+  }
+  // Otherwise build
+  return new CognitoUserPool({
+    UserPoolId: cognitoPoolId,
+    ClientId: cognitoClientId,
   })
+}
 
 export function getEndpoint({ stage, apiVersion, apiURL }) {
   // Legacy configurations
@@ -41,7 +47,7 @@ function isNode() {
   }
 }
 
-export function authenticate(stage, credPath) {
+export function authenticate({ stage, credPath, cognitoPoolId, cognitoClientId }) {
   let injectedResolve
   let injectedReject
   return new Promise((resolve, reject) => {
@@ -66,7 +72,7 @@ export function authenticate(stage, credPath) {
       })
       const cognitoUser = new CognitoUser({
         Username,
-        Pool: userPool(stage)
+        Pool: getCognitoPool({stage, cognitoPoolId, cognitoClientId})
       })
       console.log('Starting authentication...')
       cognitoUser.authenticateUser(authenticationDetails, {
@@ -77,7 +83,7 @@ export function authenticate(stage, credPath) {
   })
 }
 
-export function getToken(stage, credPath) {
+export function getToken({ stage, credPath, cognitoPoolId, cognitoClientId }) {
   // token injection
   // if (token && token.length > 0) {
   //   return Promise.resolve(token)
@@ -87,11 +93,13 @@ export function getToken(stage, credPath) {
   return new Promise((resolve, reject) => {
     injectedResolve = resolve
     injectedReject = reject
-    const cognitoUser = userPool(stage).getCurrentUser()
+    const cognitoUser = getCognitoPool(
+      {stage, cognitoPoolId, cognitoClientId}
+    ).getCurrentUser()
     if (!cognitoUser) {
       if (isNode()) {
         console.warn('No user in storage, attempting to authenticate...')
-        authenticate(stage, credPath)
+        authenticate({stage, credPath, cognitoPoolId, cognitoClientId})
           .then(res => injectedResolve(res))
           .catch(err => injectedReject(err))
       } else {
@@ -105,7 +113,7 @@ export function getToken(stage, credPath) {
         } else {
           if (isNode()) {
             console.warn('getSession failure, attempting to authenticate')
-            authenticate(stage, credPath)
+            authenticate({stage, credPath, cognitoPoolId, cognitoClientId})
               .then(res => injectedResolve(res))
               .catch(err => injectedReject(err))
           } else {
@@ -191,9 +199,11 @@ export function makeRequest({
   query,
   stage,
   credPath,
+  cognitoPoolId,
+  cognitoClientId,
   contentType
 }) {
-  return getToken(stage, credPath)
+  return getToken({stage, credPath, cognitoPoolId, cognitoClientId})
     .then(res => {
       let requestToMake
       switch (method) {
