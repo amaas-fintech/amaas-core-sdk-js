@@ -654,6 +654,8 @@ declare module '@amaas/amaas-core-sdk-js' {
     error?: IErrorWarning
     owner: number
     importId: string
+    timeExpires: string
+    timeNew: string
   }
 
   export interface IImportSummary {
@@ -681,6 +683,7 @@ declare module '@amaas/amaas-core-sdk-js' {
     error?: IErrorWarning
     owner: number
     summary: IImportSummary
+    timeNew: string
   }
 
   export interface IImportDetails {
@@ -694,6 +697,10 @@ declare module '@amaas/amaas-core-sdk-js' {
       transactionId?: string
       error?: IErrorWarning
     }[]
+    timeExpires: string
+    timeLoaded: string
+    timeNew: string
+    timePrepared: string
   }
 
   export interface IEODBatch {
@@ -1382,8 +1389,14 @@ declare module '@amaas/amaas-core-sdk-js' {
         {
           AMId,
           data,
+          filename,
           contentType
-        }: { AMId: number; data: string; contentType?: string },
+        }: {
+          AMId: number
+          data: string
+          filename?: string
+          contentType?: string
+        },
         callback?: Function
       ): Promise<IUploadResult> | void
       function executeCSVJob(

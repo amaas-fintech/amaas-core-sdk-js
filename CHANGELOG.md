@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v3.3.0 - 2018-01-26
+### Added
+- Added time properties to the UploadResult
+
+### Changed
+- Allow file name to be passed to upload path
+
 ## v3.2.0 - 2018-01-25
 ### Added
 - Added AggregatePNL class
