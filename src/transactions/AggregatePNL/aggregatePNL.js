@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import mapValues from 'lodash/mapValues'
 
 import { AMaaSModel } from '../../core'
 
@@ -12,6 +13,7 @@ class AggregatePNL extends AMaaSModel {
     YTD,
     MTD,
     DTD,
+    fxRates,
     createdBy,
     updatedBy,
     createdTime,
@@ -61,12 +63,25 @@ class AggregatePNL extends AMaaSModel {
           this._DTD = { total, fx, asset }
         },
         enumerable: true
+      },
+      _fxRates: { writable: true, enumerable: false },
+      fxRates: {
+        get: () => this._fxRates,
+        set: (newFxRates = {}) => {
+          let castFxRates = mapValues(
+            newFxRates,
+            rate => new Decimal(rate || 0)
+          )
+          this._fxRates = castFxRates
+        },
+        enumerable: true
       }
     })
 
     this.YTD = YTD
     this.MTD = MTD
     this.DTD = DTD
+    this.fxRates = fxRates
   }
 }
 

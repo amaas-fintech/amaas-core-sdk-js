@@ -22,7 +22,10 @@ export function retrieve({ AMId, query }, callback) {
     query
   }
   let promise = retrieveData(params).then(result => {
-    result = _parseAggregatePNL(result)
+    result = _parseAggregatePNL({
+      ...result.aggregatePnl,
+      fxRates: result.fxRates
+    })
     if (typeof callback === 'function') {
       callback(null, result)
     }

@@ -481,7 +481,8 @@ declare module '@amaas/amaas-core-sdk-js' {
     businessDate: string
     clientId: string
     fxPnl: any
-    message: string
+    errorMessage: string
+    additional: any
     period: any
     pnlStatus: string
     currency: string
@@ -505,7 +506,8 @@ declare module '@amaas/amaas-core-sdk-js' {
     businessDate: string
     clientId: string
     fxPnl: any
-    message: string
+    errorMessage: string
+    additional: any
     period: any
     pnlStatus: string
     pnlTimestamp: string
@@ -538,7 +540,9 @@ declare module '@amaas/amaas-core-sdk-js' {
       fx: string
       asset: string
     }
-    fxRates: any
+    fxRates: {
+      [rateName: string]: any
+    }
   }
 
   // Transactions
@@ -2440,6 +2444,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         asset: any
         fx: any
       }
+      fxRates: {
+        [rateName: string]: any
+      }
       constructor(props: IAggregatePNL)
     }
 
@@ -2472,7 +2479,8 @@ declare module '@amaas/amaas-core-sdk-js' {
       clientId: string
       fxPnl: any
       currency: string
-      message: string
+      errorMessage: string
+      additional: any
       period: any
       pnlStatus: string
       pnlTimestamp: string
@@ -2496,7 +2504,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       businessDate: string
       clientId: string
       fxPnl: any
-      message: string
+      errorMessage: string
       period: any
       pnlStatus: string
       pnlTimestamp: string
@@ -2511,6 +2519,7 @@ declare module '@amaas/amaas-core-sdk-js' {
       version?: string
       transactionId: string
       currency: string
+      additional: any
       constructor(props: ITransactionPNL)
     }
   }
