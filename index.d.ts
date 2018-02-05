@@ -1566,7 +1566,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           AMId: number
           businessDate: string
           data: {
-            asseetManagerId: string
+            assetManagerId: string
             assetId: string
             businessDate: string
             price: string
@@ -1585,7 +1585,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           businessDate: string
           assetIds: string
           data: {
-            asseetManagerId: string
+            assetManagerId: string
             assetId: string
             businessDate: string
             price: string
