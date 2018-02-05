@@ -540,7 +540,9 @@ declare module '@amaas/amaas-core-sdk-js' {
       fx: string
       asset: string
     }
-    fxRates: any
+    fxRates: {
+      [rateName: string]: any
+    }
   }
 
   // Transactions
@@ -2441,6 +2443,9 @@ declare module '@amaas/amaas-core-sdk-js' {
         total: any
         asset: any
         fx: any
+      }
+      fxRates: {
+        [rateName: string]: any
       }
       constructor(props: IAggregatePNL)
     }
