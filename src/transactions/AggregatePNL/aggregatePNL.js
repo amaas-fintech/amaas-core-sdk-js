@@ -9,6 +9,14 @@ import { AMaaSModel } from '../../core'
  * @extends module:core.AMaaSModel
  */
 class AggregatePNL extends AMaaSModel {
+  /**
+   * Construct a new AggregatePNL object
+   * @param {object} params - AggregatePNL creation options
+   * @param {object} params.YTD - YTD PnL containing `fx`, `asset` and `total` PnL values`
+   * @param {object} params.MTD - MTD PnL containing `fx`, `asset` and `total` PnL values`
+   * @param {object} params.DTD - DTD PnL containing `fx`, `asset` and `total` PnL values`
+   * @param {object} params.fxRates - FX rates. This is an object with the ccy pair as key and rate as value
+   */
   constructor({
     YTD,
     MTD,
