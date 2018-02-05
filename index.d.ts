@@ -1564,11 +1564,11 @@ declare module '@amaas/amaas-core-sdk-js' {
           data
         }: {
           AMId: number
-          businessDate: string,
+          businessDate: string
           data: {
-            asseetManagerId: string,
-            assetId: string,
-            businessDate: string,
+            asseetManagerId: string
+            assetId: string
+            businessDate: string
             price: string
           }
         },
@@ -1582,12 +1582,12 @@ declare module '@amaas/amaas-core-sdk-js' {
           data
         }: {
           AMId: number
-          businessDate: string,
-          assetIds: string,
+          businessDate: string
+          assetIds: string
           data: {
-            asseetManagerId: string,
-            assetId: string,
-            businessDate: string,
+            asseetManagerId: string
+            assetId: string
+            businessDate: string
             price: string
           }
         },
@@ -1632,15 +1632,12 @@ declare module '@amaas/amaas-core-sdk-js' {
           assetIds,
           query
         }: {
-          AMId: number,
-          businessDate: string,
-          assetIds: string,
-          query: {
-            activeStates: boolean
-          }
           AMId: number
           businessDate: string
           assetIds: string
+          query: {
+            activeStates: boolean
+          }
         },
         callback?: Function
       ): Promise<ICurve[]> | void
@@ -1651,7 +1648,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           data
         }: {
           AMId: number
-          businessDate: string,
+          businessDate: string
           data: ICurve | ICurve[]
         },
         callback?: Function
@@ -1664,42 +1661,40 @@ declare module '@amaas/amaas-core-sdk-js' {
           data
         }: {
           AMId: number
-          businessDate: string,
-          assetIds: string,
+          businessDate: string
+          assetIds: string
           data: ICurve | ICurve[]
         },
         callback?: Function
       ): Promise<any> | void
     }
     namespace FXRate {
-      function retrieve(
-        {
-          AMId,
-          query
-        }: {
-          AMId: number
-          query: {
-            businessDateStart: string
-            businessDateEnd: string
-            assetIds: string
-            activeStates: boolean
-          }
+      function retrieve({
+        AMId,
+        query
+      }: {
+        AMId: number
+        query: {
+          businessDateStart: string
+          businessDateEnd: string
+          assetIds: string
+          activeStates: boolean
         }
-      )
+      }): Promise<IFXRate[]> | void
       function insert(
         {
           AMId,
-          businessDate: string,
-          data: string
+          businessDate,
+          data
         }: {
           AMId: number
-          businessDate: string,
+          businessDate: string
           data: {
-            assetManagerId: string,
-            assetId: string,
-            businessDate: string,
-            rateTimestamp: string,
-            rateType: string,
+            assetManagerId: string
+            assetId: string
+            businessDate: string
+            rateTimestamp: string
+            rateType: string
             rate: string
           }
         },
@@ -1712,15 +1707,15 @@ declare module '@amaas/amaas-core-sdk-js' {
           assetIds,
           data
         }: {
-          AMId: number,
-          businessDate: string,
-          assetIds: string,
+          AMId: number
+          businessDate: string
+          assetIds: string
           data: {
-            assetManagerId: string,
-            assetId: string,
-            businessDate: string,
-            rateTimestamp: string,
-            rateType: string,
+            assetManagerId: string
+            assetId: string
+            businessDate: string
+            rateTimestamp: string
+            rateType: string
             rate: string
           }
         },
@@ -1734,15 +1729,15 @@ declare module '@amaas/amaas-core-sdk-js' {
           data
         }: {
           AMId: number
-          businessDate: string,
-          assetIds: string,
+          businessDate: string
+          assetIds: string
           data: {
-            assetManagerId: string,
-            assetId: string,
-            businessDate: string,
-            rateTimestamp: string,
-            rateType: string,
-            rate: string,
+            assetManagerId: string
+            assetId: string
+            businessDate: string
+            rateTimestamp: string
+            rateType: string
+            rate: string
             active: boolean
           }
         },
