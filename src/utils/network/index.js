@@ -3,10 +3,11 @@ import * as utils from './utils'
 let stage
 let apiVersion
 let apiURL
-let token
 let cognitoPoolId
 let cognitoClientId
-let credPath
+let token
+let username
+let password
 
 export function configureStage(config) {
   if (config.stage) {
@@ -18,21 +19,23 @@ export function configureStage(config) {
   if (config.apiURL) {
     apiURL = config.apiURL
   }
-
-  if (config.credentialsPath) {
-    credPath = config.credentialsPath
-  }
 }
 
 export function configureAuth(config) {
-  if (config.token) {
-    token = config.token
-  }
   if (config.cognitoPoolId) {
     cognitoPoolId = config.cognitoPoolId
   }
   if (config.cognitoClientId) {
     cognitoClientId = config.cognitoClientId
+  }
+  if (config.token) {
+    token = config.token
+  }
+  if (config.username) {
+    username = config.username
+  }
+  if (config.password) {
+    password = config.password
   }
 }
 
@@ -74,8 +77,8 @@ export function retrieveData(
     url,
     query: queryParams,
     stage,
-    cognitoPoolId,
-    cognitoClientId,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {
@@ -142,8 +145,8 @@ export function insertData(
     data,
     query,
     stage,
-    cognitoPoolId,
-    cognitoClientId,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {
@@ -185,8 +188,8 @@ export function putData(
     data,
     query,
     stage,
-    cognitoPoolId,
-    cognitoClientId,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {
@@ -232,8 +235,8 @@ export function patchData(
     data,
     query,
     stage,
-    cognitoPoolId,
-    cognitoClientId,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {
@@ -271,7 +274,9 @@ export function deleteData(
   }
   let promise = utils.makeRequest({
     method: 'DELETE', url,
-    stage, cognitoPoolId, cognitoClientId,
+    stage,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {
@@ -314,8 +319,8 @@ export function searchData({ AMaaSClass, AMId, query, contentType }, callback) {
     url,
     data,
     stage,
-    cognitoPoolId,
-    cognitoClientId,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {

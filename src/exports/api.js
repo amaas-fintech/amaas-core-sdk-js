@@ -2,6 +2,7 @@
  * API Methods. These methods enable communication with the AMaaS Database. All methods return Promises with the option to use callbacks instead. Specific implementation instructions are detailed below.
  * @module api
  */
+import fs from 'fs'
 
 import * as Allocations from '../utils/allocations'
 import * as AssetManagers from '../utils/assetManagers'
@@ -51,10 +52,47 @@ export {
 
 function config(config) {
   const {
-    stage, apiURL, apiVersion,
     credentialsPath,
-    token, cognitoPoolId, cognitoClientId,
+    stage, apiURL, apiVersion,
+    cognitoPoolId, cognitoClientId,
+    token, username, password,
   } = config
-  configureStage({ stage, credentialsPath, apiVersion, apiURL })
-  configureAuth({ token, cognitoPoolId, cognitoClientId })
+
+  if (isNode()) {
+    let fc = loadFileConfig(credentialsPath)
+    if (!stage) stage = fc.stage
+    if (!apiURL) apiURL = fc.apiURL
+    if (!apiVersion) apiVersion = fc.apiVersion
+    if (!cognitoPoolId) cognitoPoolId = fc.cognitoPoolId
+    if (!cognitoClientId) cognitoClientId = fc.cognitoClientId
+    if (!token) token = fc.token
+    if (!username) username = fc.username
+    if (!password) password = fc.password
+  }
+
+  configureStage({ stage, apiVersion, apiURL })
+  configureAuth({ cognitoPoolId, cognitoClientId, token, username, password })
+}
+
+function isNode() {
+  try {
+    return Object.prototype.toString.call(global.process) === '[object process]'
+  } catch (e) {
+    return false
+  }
+}
+
+function loadFileConfig(credPath) {
+  let path
+  if (credPath) {
+    path = credPath
+  } else {
+    path = `${expandTilde('~')}/amaas.js`
+  }
+  console.log(`Reading credentials from ${path}`)
+  let err, data = fs.readFileSync(path)
+  if (err) {
+    throw err
+  }
+  return JSON.parse(data)
 }

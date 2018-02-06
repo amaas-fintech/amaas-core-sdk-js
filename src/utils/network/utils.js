@@ -1,6 +1,5 @@
 import request from 'superagent'
 import { endpoint, userPoolConfig } from '../../config.js'
-import fs from 'fs'
 import {
   AuthenticationDetails,
   CognitoUser,
@@ -40,51 +39,29 @@ export function getEndpoint({ stage, apiVersion, apiURL }) {
   }
 }
 
-function isNode() {
-  try {
-    return Object.prototype.toString.call(global.process) === '[object process]'
-  } catch (e) {
-    return false
-  }
-}
-
-export function authenticate({ stage, credPath, cognitoPoolId, cognitoClientId }) {
+export function authenticate({ stage, username, password, cognitoPoolId, cognitoClientId }) {
   let injectedResolve
   let injectedReject
   return new Promise((resolve, reject) => {
     injectedResolve = resolve
     injectedReject = reject
-    let path
-    if (credPath) {
-      path = credPath
-    } else {
-      path = `${expandTilde('~')}/amaas.js`
-    }
-    console.log(`Reading credentials from ${path}`)
-    fs.readFile(path, (error, data) => {
-      if (error) {
-        return injectedReject(error)
-      }
-      const Username = JSON.parse(data).username
-      const Password = JSON.parse(data).password
-      const authenticationDetails = new AuthenticationDetails({
-        Username,
-        Password
-      })
-      const cognitoUser = new CognitoUser({
-        Username,
-        Pool: getCognitoPool({stage, cognitoPoolId, cognitoClientId})
-      })
-      console.log('Starting authentication...')
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: res => injectedResolve(res.getIdToken().getJwtToken()),
-        onFailure: err => injectedReject(err)
-      })
+    const authenticationDetails = new AuthenticationDetails({
+      Username: username,
+      Password: password,
+    })
+    const cognitoUser = new CognitoUser({
+      Username: username,
+      Pool: getCognitoPool({stage, cognitoPoolId, cognitoClientId})
+    })
+    console.log('Starting authentication...')
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: res => injectedResolve(res.getIdToken().getJwtToken()),
+      onFailure: err => injectedReject(err)
     })
   })
 }
 
-export function getToken({ stage, credPath, cognitoPoolId, cognitoClientId }) {
+export function getToken({ stage, cognitoPoolId, cognitoClientId, username, password }) {
   // token injection
   // if (token && token.length > 0) {
   //   return Promise.resolve(token)
@@ -98,9 +75,9 @@ export function getToken({ stage, credPath, cognitoPoolId, cognitoClientId }) {
       {stage, cognitoPoolId, cognitoClientId}
     ).getCurrentUser()
     if (!cognitoUser) {
-      if (isNode()) {
+      if (username && password) {
         console.warn('No user in storage, attempting to authenticate...')
-        authenticate({stage, credPath, cognitoPoolId, cognitoClientId})
+        authenticate({stage, username, password, cognitoPoolId, cognitoClientId})
           .then(res => injectedResolve(res))
           .catch(err => injectedReject(err))
       } else {
@@ -112,9 +89,9 @@ export function getToken({ stage, credPath, cognitoPoolId, cognitoClientId }) {
           console.log('getSession success')
           injectedResolve(session.getIdToken().getJwtToken())
         } else {
-          if (isNode()) {
+          if (username && password) {
             console.warn('getSession failure, attempting to authenticate')
-            authenticate({stage, credPath, cognitoPoolId, cognitoClientId})
+            authenticate({stage, username, password, cognitoPoolId, cognitoClientId})
               .then(res => injectedResolve(res))
               .catch(err => injectedReject(err))
           } else {
@@ -199,12 +176,11 @@ export function makeRequest({
   data,
   query,
   stage,
-  credPath,
-  cognitoPoolId,
-  cognitoClientId,
+  cognitoPoolId, cognitoClientId,
+  username, password,
   contentType
 }) {
-  return getToken({stage, credPath, cognitoPoolId, cognitoClientId})
+  return getToken({stage, cognitoPoolId, cognitoClientId, username, password})
     .then(res => {
       let requestToMake
       switch (method) {
