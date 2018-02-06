@@ -32,7 +32,7 @@ export function retrieve({ AMId, query }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function insert({ AMID, businessDate, data }, callback) {
+export function insert({ AMId, businessDate, data }, callback) {
   const params = {
     AMaaSClass: 'eod',
     AMId,

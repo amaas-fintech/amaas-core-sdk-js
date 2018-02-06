@@ -54,6 +54,35 @@ describe('retrieve', () => {
   })
 })
 
+describe('insert', () => {
+  beforeAll(() => {
+    network.insertData.mockImplementation(() => Promise.resolve())
+  })
+  afterEach(() => network.insertData.mockClear())
+  test('with promise', () => {
+    let promise = api.EOD.insert({ AMId: 88 })
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls insertData with correct params', done => {
+    api.EOD.insert(
+      {
+        AMId: 88,
+        businessDate: '2018-07-04',
+        data: {}
+      },
+      (error, result) => {
+        expect(network.insertData).toHaveBeenCalledWith({
+          AMaaSClass: 'eod',
+          AMId: 88,
+          resourceId: '2018-07-04',
+          data: {}
+        })
+        done()
+      }
+    )
+  })
+})
+
 describe('triggerEODJob', () => {
   beforeAll(() => {
     network.insertData.mockImplementation(() => Promise.resolve(mockBatch))
