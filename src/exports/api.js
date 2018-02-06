@@ -50,7 +50,11 @@ export {
 }
 
 function config(config) {
-  const { stage, credentialsPath, token, apiVersion } = config
-  configureStage({ stage, credentialsPath, apiVersion })
-  configureAuth({ token })
+  const {
+    stage, apiURL, apiVersion,
+    credentialsPath,
+    token, cognitoPoolId, cognitoClientId,
+  } = config
+  configureStage({ stage, credentialsPath, apiVersion, apiURL })
+  configureAuth({ token, cognitoPoolId, cognitoClientId })
 }

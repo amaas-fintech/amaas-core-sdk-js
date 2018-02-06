@@ -27,6 +27,7 @@ export function getCognitoPool({ stage, cognitoPoolId, cognitoClientId }) {
 export function getEndpoint({ stage, apiVersion, apiURL }) {
   // Legacy configurations
   if (stage in endpoint) {
+    apiVersion = apiVersion ? apiVersion : 'v1.0'
     return `${endpoint[stage]}/${apiVersion}`
   }
   // Otherwise, build
