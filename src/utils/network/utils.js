@@ -5,7 +5,6 @@ import {
   CognitoUser,
   CognitoUserPool
 } from 'amazon-cognito-identity-js'
-import expandTilde from 'expand-tilde'
 
 
 export function getCognitoPool({ stage, cognitoPoolId, cognitoClientId }) {

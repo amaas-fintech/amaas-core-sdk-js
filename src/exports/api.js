@@ -3,6 +3,7 @@
  * @module api
  */
 import fs from 'fs'
+import expandTilde from 'expand-tilde'
 
 import * as Allocations from '../utils/allocations'
 import * as AssetManagers from '../utils/assetManagers'
@@ -51,7 +52,7 @@ export {
 }
 
 function config(config) {
-  const {
+  let {
     credentialsPath,
     stage, apiURL, apiVersion,
     cognitoPoolId, cognitoClientId,
@@ -89,10 +90,13 @@ function loadFileConfig(credPath) {
   } else {
     path = `${expandTilde('~')}/amaas.js`
   }
-  console.log(`Reading credentials from ${path}`)
-  let err, data = fs.readFileSync(path)
-  if (err) {
-    throw err
+  try {
+    fs.accessSync(path)
+  } catch (err) {
+    // File does not exist
+    return {}
   }
+  console.log(`Reading credentials from ${path}`)
+  let data = fs.readFileSync(path)
   return JSON.parse(data)
 }
