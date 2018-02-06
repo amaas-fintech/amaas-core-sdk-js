@@ -1433,15 +1433,20 @@ declare module '@amaas/amaas-core-sdk-js' {
       ): Promise<IMTMResult[]> | void
     }
     function config({
-      stage,
       credentialsPath,
-      apiVersion,
-      token
+      stage, apiURL, apiVersion,
+      cognitoPoolId, cognitoClientId,
+      token, username, password,
     }: {
-      stage?: string
       credentialsPath?: string
+      stage?: string
+      apiURL?: string
       apiVersion?: string
+      cognitoPoolId?: string
+      cognitoClientId?: string
       token?: string
+      username?: string
+      password?: string
     }): void
     namespace PositionPNL {
       function retrieve(
