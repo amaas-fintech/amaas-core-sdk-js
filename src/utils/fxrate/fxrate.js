@@ -1,4 +1,4 @@
-import { retrieveData } from '../network'
+import { retrieveData, putData, insertData } from '../network'
 
 /**
  * @function retrieve
