@@ -1,72 +1,66 @@
 import request from 'superagent'
 import { endpoint, userPoolConfig } from '../../config.js'
-import fs from 'fs'
 import {
   AuthenticationDetails,
   CognitoUser,
   CognitoUserPool
 } from 'amazon-cognito-identity-js'
-import expandTilde from 'expand-tilde'
 
-export function poolConfig(stage) {
-  return userPoolConfig[stage]
-}
 
-const userPool = stage =>
-  new CognitoUserPool({
-    UserPoolId: poolConfig(stage).userPoolId,
-    ClientId: poolConfig(stage).clientAppId
+export function getCognitoPool({ stage, cognitoPoolId, cognitoClientId }) {
+  // Legacy configurations
+  if (stage in userPoolConfig) {
+    return new CognitoUserPool({
+      UserPoolId: userPoolConfig[stage].userPoolId,
+      ClientId: userPoolConfig[stage].clientAppId,
+    })
+  }
+  // Otherwise build
+  return new CognitoUserPool({
+    UserPoolId: cognitoPoolId,
+    ClientId: cognitoClientId,
   })
-
-export function getEndpoint({ stage, apiVersion }) {
-  return `${endpoint[stage]}/${apiVersion}`
 }
 
-function isNode() {
-  try {
-    return Object.prototype.toString.call(global.process) === '[object process]'
-  } catch (e) {
-    return false
+export function getEndpoint({ stage, apiVersion, apiURL }) {
+  // Legacy configurations
+  if (stage in endpoint) {
+    apiVersion = apiVersion ? apiVersion : 'v1.0'
+    return `${endpoint[stage]}/${apiVersion}`
+  }
+  // Otherwise, build
+  if (apiURL) {
+    return apiURL
+  } else if (stage) {
+    return `https://api-${stage}.dev.amaas.com/`
+  } else {
+    return 'https://api.amaas.com/'
   }
 }
 
-export function authenticate(stage, credPath) {
+export function authenticate({ stage, username, password, cognitoPoolId, cognitoClientId }) {
   let injectedResolve
   let injectedReject
   return new Promise((resolve, reject) => {
     injectedResolve = resolve
     injectedReject = reject
-    let path
-    if (credPath) {
-      path = credPath
-    } else {
-      path = `${expandTilde('~')}/amaas.js`
-    }
-    console.log(`Reading credentials from ${path}`)
-    fs.readFile(path, (error, data) => {
-      if (error) {
-        return injectedReject(error)
-      }
-      const Username = JSON.parse(data).username
-      const Password = JSON.parse(data).password
-      const authenticationDetails = new AuthenticationDetails({
-        Username,
-        Password
-      })
-      const cognitoUser = new CognitoUser({
-        Username,
-        Pool: userPool(stage)
-      })
-      console.log('Starting authentication...')
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: res => injectedResolve(res.getIdToken().getJwtToken()),
-        onFailure: err => injectedReject(err)
-      })
+    const authenticationDetails = new AuthenticationDetails({
+      Username: username,
+      Password: password,
+    })
+    const cognitoUser = new CognitoUser({
+      Username: username,
+      Pool: getCognitoPool({stage, cognitoPoolId, cognitoClientId})
+    })
+    console.log('Starting authentication...')
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: res => injectedResolve(res.getIdToken().getJwtToken()),
+      onFailure: err => injectedReject(err)
     })
   })
 }
 
-export function getToken(stage, credPath) {
+export function getToken({ stage, cognitoPoolId, cognitoClientId, username, password }) {
   // token injection
   // if (token && token.length > 0) {
   //   return Promise.resolve(token)
@@ -76,11 +70,13 @@ export function getToken(stage, credPath) {
   return new Promise((resolve, reject) => {
     injectedResolve = resolve
     injectedReject = reject
-    const cognitoUser = userPool(stage).getCurrentUser()
+    const cognitoUser = getCognitoPool(
+      {stage, cognitoPoolId, cognitoClientId}
+    ).getCurrentUser()
     if (!cognitoUser) {
-      if (isNode()) {
+      if (username && password) {
         console.warn('No user in storage, attempting to authenticate...')
-        authenticate(stage, credPath)
+        authenticate({stage, username, password, cognitoPoolId, cognitoClientId})
           .then(res => injectedResolve(res))
           .catch(err => injectedReject(err))
       } else {
@@ -92,9 +88,9 @@ export function getToken(stage, credPath) {
           console.log('getSession success')
           injectedResolve(session.getIdToken().getJwtToken())
         } else {
-          if (isNode()) {
+          if (username && password) {
             console.warn('getSession failure, attempting to authenticate')
-            authenticate(stage, credPath)
+            authenticate({stage, username, password, cognitoPoolId, cognitoClientId})
               .then(res => injectedResolve(res))
               .catch(err => injectedReject(err))
           } else {
@@ -106,6 +102,45 @@ export function getToken(stage, credPath) {
   })
 }
 
+const PATH_MAP = {
+  'assets': '/asset/assets',
+  'assetConfig': '/asset/asset-config',
+  'assetManagers': '/assetmanager/asset-managers',
+  'assetManagerDomains': '/assetmanager/domains',
+  'assetManagerEODBooks': '/assetmanager/eod-books',
+  'assetManagerPubSubCredentials': '/book/credentials',
+  'book': '/book/books',
+  'bookPermissions': '/book/book-permissions',
+  'parties': '/party/parties',
+  'positions': '/transaction/positions',
+  'allocations': '/transaction/allocations',
+  'uploadTransactions': '/transaction/imports',
+  'executeTransactionsUpload': '/transaction/imports',
+  'csvImportDetails': '/transaction/imports',
+  'mtm': '/transaction/mtm',
+  'monitorItems': '/monitor/items',
+  'monitorActivities': '/monitor/activities',
+  'monitorEvents': '/monitor/events',
+  'netting': '/transaction/netting',
+  'relationships': '/assetmanager/asset-manager-relationships',
+  'relatedAssetManagerID': '/assetmanager/asset-manager-related-amid',
+  'relationshipRequest': '/assetmanager/relationship-request',
+  'transactions': '/transaction/transactions',
+  'corporateActions': '/corporateaction/corporate-actions',
+  'fundamentalCountries': '/fundamental/countries',
+  'fundamentalBusinessDate': '/fundamental/business-date',
+  'fundamentalDateInfo': '/fundamental/date-info/',
+  'fundamentalHoliday': '/fundamental/holidays',
+  'positionpnl': '/transaction/position_pnls',
+  'transactionpnl': '/transaction/transaction_pnls',
+  'aggregatepnl': '/transaction/aggregate_pnls',
+  'eod': '/marketdata/eod-prices',
+  'eodBatch': '/eod/batches',
+  'curve': '/marketdata/curves',
+  'fxRate': '/marketdata/fx-rates',
+  'forwardRate': '/marketdata/forward-rates',
+}
+
 /***
  * !This is an internal function that should not be called by the end user!
 
@@ -115,178 +150,19 @@ export function getToken(stage, credPath) {
  * @param {string} AMId: Asset Manager Id (required)
  * @param {string} resourceId: Id of the resource being requested (e.g. book_id)
 */
-export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion }) {
-  let baseURL = ''
-  switch (AMaaSClass) {
-    case 'assets':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/asset/assets`
-      break
-    case 'assetConfig':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/asset/asset-config`
-      break
-    case 'assetManagers':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/assetmanager/asset-managers`
-      break
-    case 'assetManagerDomains':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/domains`
-      break
-    case 'assetManagerEODBooks':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/assetmanager/eod-books`
-      break
-    case 'assetManagerPubSubCredentials':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/book/credentials`
-      break
-    case 'book':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/book/books`
-      break
-    case 'bookPermissions':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/book/book-permissions`
-      break
-    case 'parties':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/party/parties`
-      break
-    case 'positions':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/positions`
-      break
-    case 'allocations':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/allocations`
-      break
-    case 'uploadTransactions':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/transaction/imports`
-      break
-    case 'executeTransactionsUpload':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/transaction/imports`
-      break
-    case 'csvImportDetails':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/transaction/imports`
-      break
-    case 'mtm':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/mtm`
-      break
-    case 'monitorItems':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/items`
-      break
-    case 'monitorActivities':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/activities`
-      break
-    case 'monitorEvents':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/monitor/events`
-      break
-    case 'netting':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/netting`
-      break
-    case 'relationships':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/assetmanager/asset-manager-relationships`
-      break
-    case 'relatedAssetManagerID':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/assetmanager/asset-manager-related-amid`
-      break
-    case 'relationshipRequest':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/assetmanager/relationship-request`
-      break
-    case 'transactions':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/transaction/transactions`
-      break
-    case 'corporateActions':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/corporateaction/corporate-actions`
-      break
-    case 'fundamentalCountries':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/fundamental/countries`
-      break
-    case 'fundamentalBusinessDate':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/fundamental/business-date`
-      break
-    case 'fundamentalDateInfo':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/fundamental/date-info/`
-      break
-    case 'fundamentalHoliday':
-      baseURL = `${getEndpoint({ stage, apiVersion })}/fundamental/holidays`
-      break
-    case 'positionpnl':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/transaction/position_pnls`
-      break
-    case 'transactionpnl':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/transaction/transaction_pnls`
-      break
-    case 'aggregatepnl':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/transaction/aggregate_pnls`
-      break
-    case 'eod':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/marketdata/eod-prices`
-      break
-    case 'eodBatch':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/eod/batches`
-      break
-    case 'curve':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/marketdata/curves`
-      break
-    case 'fxRate':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/marketdata/fx-rates`
-      break
-    case 'forwardRate':
-      baseURL = `${getEndpoint({
-        stage,
-        apiVersion
-      })}/marketdata/forward-rates`
-      break
-    default:
+export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion, apiURL }) {
+  let base = `${getEndpoint({ stage, apiVersion, apiURL })}`.replace(/\/$/, '')
+  if (! AMaaSClass in PATH_MAP) {
       throw new Error(`Invalid class type: ${AMaaSClass}`)
   }
-  if (AMId === null || AMId === undefined) {
-    return `${baseURL}`
-  } else if (!resourceId) {
-    return `${baseURL}/${AMId}`
-  } else {
-    return `${baseURL}/${AMId}/${resourceId}`
-  }
+  return [base, PATH_MAP[AMaaSClass], AMId, resourceId].reduce((url, part) => {
+    if (part) {
+      part = part.replace(/^\/|\/$/g, '')
+      return `${url}/${part}`
+    } else {
+      return url
+    }
+  })
 }
 
 export function setAuthorization(stage) {
@@ -299,10 +175,11 @@ export function makeRequest({
   data,
   query,
   stage,
-  credPath,
+  cognitoPoolId, cognitoClientId,
+  username, password,
   contentType
 }) {
-  return getToken(stage, credPath)
+  return getToken({stage, cognitoPoolId, cognitoClientId, username, password})
     .then(res => {
       let requestToMake
       switch (method) {
