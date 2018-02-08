@@ -1759,6 +1759,7 @@ declare module '@amaas/amaas-core-sdk-js' {
             businessDateEnd: string
             tenor: string
             activeStates: boolean
+            fixingTypes?: string[]
           }
         },
         callback?: Function
