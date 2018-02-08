@@ -1636,8 +1636,8 @@ declare module '@amaas/amaas-core-sdk-js' {
           businessDate: string
           assetIds: string
           query: {
-            activeStates: boolean,
-            fixingType?: string
+            activeStates?: boolean
+            fixingTypes?: string
           }
         },
         callback?: Function
