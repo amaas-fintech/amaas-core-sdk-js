@@ -32,7 +32,7 @@ export function retrieve({ AMId, query }, callback) {
   promise.catch(error => callback(error))
 }
 
-export function insert({ AMID, businessDate }, callback) {
+export function insert({ AMId, businessDate }, callback) {
   const params = {
     AMaaSClass: 'fxRate',
     AMId,
