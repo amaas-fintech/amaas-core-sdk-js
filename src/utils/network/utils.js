@@ -152,7 +152,7 @@ const PATH_MAP = {
 */
 export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion, apiURL }) {
   let base = `${getEndpoint({ stage, apiVersion, apiURL })}`.replace(/\/$/, '')
-  if (! AMaaSClass in PATH_MAP) {
+  if (!(AMaaSClass in PATH_MAP)) {
       throw new Error(`Invalid class type: ${AMaaSClass}`)
   }
   return [base, PATH_MAP[AMaaSClass], AMId, resourceId].reduce((url, part) => {
