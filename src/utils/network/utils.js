@@ -156,8 +156,8 @@ export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion, apiU
       throw new Error(`Invalid class type: ${AMaaSClass}`)
   }
   return [base, PATH_MAP[AMaaSClass], AMId, resourceId].reduce((url, part) => {
-    if (part) {
-      part = part.replace(/^\/|\/$/g, '')
+    if (part != null) {
+      part = part.toString().replace(/^\/|\/$/g, '')
       return `${url}/${part}`
     } else {
       return url
