@@ -1,6 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v4.0.1 - 2018-02-09
+### Changed
+- Refactored configuration. @joshringer
+
+## v4.0.0 - 2018-02-05
+### Changed
+- Changed PositionPNL and TransactionPNL classes to have `errorMessage` and `additional` instead of just `message`
+- Added `fxRates` to the AggregatePNL class
+
 ## v3.3.0 - 2018-01-26
 ### Added
 - Added time properties to the UploadResult

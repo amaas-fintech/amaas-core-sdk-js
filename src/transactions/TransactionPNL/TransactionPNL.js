@@ -18,6 +18,8 @@ class TransactionPNL extends AMaaSModel {
    * @param {string} params.businessDate - Date of TransactionPNL
    * @param {number} params.clientId - Id of TransactionPNL's client
    * @param {Decimal} params.fxPnl - FX Profit & Loss
+   * @param {string} params.errorMessage - Error Message if applicable
+   * @param {any} params.additional - Additional data
    * @param {string} params.pnlTimeStamp - Proft & Loss Timestamp
    * @param {Decimal} params.quantity - Quantity of TransactionPNL
    * @param {Decimal} params.realisedPnl - Realised Profit & Loss of TransactionPNL
@@ -39,7 +41,8 @@ class TransactionPNL extends AMaaSModel {
     businessDate,
     clientId,
     fxPnl,
-    message,
+    errorMessage,
+    additional,
     period,
     pnlStatus,
     pnlTimestamp,
@@ -120,7 +123,8 @@ class TransactionPNL extends AMaaSModel {
     this.businessDate = businessDate
     this.clientId = clientId
     this.fxPnl = fxPnl
-    this.message = message
+    this.errorMessage = errorMessage
+    this.additional = additional
     this.period = period
     this.pnlStatus = pnlStatus
     this.pnlTimestamp = pnlTimestamp

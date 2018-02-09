@@ -1,28 +1,42 @@
 import * as utils from './utils'
 
-let stage = 'staging'
-let apiVersion = 'v1.0'
+let stage
+let apiVersion
+let apiURL
+let cognitoPoolId
+let cognitoClientId
 let token
-let credPath
+let username
+let password
 
 export function configureStage(config) {
   if (config.stage) {
     stage = config.stage
   }
-  if (config.credentialsPath) {
-    credPath = config.credentialsPath
-  }
   if (config.apiVersion) {
     apiVersion = config.apiVersion
   }
-  return
+  if (config.apiURL) {
+    apiURL = config.apiURL
+  }
 }
 
 export function configureAuth(config) {
+  if (config.cognitoPoolId) {
+    cognitoPoolId = config.cognitoPoolId
+  }
+  if (config.cognitoClientId) {
+    cognitoClientId = config.cognitoClientId
+  }
   if (config.token) {
     token = config.token
   }
-  return
+  if (config.username) {
+    username = config.username
+  }
+  if (config.password) {
+    password = config.password
+  }
 }
 
 /***
@@ -30,10 +44,10 @@ export function configureAuth(config) {
  * !Wrapper functions are exposed for the individual asset classes for consumption!
 
  * Base function for retrieval of data from the database (GET request)
- * @param {object} anonymous: anonymous object with arguments:
- * @param {string} AMaaSClass: class being requested/sent (e.g. Transaction) (required)
- * @param {string} AMId: Asset Manager Id (required)
- * @param {string} [resourceId]: Id of the resource being requested (e.g. book_id)
+ * @param {object} anonymous anonymous object with arguments:
+ * @param {string} AMaaSClass class being requested/sent (e.g. Transaction) (required)
+ * @param {string} AMId Asset Manager Id (required)
+ * @param {string} [resourceId] Id of the resource being requested (e.g. book_id)
  * @param {object} [query] - Additional query parameters
 */
 export function retrieveData(
@@ -44,7 +58,9 @@ export function retrieveData(
   let data = {}
   // If resourceId is supplied, append to url. Otherwise, return all data for AMId
   try {
-    url = utils.buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion })
+    url = utils.buildURL({
+      AMaaSClass, AMId, resourceId, stage, apiVersion, apiURL
+    })
   } catch (e) {
     if (typeof callback !== 'function') {
       return Promise.reject(e)
@@ -61,6 +77,8 @@ export function retrieveData(
     url,
     query: queryParams,
     stage,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {
@@ -103,11 +121,7 @@ export function insertData(
   let url
   try {
     url = utils.buildURL({
-      AMaaSClass,
-      AMId,
-      resourceId,
-      stage,
-      apiVersion
+      AMaaSClass, AMId, resourceId, stage, apiVersion, apiURL
     })
   } catch (e) {
     if (typeof callback !== 'function') {
@@ -131,6 +145,8 @@ export function insertData(
     data,
     query,
     stage,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {
@@ -157,11 +173,7 @@ export function putData(
   let url
   try {
     url = utils.buildURL({
-      AMaaSClass,
-      AMId,
-      resourceId,
-      stage,
-      apiVersion
+      AMaaSClass, AMId, resourceId, stage, apiVersion, apiURL
     })
   } catch (e) {
     if (typeof callback !== 'function') {
@@ -174,8 +186,10 @@ export function putData(
     method: 'PUT',
     url,
     data,
-    stage,
     query,
+    stage,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {
@@ -202,11 +216,7 @@ export function patchData(
   let url
   try {
     url = utils.buildURL({
-      AMaaSClass,
-      AMId,
-      resourceId,
-      stage,
-      apiVersion
+      AMaaSClass, AMId, resourceId, stage, apiVersion, apiURL
     })
   } catch (e) {
     if (typeof callback !== 'function') {
@@ -223,8 +233,10 @@ export function patchData(
     method: 'PATCH',
     url,
     data,
-    stage,
     query,
+    stage,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {
@@ -251,11 +263,7 @@ export function deleteData(
   let url
   try {
     url = utils.buildURL({
-      AMaaSClass,
-      AMId,
-      resourceId,
-      stage,
-      apiVersion
+      AMaaSClass, AMId, resourceId, stage, apiVersion, apiURL
     })
   } catch (e) {
     if (typeof callback !== 'function') {
@@ -264,7 +272,13 @@ export function deleteData(
     callback(e)
     return
   }
-  let promise = utils.makeRequest({ method: 'DELETE', url, stage, contentType })
+  let promise = utils.makeRequest({
+    method: 'DELETE', url,
+    stage,
+    cognitoPoolId, cognitoClientId,
+    username, password,
+    contentType
+  })
   if (typeof callback !== 'function') {
     // return promise if callback is not provided
     return promise.then(response => response.body)
@@ -291,12 +305,7 @@ export function deleteData(
 export function searchData({ AMaaSClass, AMId, query, contentType }, callback) {
   let url
   try {
-    url = utils.buildURL({
-      AMaaSClass,
-      AMId,
-      stage,
-      apiVersion
-    })
+    url = utils.buildURL({AMaaSClass, AMId, stage, apiVersion, apiURL})
   } catch (e) {
     if (typeof callback !== 'function') {
       return Promise.reject(e)
@@ -310,6 +319,8 @@ export function searchData({ AMaaSClass, AMId, query, contentType }, callback) {
     url,
     data,
     stage,
+    cognitoPoolId, cognitoClientId,
+    username, password,
     contentType
   })
   if (typeof callback !== 'function') {

@@ -5135,6 +5135,7 @@ Classes for the Transactions service.
 
 * [transactions](#module_transactions)
     * [.AggregatePNL](#module_transactions.AggregatePNL) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
+        * [new AggregatePNL(params)](#new_module_transactions.AggregatePNL_new)
     * [.PositionPNL](#module_transactions.PositionPNL) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
         * [new PositionPNL(params)](#new_module_transactions.PositionPNL_new)
     * [.Position](#module_transactions.Position) ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
@@ -5151,6 +5152,20 @@ Class representing Aggregate Profit and Loss
 
 **Kind**: static class of [<code>transactions</code>](#module_transactions)  
 **Extends**: [<code>AMaaSModel</code>](#module_core.AMaaSModel)  
+<a name="new_module_transactions.AggregatePNL_new"></a>
+
+#### new AggregatePNL(params)
+Construct a new AggregatePNL object
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | AggregatePNL creation options |
+| params.YTD | <code>object</code> | YTD PnL containing `fx`, `asset` and `total` PnL values` |
+| params.MTD | <code>object</code> | MTD PnL containing `fx`, `asset` and `total` PnL values` |
+| params.DTD | <code>object</code> | DTD PnL containing `fx`, `asset` and `total` PnL values` |
+| params.fxRates | <code>object</code> | FX rates. This is an object with the ccy pair as key and rate as value |
+
 <a name="module_transactions.PositionPNL"></a>
 
 ### transactions.PositionPNL ⇐ [<code>AMaaSModel</code>](#module_core.AMaaSModel)
@@ -5174,7 +5189,8 @@ Construct a new PositionPNL object
 | params.clientId | <code>number</code> | Id of TransactionPNL's client |
 | params.businessDate | <code>string</code> | Date of PositionPNL |
 | params.fxPnl | <code>Decimal</code> | FX Profit & Loss |
-| params.message | <code>string</code> | Message |
+| params.errorMessage | <code>string</code> | Message |
+| params.additional | <code>string</code> | Additonal data |
 | params.periods | <code>string</code> | Sort of PNL |
 | params.pnlStatus- | <code>string</code> | Status of PositionPNL |
 | params.pnlTimeStamp | <code>string</code> | Proft & Loss Timestamp |
@@ -5277,6 +5293,8 @@ Construct a new TransactionPNL object
 | params.businessDate | <code>string</code> | Date of TransactionPNL |
 | params.clientId | <code>number</code> | Id of TransactionPNL's client |
 | params.fxPnl | <code>Decimal</code> | FX Profit & Loss |
+| params.errorMessage | <code>string</code> | Error Message if applicable |
+| params.additional | <code>any</code> | Additional data |
 | params.pnlTimeStamp | <code>string</code> | Proft & Loss Timestamp |
 | params.quantity | <code>Decimal</code> | Quantity of TransactionPNL |
 | params.realisedPnl | <code>Decimal</code> | Realised Profit & Loss of TransactionPNL |

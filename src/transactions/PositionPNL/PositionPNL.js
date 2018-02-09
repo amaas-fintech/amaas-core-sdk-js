@@ -18,7 +18,8 @@ class PositionPNL extends AMaaSModel {
    * @param {number} params.clientId - Id of TransactionPNL's client
    * @param {string} params.businessDate - Date of PositionPNL
    * @param {Decimal} params.fxPnl - FX Profit & Loss
-   * @param {string} params.message - Message
+   * @param {string} params.errorMessage - Message
+   * @param {string} params.additional - Additonal data
    * @param {string} params.periods - Sort of PNL
    * @param {string} params.pnlStatus- Status of PositionPNL
    * @param {string} params.pnlTimeStamp - Proft & Loss Timestamp
@@ -40,7 +41,8 @@ class PositionPNL extends AMaaSModel {
     businessDate,
     clientId,
     fxPnl,
-    message,
+    errorMessage,
+    additional,
     currency,
     period,
     pnlStatus,
@@ -119,7 +121,8 @@ class PositionPNL extends AMaaSModel {
     this.businessDate = businessDate
     this.clientId = clientId
     this.fxPnl = fxPnl
-    this.message = message
+    this.errorMessage = errorMessage
+    this.additional = additional
     this.period = period
     this.pnlStatus = pnlStatus
     this.pnlTimestamp = pnlTimestamp
