@@ -1650,7 +1650,7 @@ declare module '@amaas/amaas-core-sdk-js' {
         }: {
           AMId: number
           businessDate: string
-          data: ICurve | ICurve[]
+          data: Partial<ICurve> | (Partial<ICurve>)[]
         },
         callback?: Function
       ): Promise<any> | void
