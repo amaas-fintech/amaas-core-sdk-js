@@ -187,13 +187,12 @@ describe('listBatchJobs', () => {
   })
   it('calls retrieveData with correct params', done => {
     api.EOD.listBatchJobs(
-      { AMId: 88, bookId: 'book-1', businessDate: '2018-07-04' },
+      { AMId: 88, bookIds: 'book-1', businessDate: '2018-07-04' },
       (error, result) => {
         const expectedParams = expect.objectContaining({
           AMaaSClass: 'eodBatch',
           AMId: 88,
-          resourceId: 'book-1',
-          query: { businessDate: '2018-07-04' }
+          query: { businessDate: '2018-07-04', bookIds: 'book-1' }
         })
         expect(error).toBeNull()
         expect(network.retrieveData).toHaveBeenCalledWith(expectedParams)
@@ -205,7 +204,7 @@ describe('listBatchJobs', () => {
     api.EOD.listBatchJobs(
       {
         AMId: 88,
-        bookId: 'book-1',
+        bookIds: 'book-1',
         businessDate: '2018-07-04',
         executionId: '123abc'
       },
@@ -213,8 +212,11 @@ describe('listBatchJobs', () => {
         const expectedParams = expect.objectContaining({
           AMaaSClass: 'eodBatch',
           AMId: 88,
-          resourceId: 'book-1',
-          query: { businessDate: '2018-07-04', executionId: '123abc' }
+          query: {
+            businessDate: '2018-07-04',
+            executionId: '123abc',
+            bookIds: 'book-1'
+          }
         })
         expect(error).toBeNull()
         expect(network.retrieveData).toHaveBeenCalledWith(expectedParams)
