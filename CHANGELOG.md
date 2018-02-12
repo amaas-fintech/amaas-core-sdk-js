@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v4.1.1 - 2018-02-12
+### Changed
+- Retrieve EOD batch list accepts `bookIds` array instead of `bookId` string
+
 ## v4.1.0 - 2018-02-12
 ### Added
 - Market Data functionality (EOD prices, FX rates and curves)
