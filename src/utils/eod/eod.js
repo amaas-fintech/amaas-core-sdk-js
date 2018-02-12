@@ -120,15 +120,15 @@ export function triggerEODJob(
  * @returns {Promise|null} If no callback supplied, returns a Promsie
  */
 export function listBatchJobs(
-  { AMId, bookId, businessDate, executionId },
+  { AMId, bookIds, businessDate, executionId },
   callback
 ) {
   let query = { businessDate }
   if (executionId) query = { ...query, executionId }
+  if (bookIds) query = { ...query, bookIds }
   const params = {
     AMaaSClass: 'eodBatch',
     AMId,
-    resourceId: bookId,
     query
   }
   let promise = retrieveData(params).then(result => {

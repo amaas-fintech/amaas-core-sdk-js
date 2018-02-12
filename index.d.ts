@@ -1434,9 +1434,14 @@ declare module '@amaas/amaas-core-sdk-js' {
     }
     function config({
       credentialsPath,
-      stage, apiURL, apiVersion,
-      cognitoPoolId, cognitoClientId,
-      token, username, password,
+      stage,
+      apiURL,
+      apiVersion,
+      cognitoPoolId,
+      cognitoClientId,
+      token,
+      username,
+      password
     }: {
       credentialsPath?: string
       stage?: string
@@ -1621,12 +1626,12 @@ declare module '@amaas/amaas-core-sdk-js' {
       function listBatchJobs(
         {
           AMId,
-          bookId,
+          bookIds,
           businessDate,
           executionId
         }: {
           AMId: number
-          bookId: string
+          bookIds: string | string[]
           businessDate: string
           executionId?: string
         },
