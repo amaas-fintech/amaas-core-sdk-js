@@ -3,6 +3,7 @@ import * as network from '../network'
 
 network.insertData = jest.fn()
 network.retrieveData = jest.fn()
+network.putData = jest.fn()
 
 api.config({
   stage: 'staging'
@@ -47,6 +48,70 @@ describe('retrieve', () => {
             businessDateEnd: '2017-12-31',
             assetIds: '358.HK'
           }
+        })
+        done()
+      }
+    )
+  })
+})
+
+describe('insert', () => {
+  beforeAll(() => {
+    network.insertData.mockImplementation(() => Promise.resolve())
+  })
+  afterEach(() => {
+    network.insertData.mockClear()
+  })
+  test('with promise', () => {
+    let promise = api.EOD.insert({ AMId: 88 })
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls insertData with correct params', done => {
+    api.EOD.insert(
+      {
+        AMId: 88,
+        businessDate: '2018-07-04',
+        data: {}
+      },
+      (error, result) => {
+        expect(network.insertData).toHaveBeenCalledWith({
+          AMaaSClass: 'eod',
+          AMId: 88,
+          resourceId: '2018-07-04',
+          data: {}
+        })
+        done()
+      }
+    )
+  })
+})
+
+describe('amend', () => {
+  beforeAll(() => {
+    network.putData.mockImplementation(() => Promise.resolve())
+  })
+  afterEach(() => {
+    network.putData.mockClear()
+  })
+  test('with promise', () => {
+    const promise = api.EOD.amend({})
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls putData with correct params', done => {
+    api.EOD.amend(
+      {
+        AMId: 88,
+        businessDate: '2018-07-04',
+        assetIds: 'assetABC',
+        data: {}
+      },
+      (error, result) => {
+        expect(error).toBeNull()
+        expect(network.putData).toHaveBeenCalledWith({
+          AMaaSClass: 'eod',
+          AMId: 88,
+          resourceId: '2018-07-04/assetABC',
+          data: {}
         })
         done()
       }

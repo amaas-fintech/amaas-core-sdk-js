@@ -1,10 +1,10 @@
 {
   "name": "@amaas/amaas-core-sdk-js",
-  "version": "4.0.1",
+  "version": "4.1.0-rc-13",
   "description": "Asset Management as a Service (AMaaS) Software Development Kit (SDK) for JavaScript",
   "main": "dist/index",
   "scripts": {
-    "test": "jest --runInBand",
+    "test": "jest",
     "test:verbose": "jest --verbose --runInBand",
     "test:watch": "jest --verbose --watch",
     "build": "babel src --out-dir dist --ignore '**.test.js'",

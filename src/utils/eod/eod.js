@@ -1,4 +1,4 @@
-import { insertData, retrieveData } from '../network'
+import { retrieveData, insertData, putData } from '../network'
 
 /**
  * @function retrieve
@@ -32,6 +32,44 @@ export function retrieve({ AMId, query }, callback) {
   promise.catch(error => callback(error))
 }
 
+export function insert({ AMId, businessDate, data }, callback) {
+  const params = {
+    AMaaSClass: 'eod',
+    AMId,
+    resourceId: `${businessDate}`,
+    data: JSON.parse(JSON.stringify(data || {}))
+  }
+  let promise = insertData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+export function amend({ AMId, businessDate, assetIds, data }, callback) {
+  const params = {
+    AMaaSClass: 'eod',
+    AMId,
+    resourceId: `${businessDate}/${assetIds}`,
+    data: JSON.parse(JSON.stringify(data || {}))
+  }
+  let promise = putData(params).then(result => {
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    // return promise if callback is not provided
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
 /**
  * @function triggerEODJob
  * @memberof module:api.EOD

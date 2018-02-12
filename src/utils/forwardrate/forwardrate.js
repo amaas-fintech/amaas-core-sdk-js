@@ -18,10 +18,10 @@ import { retrieveData } from '../network'
 
 export function retrieve({ AMId, assetIds, query }, callback) {
   const params = {
-    AMaaSClass: 'forwardrate',
+    AMaaSClass: 'forwardRate',
     AMId,
-    query,
-    resourceId: `${assetIds}`
+    resourceId: `${assetIds}`,
+    query
   }
   let promise = retrieveData(params).then(result => {
     if (typeof callback === 'function') {

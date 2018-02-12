@@ -1561,10 +1561,47 @@ declare module '@amaas/amaas-core-sdk-js' {
             businessDateStart: string
             businessDateEnd: string
             assetIds: string
+            activeStates: boolean
           }
         },
         callback?: Function
       ): Promise<IEOD[]> | void
+      function insert(
+        {
+          AMId,
+          businessDate: string,
+          data
+        }: {
+          AMId: number
+          businessDate: string
+          data: {
+            assetManagerId: string
+            assetId: string
+            businessDate: string
+            price: string
+          }
+        },
+        callback?: Function
+      ): Promise<any> | void
+      function amend(
+        {
+          AMId,
+          businessDate,
+          assetIds,
+          data
+        }: {
+          AMId: number
+          businessDate: string
+          assetIds: string
+          data: {
+            assetManagerId: string
+            assetId: string
+            businessDate: string
+            price: string
+          }
+        },
+        callback?: Function
+      ): Promise<any> | void
       function triggerEODJob(
         {
           AMId,
@@ -1601,14 +1638,45 @@ declare module '@amaas/amaas-core-sdk-js' {
         {
           AMId,
           businessDate,
-          assetIds
+          assetIds,
+          query
         }: {
           AMId: number
           businessDate: string
           assetIds: string
+          query: {
+            activeStates?: boolean
+            fixingTypes?: string
+          }
         },
         callback?: Function
       ): Promise<ICurve[]> | void
+      function insert(
+        {
+          AMId,
+          businessDate: string,
+          data
+        }: {
+          AMId: number
+          businessDate: string
+          data: Partial<ICurve> | (Partial<ICurve>)[]
+        },
+        callback?: Function
+      ): Promise<any> | void
+      function amend(
+        {
+          AMId,
+          businessDate,
+          assetIds,
+          data
+        }: {
+          AMId: number
+          businessDate: string
+          assetIds: string
+          data: ICurve | ICurve[]
+        },
+        callback?: Function
+      ): Promise<any> | void
     }
     namespace FXRate {
       function retrieve({
@@ -1620,8 +1688,71 @@ declare module '@amaas/amaas-core-sdk-js' {
           businessDateStart: string
           businessDateEnd: string
           assetIds: string
+          activeStates: boolean
         }
       }): Promise<IFXRate[]> | void
+      function insert(
+        {
+          AMId,
+          businessDate,
+          data
+        }: {
+          AMId: number
+          businessDate: string
+          data: {
+            assetManagerId: string
+            assetId: string
+            businessDate: string
+            rateTimestamp: string
+            rateType: string
+            rate: string
+          }
+        },
+        callback?: Function
+      ): Promise<any> | void
+      function amend(
+        {
+          AMId,
+          businessDate,
+          assetIds,
+          data
+        }: {
+          AMId: number
+          businessDate: string
+          assetIds: string
+          data: {
+            assetManagerId: string
+            assetId: string
+            businessDate: string
+            rateTimestamp: string
+            rateType: string
+            rate: string
+          }
+        },
+        callback?: Function
+      ): Promise<any> | void
+      function deactivate(
+        {
+          AMId,
+          businessDate,
+          assetIds,
+          data
+        }: {
+          AMId: number
+          businessDate: string
+          assetIds: string
+          data: {
+            assetManagerId: string
+            assetId: string
+            businessDate: string
+            rateTimestamp: string
+            rateType: string
+            rate: string
+            active: boolean
+          }
+        },
+        callback?: Function
+      ): Promise<any> | void
     }
     namespace ForwardRate {
       function retrieve(
@@ -1636,6 +1767,8 @@ declare module '@amaas/amaas-core-sdk-js' {
             businessDateStart: string
             businessDateEnd: string
             tenor: string
+            activeStates: boolean
+            fixingTypes?: string[]
           }
         },
         callback?: Function
