@@ -25,7 +25,7 @@ export function retrieve({ AMId, query }, callback) {
   let promise = retrieveData(params).then(result => {
     // if combinePeriods is not supplied, or supplied as true,
     // parse to class (otherwise just pass json as-is for now)
-    if (!(combinePeriods in query) || query.combinePeriods === true) {
+    if (!('combinePeriods' in query) || query.combinePeriods === true) {
       result = result.map(positionPNL => _parsePositionPNL(positionPNL))
     }
     if (typeof callback === 'function') {
