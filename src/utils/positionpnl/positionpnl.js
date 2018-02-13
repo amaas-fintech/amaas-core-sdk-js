@@ -20,7 +20,7 @@ export function retrieve({ AMId, query }, callback) {
   const params = {
     AMaaSClass: 'positionpnl',
     AMId,
-    query
+    query: { combinePeriods: true, ...query }
   }
   let promise = retrieveData(params).then(result => {
     result = result.map(positionPNL => _parsePositionPNL(positionPNL))
