@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v4.1.2 - 2018-02-13
+### Added
+- Added `transactionDate` to TransactionPNL
+
 ## v4.1.1 - 2018-02-12
 ### Changed
 - Retrieve EOD batch list accepts `bookIds` array instead of `bookId` string

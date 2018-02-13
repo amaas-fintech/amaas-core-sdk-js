@@ -5300,6 +5300,7 @@ Construct a new TransactionPNL object
 | params.realisedPnl | <code>Decimal</code> | Realised Profit & Loss of TransactionPNL |
 | params.totalPnl | <code>Decimal</code> | Total Profit & Loss of TransactionPNL |
 | params.transactionId | <code>string</code> | ID of the TransactionPNL's Transaction |
+| params.transactionDate | <code>string</code> | Transaction Date |
 | params.unrealisedPnl | <code>Decimal</code> | Unrealised Profit & Loss of TransactionPNL |
 | params.currency | <code>string</code> | Currency of TransactionPNL |
 | params.createdBy | <code>string</code> | Creator of TransactionPNL |
