@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import isEmpty from 'lodash/isEmpty'
 
 import { AMaaSModel } from '../../core'
 
@@ -11,22 +12,17 @@ class PositionPNL extends AMaaSModel {
   /**
    * Construct a new PositionPNL object
    * @param {object} params - PositionPNL creation options
-   * @param {string} params.assetId - ID of the PositionPNL's Asset
    * @param {number} params.assetManagerId - ID of the PositionPNL's Asset Manager
-   * @param {Decimal} params.assetPnl - PNL of asset
    * @param {string} params.bookId - ID of PositionPNL's book
-   * @param {number} params.clientId - Id of TransactionPNL's client
+   * @param {string} params.assetId - ID of the PositionPNL's Asset
    * @param {string} params.businessDate - Date of PositionPNL
-   * @param {Decimal} params.fxPnl - FX Profit & Loss
-   * @param {string} params.errorMessage - Message
-   * @param {string} params.additional - Additonal data
-   * @param {string} params.periods - Sort of PNL
-   * @param {string} params.pnlStatus- Status of PositionPNL
    * @param {string} params.pnlTimeStamp - Proft & Loss Timestamp
+   * @param {number} params.clientId - Id of TransactionPNL's client
+   * @param {string} params.currency - PNL Currency
    * @param {Decimal} params.quantity - Quantity of PositionpNL
-   * @param {Decimal} params.realisedPnl - Realised Profit & Loss of PositionPNL
-   * @param {Decimal} params.totalPnl - Total Profit & Loss of PositionPNL
-   * @param {Decimal} params.unrealisedPnl - Unrealised Profit & Loss of PositionPNL
+   * @param {Object} params.YTD - YTD PnL
+   * @param {Object} params.MTD - MTD PnL
+   * @param {Object} params.DTD - DTD PnL
    * @param {string} params.createdBy - Creator of PositionPNL
    * @param {string} params.updatedBy - Latest user who updated the PositionPNL
    * @param {string} params.createdTime - Created Time of the PositionPNL
@@ -34,23 +30,17 @@ class PositionPNL extends AMaaSModel {
    * @param {number} params.version - Version of the PositionPNL
    */
   constructor({
-    assetId,
     assetManagerId,
-    assetPnl,
     bookId,
+    assetId,
     businessDate,
-    clientId,
-    fxPnl,
-    errorMessage,
-    additional,
-    currency,
-    period,
-    pnlStatus,
     pnlTimestamp,
+    clientId,
+    currency,
     quantity,
-    realisedPnl,
-    totalPnl,
-    unrealisedPnl,
+    YTD,
+    MTD,
+    DTD,
     createdBy,
     updatedBy,
     createdTime,
@@ -64,20 +54,39 @@ class PositionPNL extends AMaaSModel {
       updatedTime,
       version
     })
+    function castPNL(pnl) {
+      if (isEmpty(pnl)) return {}
+      return {
+        ...pnl,
+        totalPnl: new Decimal(pnl.totalPnl || 0),
+        assetPnl: new Decimal(pnl.assetPnl || 0),
+        fxPnl: new Decimal(pnl.fxPnl || 0),
+        realisedPnl: new Decimal(pnl.realisedPnl || 0),
+        unrealisedPnl: new Decimal(pnl.unrealisedPnl || 0)
+      }
+    }
     Object.defineProperties(this, {
-      _assetPnl: { writable: true, enumerable: false },
-      assetPnl: {
-        get: () => this._assetPnl,
-        set: (newAssetPnl = 0) => {
-          this._assetPnl = new Decimal(newAssetPnl || 0)
+      _YTD: { writable: true, enumerable: false },
+      YTD: {
+        get: () => this._YTD,
+        set: (newYTD = {}) => {
+          this._YTD = castPNL(newYTD)
         },
         enumerable: true
       },
-      _fxPnl: { writable: true, enumerable: false },
-      fxPnl: {
-        get: () => this._fxPnl,
-        set: (newFxPnl = 0) => {
-          this._fxPnl = new Decimal(newFxPnl || 0)
+      _MTD: { writable: true, enumerable: false },
+      MTD: {
+        get: () => this._MTD,
+        set: (newMTD = {}) => {
+          this._MTD = castPNL(newMTD)
+        },
+        enumerable: true
+      },
+      _DTD: { writable: true, enumerable: false },
+      DTD: {
+        get: () => this._DTD,
+        set: (newDTD = {}) => {
+          this._DTD = castPNL(newDTD)
         },
         enumerable: true
       },
@@ -88,49 +97,19 @@ class PositionPNL extends AMaaSModel {
           this._quantity = new Decimal(newQuantity || 0)
         },
         enumerable: true
-      },
-      _realisedPnl: { writable: true, enumerable: false },
-      realisedPnl: {
-        get: () => this._realisedPnl,
-        set: (newRealisedPnl = 0) => {
-          this._realisedPnl = new Decimal(newRealisedPnl || 0)
-        },
-        enumerable: true
-      },
-      _unrealisedPnl: { writable: true, enumerable: false },
-      unrealisedPnl: {
-        get: () => this._unrealisedPnl,
-        set: (newUnrealisedPnl = 0) => {
-          this._unrealisedPnl = new Decimal(newUnrealisedPnl || 0)
-        },
-        enumerable: true
-      },
-      _totalPnl: { writable: true, enumerable: false },
-      totalPnl: {
-        get: () => this._totalPnl,
-        set: (newTotalPnl = 0) => {
-          this._totalPnl = new Decimal(newTotalPnl || 0)
-        },
-        enumerable: true
       }
     })
-    this.assetId = assetId
     this.assetManagerId = assetManagerId
-    this.assetPnl = assetPnl
     this.bookId = bookId
+    this.assetId = assetId
     this.businessDate = businessDate
-    this.clientId = clientId
-    this.fxPnl = fxPnl
-    this.errorMessage = errorMessage
-    this.additional = additional
-    this.period = period
-    this.pnlStatus = pnlStatus
     this.pnlTimestamp = pnlTimestamp
-    this.quantity = quantity
-    this.realisedPnl = realisedPnl
-    this.totalPnl = totalPnl
-    this.unrealisedPnl = unrealisedPnl
+    this.clientId = clientId
     this.currency = currency
+    this.quantity = quantity
+    this.YTD = YTD
+    this.MTD = MTD
+    this.DTD = DTD
   }
 }
 

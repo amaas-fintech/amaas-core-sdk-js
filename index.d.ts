@@ -472,25 +472,41 @@ declare module '@amaas/amaas-core-sdk-js' {
     version: number
   }
 
+  export interface IPeriodPNL {
+    createdTime: string
+    realisedPnl: any
+    updatedBy: string
+    createdBy: string
+    pnlStatus: string
+    totalPnl: any
+    assetPnl: any
+    errorMessage: string | null
+    unrealisedPnl: any
+    version: number
+    fxPnl: any
+    updatedTime: string
+  }
+
+  export interface IPartialTransactionPeriodPNL {
+    transactionDate: string
+    additional: {
+      [key: string]: any
+    }
+  }
+
   // PNL (Profit & Loss)
   export interface IPositionPNL {
-    assetId: string
     assetManagerId: string
-    assetPnl: any
     bookId: string
+    assetId: string
     businessDate: string
-    clientId: string
-    fxPnl: any
-    errorMessage: string
-    additional: any
-    period: any
-    pnlStatus: string
-    currency: string
     pnlTimestamp: string
+    clientId: string
+    currency: string
     quantity: any
-    realisedPnl: any
-    totalPnl: any
-    unrealisedPnl: any
+    YTD: IPeriodPNL
+    MTD: IPeriodPNL
+    DTD: IPeriodPNL
     createdBy?: string
     updatedBy?: string
     createdTime?: string
@@ -499,29 +515,23 @@ declare module '@amaas/amaas-core-sdk-js' {
   }
 
   export interface ITransactionPNL {
-    assetId: string
     assetManagerId: string
-    assetPnl: any
     bookId: string
+    assetId: string
     businessDate: string
-    clientId: string
-    fxPnl: any
-    errorMessage: string
-    additional: any
-    period: any
-    pnlStatus: string
     pnlTimestamp: string
+    clientId: string
+    currency: string
     quantity: any
-    realisedPnl: any
-    totalPnl: any
-    unrealisedPnl: any
+    transactionId: string
+    YTD: IPeriodPNL & IPartialTransactionPeriodPNL
+    MTD: IPeriodPNL & IPartialTransactionPeriodPNL
+    DTD: IPeriodPNL & IPartialTransactionPeriodPNL
     createdBy?: string
     updatedBy?: string
     createdTime?: string
     updatedTime?: string
     version?: string
-    transactionId: string
-    currency: string
   }
 
   export interface IAggregatePNL {
@@ -2614,23 +2624,17 @@ declare module '@amaas/amaas-core-sdk-js' {
     }
 
     class PositionPNL {
-      assetId: string
       assetManagerId: string
-      assetPnl: any
       bookId: string
+      assetId: string
       businessDate: string
-      clientId: string
-      fxPnl: any
-      currency: string
-      errorMessage: string
-      additional: any
-      period: any
-      pnlStatus: string
       pnlTimestamp: string
+      clientId: string
+      currency: string
       quantity: any
-      realisedPnl: any
-      totalPnl: any
-      unrealisedPnl: any
+      YTD: IPeriodPNL
+      MTD: IPeriodPNL
+      DTD: IPeriodPNL
       createdBy?: string
       updatedBy?: string
       createdTime?: string
@@ -2640,29 +2644,23 @@ declare module '@amaas/amaas-core-sdk-js' {
     }
 
     class TransactionPNL {
-      assetId: string
       assetManagerId: string
-      assetPnl: any
       bookId: string
+      assetId: string
       businessDate: string
-      clientId: string
-      fxPnl: any
-      errorMessage: string
-      period: any
-      pnlStatus: string
       pnlTimestamp: string
+      clientId: string
+      currency: string
       quantity: any
-      realisedPnl: any
-      totalPnl: any
-      unrealisedPnl: any
+      transactionId: string
+      YTD: IPeriodPNL & IPartialTransactionPeriodPNL
+      MTD: IPeriodPNL & IPartialTransactionPeriodPNL
+      DTD: IPeriodPNL & IPartialTransactionPeriodPNL
       createdBy?: string
       updatedBy?: string
       createdTime?: string
       updatedTime?: string
       version?: string
-      transactionId: string
-      currency: string
-      additional: any
       constructor(props: ITransactionPNL)
     }
   }
