@@ -25,6 +25,7 @@ class TransactionPNL extends AMaaSModel {
    * @param {Decimal} params.realisedPnl - Realised Profit & Loss of TransactionPNL
    * @param {Decimal} params.totalPnl - Total Profit & Loss of TransactionPNL
    * @param {string} params.transactionId - ID of the TransactionPNL's Transaction
+   * @param {string} params.transactionDate - Transaction Date
    * @param {Decimal} params.unrealisedPnl - Unrealised Profit & Loss of TransactionPNL
    * @param {string} params.currency - Currency of TransactionPNL
    * @param {string} params.createdBy - Creator of TransactionPNL
@@ -50,6 +51,7 @@ class TransactionPNL extends AMaaSModel {
     realisedPnl,
     totalPnl,
     transactionId,
+    transactionDate,
     unrealisedPnl,
     currency,
     createdBy,
@@ -132,6 +134,7 @@ class TransactionPNL extends AMaaSModel {
     this.realisedPnl = realisedPnl
     this.totalPnl = totalPnl
     this.transactionId = transactionId
+    this.transactionDate = transactionDate
     this.unrealisedPnl = unrealisedPnl
     this.currency = currency
   }
