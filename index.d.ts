@@ -1516,6 +1516,8 @@ declare module '@amaas/amaas-core-sdk-js' {
             businessDate?: string
             periods?: string | string[]
             assetIds: string | string[]
+            pageNo?: number
+            pageSize?: number
           }
         },
         callback?: Function
