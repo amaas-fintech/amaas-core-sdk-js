@@ -5182,22 +5182,17 @@ Construct a new PositionPNL object
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | PositionPNL creation options |
-| params.assetId | <code>string</code> | ID of the PositionPNL's Asset |
 | params.assetManagerId | <code>number</code> | ID of the PositionPNL's Asset Manager |
-| params.assetPnl | <code>Decimal</code> | PNL of asset |
 | params.bookId | <code>string</code> | ID of PositionPNL's book |
-| params.clientId | <code>number</code> | Id of TransactionPNL's client |
+| params.assetId | <code>string</code> | ID of the PositionPNL's Asset |
 | params.businessDate | <code>string</code> | Date of PositionPNL |
-| params.fxPnl | <code>Decimal</code> | FX Profit & Loss |
-| params.errorMessage | <code>string</code> | Message |
-| params.additional | <code>string</code> | Additonal data |
-| params.periods | <code>string</code> | Sort of PNL |
-| params.pnlStatus- | <code>string</code> | Status of PositionPNL |
 | params.pnlTimeStamp | <code>string</code> | Proft & Loss Timestamp |
+| params.clientId | <code>number</code> | Id of TransactionPNL's client |
+| params.currency | <code>string</code> | PNL Currency |
 | params.quantity | <code>Decimal</code> | Quantity of PositionpNL |
-| params.realisedPnl | <code>Decimal</code> | Realised Profit & Loss of PositionPNL |
-| params.totalPnl | <code>Decimal</code> | Total Profit & Loss of PositionPNL |
-| params.unrealisedPnl | <code>Decimal</code> | Unrealised Profit & Loss of PositionPNL |
+| params.YTD | <code>Object</code> | YTD PnL |
+| params.MTD | <code>Object</code> | MTD PnL |
+| params.DTD | <code>Object</code> | DTD PnL |
 | params.createdBy | <code>string</code> | Creator of PositionPNL |
 | params.updatedBy | <code>string</code> | Latest user who updated the PositionPNL |
 | params.createdTime | <code>string</code> | Created Time of the PositionPNL |
@@ -5286,23 +5281,18 @@ Construct a new TransactionPNL object
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | TransactionPNL creation options |
-| params.assetId | <code>string</code> | ID of the TransactionPNL's Asset |
 | params.assetManagerId | <code>number</code> | ID of the TransactionPNL's Asset Manager |
-| params.assetPnl | <code>Decimal</code> | PNL of asset |
 | params.bookId | <code>string</code> | ID of TransactionPNL's book |
+| params.assetId | <code>string</code> | ID of the TransactionPNL's Asset |
 | params.businessDate | <code>string</code> | Date of TransactionPNL |
-| params.clientId | <code>number</code> | Id of TransactionPNL's client |
-| params.fxPnl | <code>Decimal</code> | FX Profit & Loss |
-| params.errorMessage | <code>string</code> | Error Message if applicable |
-| params.additional | <code>any</code> | Additional data |
 | params.pnlTimeStamp | <code>string</code> | Proft & Loss Timestamp |
-| params.quantity | <code>Decimal</code> | Quantity of TransactionPNL |
-| params.realisedPnl | <code>Decimal</code> | Realised Profit & Loss of TransactionPNL |
-| params.totalPnl | <code>Decimal</code> | Total Profit & Loss of TransactionPNL |
-| params.transactionId | <code>string</code> | ID of the TransactionPNL's Transaction |
-| params.transactionDate | <code>string</code> | Transaction Date |
-| params.unrealisedPnl | <code>Decimal</code> | Unrealised Profit & Loss of TransactionPNL |
+| params.clientId | <code>number</code> | Id of TransactionPNL's client |
 | params.currency | <code>string</code> | Currency of TransactionPNL |
+| params.quantity | <code>Decimal</code> | Quantity of TransactionPNL |
+| params.transactionId | <code>string</code> | ID of the TransactionPNL's Transaction |
+| params.YTD | <code>Object</code> | YTD PnL |
+| params.MTD | <code>Object</code> | MTD PnL |
+| params.DTD | <code>Object</code> | DTD PnL |
 | params.createdBy | <code>string</code> | Creator of TransactionPNL |
 | params.updatedBy | <code>string</code> | Latest user who updated the TransactionPNL |
 | params.createdTime | <code>string</code> | Created Time of the TransactionPNL |
