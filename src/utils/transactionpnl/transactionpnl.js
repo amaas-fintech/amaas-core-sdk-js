@@ -16,7 +16,7 @@ import TransactionPNL from '../../transactions/TransactionPNL/TransactionPNL'
  * @param {Function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns a Promise
  */
-export function retrieve({ AMId, query }, callback) {
+export function retrieve({ AMId, query = {} }, callback) {
   const params = {
     AMaaSClass: 'transactionpnl',
     AMId,

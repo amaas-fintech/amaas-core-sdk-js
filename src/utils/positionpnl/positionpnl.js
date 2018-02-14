@@ -16,7 +16,7 @@ import PositionPNL from '../../transactions/PositionPNL/PositionPNL'
  * @param {Function} [callback] - Called with two arguments (error, result) on completion
  * @returns {Promise|null} If no callback supplied, returns a Promise
  */
-export function retrieve({ AMId, query }, callback) {
+export function retrieve({ AMId, query = {} }, callback) {
   const params = {
     AMaaSClass: 'positionpnl',
     AMId,

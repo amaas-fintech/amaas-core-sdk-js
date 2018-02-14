@@ -54,9 +54,14 @@ export {
 function config(config) {
   let {
     credentialsPath,
-    stage, apiURL, apiVersion,
-    cognitoPoolId, cognitoClientId,
-    token, username, password,
+    stage,
+    apiURL,
+    apiVersion,
+    cognitoPoolId,
+    cognitoClientId,
+    token,
+    username,
+    password
   } = config
 
   if (isNode()) {
@@ -84,6 +89,7 @@ function isNode() {
 }
 
 function loadFileConfig(credPath) {
+  if (process.env.NODE_ENV === 'test') return {}
   let path
   if (credPath) {
     path = credPath
