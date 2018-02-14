@@ -25,7 +25,7 @@ describe('retrieve', () => {
         expect(network.retrieveData).toHaveBeenCalledWith({
           AMaaSClass: 'transactionpnl',
           AMId: 88,
-          query: { key: 'value' }
+          query: { combinePeriods: true, key: 'value' }
         })
         expect(error).toBeNull()
         done()

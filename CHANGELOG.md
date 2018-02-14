@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+##v5.0.0 - 2018-02-14
+### Changed
+- Changed the TransactionPNL and PositionPNL models
+
 ## v4.1.2 - 2018-02-13
 ### Added
 - Added `transactionDate` to TransactionPNL

@@ -20,10 +20,14 @@ export function retrieve({ AMId, query }, callback) {
   const params = {
     AMaaSClass: 'positionpnl',
     AMId,
-    query
+    query: { combinePeriods: true, ...query }
   }
   let promise = retrieveData(params).then(result => {
-    result = result.map(positionPNL => _parsePositionPNL(positionPNL))
+    // if combinePeriods is not supplied, or supplied as true,
+    // parse to class (otherwise just pass json as-is for now)
+    if (!('combinePeriods' in query) || query.combinePeriods === true) {
+      result = result.map(positionPNL => _parsePositionPNL(positionPNL))
+    }
     if (typeof callback === 'function') {
       callback(null, result)
     }
