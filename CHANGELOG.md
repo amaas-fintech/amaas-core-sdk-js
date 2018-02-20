@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## V5.0.1
+## V5.0.1 - 2018-02-20
 ### Changed
 - Changed query param `fixingTypes` to `fixingType` in forward rate retrieval
 
