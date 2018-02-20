@@ -1,7 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-##v5.0.0 - 2018-02-14
+## V5.0.1
+### Changed
+- Changed query param `fixingTypes` to `fixingType` in forward rate retrieval
+
+## v5.0.0 - 2018-02-14
 ### Changed
 - Changed the TransactionPNL and PositionPNL models
 
