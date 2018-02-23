@@ -1441,6 +1441,20 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<IMTMResult[]> | void
+      function retrieveAggregateMTM(
+        {
+          AMId,
+          bookIds,
+          businessDate,
+          query
+        }: {
+          AMId: number
+          bookIds: string | string[]
+          businessDate: string
+          query?: any
+        },
+        callback?: Function
+      ): Promise<{ aggregateMTM: any }> | void
     }
     function config({
       credentialsPath,

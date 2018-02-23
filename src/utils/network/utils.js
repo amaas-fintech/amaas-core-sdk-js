@@ -6,19 +6,18 @@ import {
   CognitoUserPool
 } from 'amazon-cognito-identity-js'
 
-
 export function getCognitoPool({ stage, cognitoPoolId, cognitoClientId }) {
   // Legacy configurations
   if (stage in userPoolConfig) {
     return new CognitoUserPool({
       UserPoolId: userPoolConfig[stage].userPoolId,
-      ClientId: userPoolConfig[stage].clientAppId,
+      ClientId: userPoolConfig[stage].clientAppId
     })
   }
   // Otherwise build
   return new CognitoUserPool({
     UserPoolId: cognitoPoolId,
-    ClientId: cognitoClientId,
+    ClientId: cognitoClientId
   })
 }
 
@@ -38,7 +37,13 @@ export function getEndpoint({ stage, apiVersion, apiURL }) {
   }
 }
 
-export function authenticate({ stage, username, password, cognitoPoolId, cognitoClientId }) {
+export function authenticate({
+  stage,
+  username,
+  password,
+  cognitoPoolId,
+  cognitoClientId
+}) {
   let injectedResolve
   let injectedReject
   return new Promise((resolve, reject) => {
@@ -46,11 +51,11 @@ export function authenticate({ stage, username, password, cognitoPoolId, cognito
     injectedReject = reject
     const authenticationDetails = new AuthenticationDetails({
       Username: username,
-      Password: password,
+      Password: password
     })
     const cognitoUser = new CognitoUser({
       Username: username,
-      Pool: getCognitoPool({stage, cognitoPoolId, cognitoClientId})
+      Pool: getCognitoPool({ stage, cognitoPoolId, cognitoClientId })
     })
     console.log('Starting authentication...')
     cognitoUser.authenticateUser(authenticationDetails, {
@@ -60,7 +65,13 @@ export function authenticate({ stage, username, password, cognitoPoolId, cognito
   })
 }
 
-export function getToken({ stage, cognitoPoolId, cognitoClientId, username, password }) {
+export function getToken({
+  stage,
+  cognitoPoolId,
+  cognitoClientId,
+  username,
+  password
+}) {
   // token injection
   // if (token && token.length > 0) {
   //   return Promise.resolve(token)
@@ -70,13 +81,21 @@ export function getToken({ stage, cognitoPoolId, cognitoClientId, username, pass
   return new Promise((resolve, reject) => {
     injectedResolve = resolve
     injectedReject = reject
-    const cognitoUser = getCognitoPool(
-      {stage, cognitoPoolId, cognitoClientId}
-    ).getCurrentUser()
+    const cognitoUser = getCognitoPool({
+      stage,
+      cognitoPoolId,
+      cognitoClientId
+    }).getCurrentUser()
     if (!cognitoUser) {
       if (username && password) {
         console.warn('No user in storage, attempting to authenticate...')
-        authenticate({stage, username, password, cognitoPoolId, cognitoClientId})
+        authenticate({
+          stage,
+          username,
+          password,
+          cognitoPoolId,
+          cognitoClientId
+        })
           .then(res => injectedResolve(res))
           .catch(err => injectedReject(err))
       } else {
@@ -90,7 +109,13 @@ export function getToken({ stage, cognitoPoolId, cognitoClientId, username, pass
         } else {
           if (username && password) {
             console.warn('getSession failure, attempting to authenticate')
-            authenticate({stage, username, password, cognitoPoolId, cognitoClientId})
+            authenticate({
+              stage,
+              username,
+              password,
+              cognitoPoolId,
+              cognitoClientId
+            })
               .then(res => injectedResolve(res))
               .catch(err => injectedReject(err))
           } else {
@@ -103,42 +128,43 @@ export function getToken({ stage, cognitoPoolId, cognitoClientId, username, pass
 }
 
 const PATH_MAP = {
-  'assets': '/asset/assets',
-  'assetConfig': '/asset/asset-config',
-  'assetManagers': '/assetmanager/asset-managers',
-  'assetManagerDomains': '/assetmanager/domains',
-  'assetManagerEODBooks': '/assetmanager/eod-books',
-  'assetManagerPubSubCredentials': '/book/credentials',
-  'book': '/book/books',
-  'bookPermissions': '/book/book-permissions',
-  'parties': '/party/parties',
-  'positions': '/transaction/positions',
-  'allocations': '/transaction/allocations',
-  'uploadTransactions': '/transaction/imports',
-  'executeTransactionsUpload': '/transaction/imports',
-  'csvImportDetails': '/transaction/imports',
-  'mtm': '/transaction/mtm',
-  'monitorItems': '/monitor/items',
-  'monitorActivities': '/monitor/activities',
-  'monitorEvents': '/monitor/events',
-  'netting': '/transaction/netting',
-  'relationships': '/assetmanager/asset-manager-relationships',
-  'relatedAssetManagerID': '/assetmanager/asset-manager-related-amid',
-  'relationshipRequest': '/assetmanager/relationship-request',
-  'transactions': '/transaction/transactions',
-  'corporateActions': '/corporateaction/corporate-actions',
-  'fundamentalCountries': '/fundamental/countries',
-  'fundamentalBusinessDate': '/fundamental/business-date',
-  'fundamentalDateInfo': '/fundamental/date-info/',
-  'fundamentalHoliday': '/fundamental/holidays',
-  'positionpnl': '/transaction/position_pnls',
-  'transactionpnl': '/transaction/transaction_pnls',
-  'aggregatepnl': '/transaction/aggregate_pnls',
-  'eod': '/marketdata/eod-prices',
-  'eodBatch': '/eod/batches',
-  'curve': '/marketdata/curves',
-  'fxRate': '/marketdata/fx-rates',
-  'forwardRate': '/marketdata/forward-rates',
+  assets: '/asset/assets',
+  assetConfig: '/asset/asset-config',
+  assetManagers: '/assetmanager/asset-managers',
+  assetManagerDomains: '/assetmanager/domains',
+  assetManagerEODBooks: '/assetmanager/eod-books',
+  assetManagerPubSubCredentials: '/book/credentials',
+  book: '/book/books',
+  bookPermissions: '/book/book-permissions',
+  parties: '/party/parties',
+  positions: '/transaction/positions',
+  allocations: '/transaction/allocations',
+  uploadTransactions: '/transaction/imports',
+  executeTransactionsUpload: '/transaction/imports',
+  csvImportDetails: '/transaction/imports',
+  mtm: '/transaction/mtm',
+  aggregateMTM: '/transaction/aggregate_mtms',
+  monitorItems: '/monitor/items',
+  monitorActivities: '/monitor/activities',
+  monitorEvents: '/monitor/events',
+  netting: '/transaction/netting',
+  relationships: '/assetmanager/asset-manager-relationships',
+  relatedAssetManagerID: '/assetmanager/asset-manager-related-amid',
+  relationshipRequest: '/assetmanager/relationship-request',
+  transactions: '/transaction/transactions',
+  corporateActions: '/corporateaction/corporate-actions',
+  fundamentalCountries: '/fundamental/countries',
+  fundamentalBusinessDate: '/fundamental/business-date',
+  fundamentalDateInfo: '/fundamental/date-info/',
+  fundamentalHoliday: '/fundamental/holidays',
+  positionpnl: '/transaction/position_pnls',
+  transactionpnl: '/transaction/transaction_pnls',
+  aggregatepnl: '/transaction/aggregate_pnls',
+  eod: '/marketdata/eod-prices',
+  eodBatch: '/eod/batches',
+  curve: '/marketdata/curves',
+  fxRate: '/marketdata/fx-rates',
+  forwardRate: '/marketdata/forward-rates'
 }
 
 /***
@@ -150,10 +176,17 @@ const PATH_MAP = {
  * @param {string} AMId: Asset Manager Id (required)
  * @param {string} resourceId: Id of the resource being requested (e.g. book_id)
 */
-export function buildURL({ AMaaSClass, AMId, resourceId, stage, apiVersion, apiURL }) {
+export function buildURL({
+  AMaaSClass,
+  AMId,
+  resourceId,
+  stage,
+  apiVersion,
+  apiURL
+}) {
   let base = `${getEndpoint({ stage, apiVersion, apiURL })}`.replace(/\/$/, '')
   if (!(AMaaSClass in PATH_MAP)) {
-      throw new Error(`Invalid class type: ${AMaaSClass}`)
+    throw new Error(`Invalid class type: ${AMaaSClass}`)
   }
   return [base, PATH_MAP[AMaaSClass], AMId, resourceId].reduce((url, part) => {
     if (part != null) {
@@ -175,11 +208,13 @@ export function makeRequest({
   data,
   query,
   stage,
-  cognitoPoolId, cognitoClientId,
-  username, password,
+  cognitoPoolId,
+  cognitoClientId,
+  username,
+  password,
   contentType
 }) {
-  return getToken({stage, cognitoPoolId, cognitoClientId, username, password})
+  return getToken({ stage, cognitoPoolId, cognitoClientId, username, password })
     .then(res => {
       let requestToMake
       switch (method) {

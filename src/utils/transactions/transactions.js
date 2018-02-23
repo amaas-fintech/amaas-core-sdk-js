@@ -389,13 +389,59 @@ export function getCSVImportDetails({ AMId, importId }, callback) {
 }
 
 /**
+ * Get aggregated MTM for specified books
+ * @function retrieveAggregateMTM
+ * @memberof module:api.Transactions
+ * @static
+ * @param {object} params - Object of parameters
+ * @param {number} params.AMId - Asset Manager ID
+ * @param {string | string[]} params.bookIds - Book IDs for which to aggregate MTM
+ * @param {string} params.businessDate
+ * @param {function} [callback] - Called with two arguments (error, result) on completion
+ * @returns {Promise|null} If no callback, returns Promise that resolves with Aggregate MTM data
+ */
+export function retrieveAggregateMTM(
+  { AMId, bookIds = [], businessDate, query },
+  callback
+) {
+  if (bookIds.length === 0 || !businessDate) {
+    throw new Error(
+      '[AggregateMTM] - both bookIds and businessDate must be supplied'
+    )
+  }
+  let resolvedQuery = {
+    bookIds,
+    businessDate,
+    ...query
+  }
+  const params = {
+    AMaaSClass: 'aggregateMTM',
+    AMId,
+    query: resolvedQuery
+  }
+  let promise = retrieveData(params).then(result => {
+    if (result) {
+      result.aggregateMTM = new Decimal(result.aggregateMTM)
+    }
+    if (typeof callback === 'function') {
+      callback(null, result)
+    }
+    return result
+  })
+  if (typeof callback !== 'function') {
+    return promise
+  }
+  promise.catch(error => callback(error))
+}
+
+/**
  * Get MTM for a particular Book
  * @function retrieveMTM
  * @memberof module:api.Transactions
  * @static
  * @param {object} params - Object of parameters
  * @param {number} params.AMId - Asset Manager ID of MTM owner
- * @param {string} params.bookId - Book for which to retrieve MTM data
+ * @param {string} params.bookIds - Book for which to retrieve MTM data
  * @param {string} [params.assetId] - Asset for which to retrieve MTM data. Omit to return MTM for all Assets in Book
  * @param {string} params.date - Date for which to retrieve MTM data
  * @param {string} [params.startDate] - Starting date to retrieve MTM (will return until params.date). Omit to return a single day
