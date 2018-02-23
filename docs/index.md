@@ -227,6 +227,7 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.executeCSVJob(params, [callback])](#module_api.Transactions.executeCSVJob) ⇒ <code>Promise</code> \| <code>null</code>
         * [.listImportJobs(params, [callback])](#module_api.Transactions.listImportJobs) ⇒ <code>Promise</code> \| <code>null</code>
         * [.getCSVImportDetails(params, [callback])](#module_api.Transactions.getCSVImportDetails) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.retrieveAggregateMTM(params, [callback])](#module_api.Transactions.retrieveAggregateMTM) ⇒ <code>Promise</code> \| <code>null</code>
         * [.retrieveMTM(params, [callback])](#module_api.Transactions.retrieveMTM) ⇒ <code>Promise</code> \| <code>null</code>
 
 <a name="module_api.csv"></a>
@@ -1802,6 +1803,7 @@ Register a new user in the database
     * [.executeCSVJob(params, [callback])](#module_api.Transactions.executeCSVJob) ⇒ <code>Promise</code> \| <code>null</code>
     * [.listImportJobs(params, [callback])](#module_api.Transactions.listImportJobs) ⇒ <code>Promise</code> \| <code>null</code>
     * [.getCSVImportDetails(params, [callback])](#module_api.Transactions.getCSVImportDetails) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.retrieveAggregateMTM(params, [callback])](#module_api.Transactions.retrieveAggregateMTM) ⇒ <code>Promise</code> \| <code>null</code>
     * [.retrieveMTM(params, [callback])](#module_api.Transactions.retrieveMTM) ⇒ <code>Promise</code> \| <code>null</code>
 
 <a name="module_api.Transactions.retrieve"></a>
@@ -1958,6 +1960,22 @@ Get import job details
 | params.importId | <code>string</code> |  |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
+<a name="module_api.Transactions.retrieveAggregateMTM"></a>
+
+#### Transactions.retrieveAggregateMTM(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+Get aggregated MTM for specified books
+
+**Kind**: static method of [<code>Transactions</code>](#module_api.Transactions)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback, returns Promise that resolves with Aggregate MTM data  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | Object of parameters |
+| params.AMId | <code>number</code> | Asset Manager ID |
+| params.bookIds | <code>string</code> \| <code>Array.&lt;string&gt;</code> | Book IDs for which to aggregate MTM |
+| params.businessDate | <code>string</code> |  |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
 <a name="module_api.Transactions.retrieveMTM"></a>
 
 #### Transactions.retrieveMTM(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
@@ -1970,7 +1988,7 @@ Get MTM for a particular Book
 | --- | --- | --- |
 | params | <code>object</code> | Object of parameters |
 | params.AMId | <code>number</code> | Asset Manager ID of MTM owner |
-| params.bookId | <code>string</code> | Book for which to retrieve MTM data |
+| params.bookIds | <code>string</code> | Book for which to retrieve MTM data |
 | [params.assetId] | <code>string</code> | Asset for which to retrieve MTM data. Omit to return MTM for all Assets in Book |
 | params.date | <code>string</code> | Date for which to retrieve MTM data |
 | [params.startDate] | <code>string</code> | Starting date to retrieve MTM (will return until params.date). Omit to return a single day |
