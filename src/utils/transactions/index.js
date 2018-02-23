@@ -15,7 +15,8 @@ import {
   executeCSVJob,
   listImportJobs,
   getCSVImportDetails,
-  retrieveMTM
+  retrieveMTM,
+  retrieveAggregateMTM
 } from './transactions'
 
 export {
@@ -30,5 +31,6 @@ export {
   executeCSVJob,
   listImportJobs,
   getCSVImportDetails,
-  retrieveMTM
+  retrieveMTM,
+  retrieveAggregateMTM
 }

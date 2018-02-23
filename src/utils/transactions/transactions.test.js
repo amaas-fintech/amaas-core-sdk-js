@@ -10,6 +10,7 @@ import {
   executeCSVJob,
   listImportJobs,
   getCSVImportDetails,
+  retrieveAggregateMTM,
   retrieveMTM
 } from './transactions'
 import * as api from '../../exports/api'
@@ -424,6 +425,41 @@ describe('getCSVImportDetails', () => {
       )
       done()
     })
+  })
+})
+
+describe('aggregateMTM', () => {
+  beforeAll(() => {
+    network.retrieveData.mockImplementation(() =>
+      Promise.resolve({ aggregateMTM: '1' })
+    )
+  })
+  test('with promise', () => {
+    let promise = retrieveAggregateMTM({
+      bookIds: 'book-1',
+      businessDate: '2018-07-04'
+    })
+    expect(promise).toBeInstanceOf(Promise)
+  })
+  it('calls retrieveData with correct params', done => {
+    retrieveAggregateMTM(
+      { AMId: 88, bookIds: ['book-1'], businessDate: '2018-07-04' },
+      (error, result) => {
+        expect(error).toBeNull()
+        expect(network.retrieveData).toHaveBeenCalledWith({
+          AMaaSClass: 'aggregateMTM',
+          AMId: 88,
+          query: { bookIds: ['book-1'], businessDate: '2018-07-04' }
+        })
+        done()
+      }
+    )
+  })
+  it('throws if missing params', () => {
+    const willThrow = () => {
+      retrieveAggregateMTM({ AMId: 88 })
+    }
+    expect(willThrow).toThrowError()
   })
 })
 
