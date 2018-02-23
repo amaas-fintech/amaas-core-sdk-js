@@ -1454,7 +1454,7 @@ declare module '@amaas/amaas-core-sdk-js' {
           query?: any
         },
         callback?: Function
-      ): Promise<{ aggregateMTM: Decimal }> | void
+      ): Promise<{ aggregateMTM: any }> | void
     }
     function config({
       credentialsPath,
