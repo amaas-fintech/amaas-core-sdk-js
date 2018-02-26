@@ -40,11 +40,11 @@ class AggregatePNL extends AMaaSModel {
       YTD: {
         get: () => this._YTD,
         set: (newYTD = {}) => {
-          let { total, fx, asset } = newYTD
+          let { errorMessage, pnl: { total, fx, asset } = {} } = newYTD
           total = new Decimal(total || 0)
           fx = new Decimal(fx || 0)
           asset = new Decimal(asset || 0)
-          this._YTD = { total, fx, asset }
+          this._YTD = { errorMessage, pnl: { total, fx, asset } }
         },
         enumerable: true
       },
@@ -52,11 +52,11 @@ class AggregatePNL extends AMaaSModel {
       MTD: {
         get: () => this._MTD,
         set: (newMTD = {}) => {
-          let { total, fx, asset } = newMTD
+          let { errorMessage, pnl: { total, fx, asset } = {} } = newMTD
           total = new Decimal(total || 0)
           fx = new Decimal(fx || 0)
           asset = new Decimal(asset || 0)
-          this._MTD = { total, fx, asset }
+          this._MTD = { errorMessage, pnl: { total, fx, asset } }
         },
         enumerable: true
       },
@@ -64,11 +64,11 @@ class AggregatePNL extends AMaaSModel {
       DTD: {
         get: () => this._DTD,
         set: (newDTD = {}) => {
-          let { total, fx, asset } = newDTD
+          let { errorMessage, pnl: { total, fx, asset } = {} } = newDTD
           total = new Decimal(total || 0)
           fx = new Decimal(fx || 0)
           asset = new Decimal(asset || 0)
-          this._DTD = { total, fx, asset }
+          this._DTD = { errorMessage, pnl: { total, fx, asset } }
         },
         enumerable: true
       },

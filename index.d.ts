@@ -536,23 +536,37 @@ declare module '@amaas/amaas-core-sdk-js' {
 
   export interface IAggregatePNL {
     YTD: {
-      total: string
-      fx: string
-      asset: string
+      errorMessage?: string
+      pnl: {
+        total: string
+        fx: string
+        asset: string
+      }
     }
     MTD: {
-      total: string
-      fx: string
-      asset: string
+      errorMessage?: string
+      pnl: {
+        total: string
+        fx: string
+        asset: string
+      }
     }
     DTD: {
-      total: string
-      fx: string
-      asset: string
+      errorMessage?: string
+      pnl: {
+        total: string
+        fx: string
+        asset: string
+      }
     }
     fxRates: {
       [rateName: string]: any
     }
+  }
+
+  export interface IAggregateMTM {
+    errorMessage?: string
+    aggregateMtm: any
   }
 
   // Transactions
@@ -2599,24 +2613,39 @@ declare module '@amaas/amaas-core-sdk-js' {
 
     class AggregatePNL {
       YTD: {
-        total: any
-        asset: any
-        fx: any
+        errorMessage?: string
+        pnl: {
+          total: any
+          asset: any
+          fx: any
+        }
       }
       MTD: {
-        total: any
-        asset: any
-        fx: any
+        errorMessage?: string
+        pnl: {
+          total: any
+          asset: any
+          fx: any
+        }
       }
       DTD: {
-        total: any
-        asset: any
-        fx: any
+        errorMessage?: string
+        pnl: {
+          total: any
+          asset: any
+          fx: any
+        }
       }
       fxRates: {
         [rateName: string]: any
       }
       constructor(props: IAggregatePNL)
+    }
+
+    class AggregateMTM {
+      errorMessage?: string
+      aggregateMtm: any
+      constructor(props: IAggregateMTM)
     }
 
     class Position {

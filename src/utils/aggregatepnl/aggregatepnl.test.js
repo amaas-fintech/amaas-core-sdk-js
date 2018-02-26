@@ -39,9 +39,11 @@ describe('retrieve', () => {
         fxRates: { HKDUSD: '1.23' },
         aggregatePnl: {
           DTD: {
-            total: 8,
-            asset: 3,
-            fx: 5
+            pnl: {
+              total: 8,
+              asset: 3,
+              fx: 5
+            }
           }
         }
       })
@@ -51,7 +53,7 @@ describe('retrieve', () => {
       (error, result) => {
         expect(result).toBeInstanceOf(AggregatePNL)
         expect(result.fxRates.HKDUSD).toEqual(new Decimal('1.23'))
-        expect(result.DTD.total).toEqual(new Decimal(8))
+        expect(result.DTD.pnl.total).toEqual(new Decimal(8))
         done()
       }
     )
