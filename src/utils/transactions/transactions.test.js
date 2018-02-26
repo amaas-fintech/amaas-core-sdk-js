@@ -431,7 +431,7 @@ describe('getCSVImportDetails', () => {
 describe('aggregateMTM', () => {
   beforeAll(() => {
     network.retrieveData.mockImplementation(() =>
-      Promise.resolve({ aggregateMTM: '1' })
+      Promise.resolve({ aggregateMtm: '1' })
     )
   })
   test('with promise', () => {

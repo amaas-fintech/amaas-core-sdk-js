@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v5.0.3 - 2018-02-26
+### Changed
+- Fixed typo `aggregateMTM -> aggregateMtm`
+
 ## v5.0.2 - 2018-02-23
 ### Added
 - Added aggregateMTM retrieval functions
