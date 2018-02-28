@@ -5179,9 +5179,9 @@ Construct a new AggregatePNL object
 | Param | Type | Description |
 | --- | --- | --- |
 | params | <code>object</code> | AggregatePNL creation options |
-| params.YTD | <code>object</code> | YTD PnL containing `fx`, `asset` and `total` PnL values` |
-| params.MTD | <code>object</code> | MTD PnL containing `fx`, `asset` and `total` PnL values` |
-| params.DTD | <code>object</code> | DTD PnL containing `fx`, `asset` and `total` PnL values` |
+| params.YTD | <code>object</code> | YTD PnL containing optional errorMessage and `pnl` object containing `fx`, `asset` and `total` PnL values` |
+| params.MTD | <code>object</code> | MTD PnL containing optional errorMessage and `pnl` object containing `fx`, `asset` and `total` PnL values` |
+| params.DTD | <code>object</code> | DTD PnL containing optional errorMessage and `pnl` object containing `fx`, `asset` and `total` PnL values` |
 | params.fxRates | <code>object</code> | FX rates. This is an object with the ccy pair as key and rate as value |
 
 <a name="module_transactions.PositionPNL"></a>

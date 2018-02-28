@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v6.0.0 - 2018-02-28
+### Changed
+- Changed the structure of AggregatePNL and AggregateMTM
+
 ## v5.0.3 - 2018-02-26
 ### Changed
 - Fixed typo `aggregateMTM -> aggregateMtm`
