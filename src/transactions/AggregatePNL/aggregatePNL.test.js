@@ -5,25 +5,34 @@ import AggregatePNL from './aggregatePNL'
 describe('AggregatePNL', () => {
   it('constructs', () => {
     const params = {
-      YTD: { total: 2, asset: 0, fx: 2 },
-      MTD: { total: '0', asset: '0', fx: '0' },
+      YTD: { pnl: { total: 2, asset: 0, fx: 2 } },
+      MTD: { errorMessage: 'Error', pnl: { total: '0', asset: '0', fx: '0' } },
       fxRates: { HKDUSD: '1.23' }
     }
     const expectedParams = {
       YTD: {
-        total: new Decimal(2),
-        asset: new Decimal(0),
-        fx: new Decimal(2)
+        errorMessage: undefined,
+        pnl: {
+          total: new Decimal(2),
+          asset: new Decimal(0),
+          fx: new Decimal(2)
+        }
       },
       MTD: {
-        total: new Decimal('0'),
-        asset: new Decimal('0'),
-        fx: new Decimal('0')
+        errorMessage: 'Error',
+        pnl: {
+          total: new Decimal('0'),
+          asset: new Decimal('0'),
+          fx: new Decimal('0')
+        }
       },
       DTD: {
-        total: new Decimal('0'),
-        asset: new Decimal('0'),
-        fx: new Decimal('0')
+        errorMessage: undefined,
+        pnl: {
+          total: new Decimal('0'),
+          asset: new Decimal('0'),
+          fx: new Decimal('0')
+        }
       },
       fxRates: {
         HKDUSD: new Decimal('1.23')

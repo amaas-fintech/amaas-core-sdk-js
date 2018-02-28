@@ -421,7 +421,7 @@ export function retrieveAggregateMTM(
   }
   let promise = retrieveData(params).then(result => {
     if (result) {
-      result.aggregateMtm = new Decimal(result.aggregateMtm)
+      result.aggregateMtm = new Decimal(result.aggregateMtm || 0)
     }
     if (typeof callback === 'function') {
       callback(null, result)
