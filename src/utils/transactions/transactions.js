@@ -207,7 +207,7 @@ export function search({ AMId, query }, callback) {
 /**
  * Search for Transaction with specified fields
  * @function fieldsSearch
- * @memberof module:api.Positions
+ * @memberof module:api.Transactions
  * @static
  * @param {object} query - query object of the form `{ assetManagerIds: number, fields: string[] }`. Any Transaction properties can be passed to `fields`.
  * Note that you may include additional properties in this object corresponding to the available search keys as defined in the `search` function.

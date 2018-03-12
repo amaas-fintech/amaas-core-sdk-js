@@ -1722,6 +1722,10 @@ declare module '@amaas/amaas-core-sdk-js' {
         },
         callback?: Function
       ): Promise<any> | void
+      function deactivate(
+        { AMId, data }: { AMId: number; data: any },
+        callback?: Function
+      ): Promise<any> | void
     }
     namespace FXRate {
       function retrieve({
