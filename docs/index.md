@@ -156,6 +156,9 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.reopen(params, [callback])](#module_api.CorporateActions.reopen) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Curve](#module_api.Curve) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.Curve.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.insert(params, [callback])](#module_api.Curve.insert) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.amend(params, [callback])](#module_api.Curve.amend) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.deactivate(params, [callback])](#module_api.Curve.deactivate) ⇒ <code>Promise</code> \| <code>null</code>
     * [.EOD](#module_api.EOD) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.EOD.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.triggerEODJob(params, [callback])](#module_api.EOD.triggerEODJob) ⇒ <code>Promise</code> \| <code>null</code>
@@ -200,7 +203,6 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.retrieve(params, [callback])](#module_api.Positions.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.search(params, [callback])](#module_api.Positions.search) ⇒ <code>Promise</code> \| <code>null</code>
         * [.fieldsSearch(query, callback)](#module_api.Positions.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
-        * [.fieldsSearch(query, callback)](#module_api.Positions.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
     * [.Relationships](#module_api.Relationships) : <code>object</code>
         * [.retrieve(params, [callback])](#module_api.Relationships.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
         * [.requestRelationship(params, [callback])](#module_api.Relationships.requestRelationship) ⇒ <code>Promise</code> \| <code>null</code>
@@ -222,6 +224,7 @@ API Methods. These methods enable communication with the AMaaS Database. All met
         * [.amend(params, [callback])](#module_api.Transactions.amend) ⇒ <code>Promise</code> \| <code>null</code>
         * [.partialAmend(params, [callback])](#module_api.Transactions.partialAmend) ⇒ <code>Promise</code> \| <code>null</code>
         * [.search(params, [callback])](#module_api.Transactions.search) ⇒ <code>Promise</code> \| <code>null</code>
+        * [.fieldsSearch(query, callback)](#module_api.Transactions.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
         * [.cancel(params, [callback])](#module_api.Transactions.cancel) ⇒ <code>Promise</code> \| <code>null</code>
         * [.uploadCSV(params, [callback])](#module_api.Transactions.uploadCSV) ⇒ <code>Promise</code> \| <code>null</code>
         * [.executeCSVJob(params, [callback])](#module_api.Transactions.executeCSVJob) ⇒ <code>Promise</code> \| <code>null</code>
@@ -949,6 +952,13 @@ Reopen a cancelled Corporate Action
 
 ### api.Curve : <code>object</code>
 **Kind**: static namespace of [<code>api</code>](#module_api)  
+
+* [.Curve](#module_api.Curve) : <code>object</code>
+    * [.retrieve(params, [callback])](#module_api.Curve.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.insert(params, [callback])](#module_api.Curve.insert) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.amend(params, [callback])](#module_api.Curve.amend) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.deactivate(params, [callback])](#module_api.Curve.deactivate) ⇒ <code>Promise</code> \| <code>null</code>
+
 <a name="module_api.Curve.retrieve"></a>
 
 #### Curve.retrieve(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
@@ -961,6 +971,48 @@ Reopen a cancelled Corporate Action
 | params.AMId | <code>number</code> | Owning Asset Manager ID of curve data |
 | params.businessDate | <code>string</code> | Business date (yyyy-mm-dd) of the curve data |
 | params.assetIds | <code>string</code> | Which asset to retrieve curve data for |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.Curve.insert"></a>
+
+#### Curve.insert(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>Curve</code>](#module_api.Curve)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of curve data |
+| params.businessDate | <code>string</code> | Business date (yyyy-mm-dd) of the curve data |
+| params.data | <code>object</code> | Curve object |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.Curve.amend"></a>
+
+#### Curve.amend(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>Curve</code>](#module_api.Curve)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of curve data |
+| params.businessDate | <code>string</code> | Business date (yyyy-mm-dd) of the curve data |
+| params.assetIds | <code>string</code> | Which asset to retrieve curve data for |
+| params.data | <code>object</code> | Curve object |
+| [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
+
+<a name="module_api.Curve.deactivate"></a>
+
+#### Curve.deactivate(params, [callback]) ⇒ <code>Promise</code> \| <code>null</code>
+**Kind**: static method of [<code>Curve</code>](#module_api.Curve)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| params | <code>object</code> | object of parameters: |
+| params.AMId | <code>number</code> | Owning Asset Manager ID of curve data |
+| params.data | <code>object</code> | Minimal curve data to deactivate (`assetId`, `curveType`, `fixingType`, `businessDate`, `curveTimestamp`) |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion |
 
 <a name="module_api.EOD"></a>
@@ -1514,7 +1566,6 @@ Reactivate a Party. This will set the Party status to 'Active'
     * [.retrieve(params, [callback])](#module_api.Positions.retrieve) ⇒ <code>Promise</code> \| <code>null</code>
     * [.search(params, [callback])](#module_api.Positions.search) ⇒ <code>Promise</code> \| <code>null</code>
     * [.fieldsSearch(query, callback)](#module_api.Positions.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
-    * [.fieldsSearch(query, callback)](#module_api.Positions.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
 
 <a name="module_api.Positions.retrieve"></a>
 
@@ -1556,19 +1607,6 @@ Search for Positions and return only specified fields
 | Param | Type | Description |
 | --- | --- | --- |
 | query | <code>number</code> | query object of the form `{ assetManagerIds: number, fields: string[] }`. Any Position properties can be passed to `fields`. Note that you may include additional properties in this object corresponding to the available search keys as defined in the `search` function. e.g. `{ assetManagerIds: [1], assetIds: [1, 2], fields: ['displayName', 'assetId'] }` |
-| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is a plain object or array of plain objects. Omit to return Promise |
-
-<a name="module_api.Positions.fieldsSearch"></a>
-
-#### Positions.fieldsSearch(query, callback) ⇒ <code>Promise</code> \| <code>null</code>
-Search for Transaction with specified fields
-
-**Kind**: static method of [<code>Positions</code>](#module_api.Positions)  
-**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with a plain object or array of plain objects.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| query | <code>object</code> | query object of the form `{ assetManagerIds: number, fields: string[] }`. Any Transaction properties can be passed to `fields`. Note that you may include additional properties in this object corresponding to the available search keys as defined in the `search` function. e.g.`{ assetManagerIds: [1, 2], fields: ['assetId', 'references', 'comments']}` |
 | callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is a plain object or array of plain objects. Omit to return Promise |
 
 <a name="module_api.Relationships"></a>
@@ -1798,6 +1836,7 @@ Register a new user in the database
     * [.amend(params, [callback])](#module_api.Transactions.amend) ⇒ <code>Promise</code> \| <code>null</code>
     * [.partialAmend(params, [callback])](#module_api.Transactions.partialAmend) ⇒ <code>Promise</code> \| <code>null</code>
     * [.search(params, [callback])](#module_api.Transactions.search) ⇒ <code>Promise</code> \| <code>null</code>
+    * [.fieldsSearch(query, callback)](#module_api.Transactions.fieldsSearch) ⇒ <code>Promise</code> \| <code>null</code>
     * [.cancel(params, [callback])](#module_api.Transactions.cancel) ⇒ <code>Promise</code> \| <code>null</code>
     * [.uploadCSV(params, [callback])](#module_api.Transactions.uploadCSV) ⇒ <code>Promise</code> \| <code>null</code>
     * [.executeCSVJob(params, [callback])](#module_api.Transactions.executeCSVJob) ⇒ <code>Promise</code> \| <code>null</code>
@@ -1883,6 +1922,19 @@ Search Transactions
 | [params.AMId] | <code>number</code> | Asset Manager ID of the Transactions to search over. If omitted you must pass assetManagerIds in the query |
 | params.query | <code>object</code> | Search parameters of the form: { `key`: `value` | `[values]` }<br /> Available keys are: <li>clientIds</li> <li>transactionStatuses</li> <li>transactionIds</li> <li>assetBookIds</li> <li>counterpartyBookIds</li> <li>assetIds</li> <li>transactionDateStart</li> <li>transactionDateEnd</li> <li>codeTypes</li> <li>codeValues</li> <li>linkTypes</li> <li>linkedTransactionIds</li> <li>partyTypes</li> <li>partyIds</li> <li>referenceTypes</li> <li>referenceValues</li> e.g. `{ assetManagerIds: 1, bookIds: [1, 2, 3] }` |
 | [callback] | <code>function</code> | Called with two arguments (error, result) on completion. `result` is an array of Transactions or a single Transaction instance. Omit to return Promise |
+
+<a name="module_api.Transactions.fieldsSearch"></a>
+
+#### Transactions.fieldsSearch(query, callback) ⇒ <code>Promise</code> \| <code>null</code>
+Search for Transaction with specified fields
+
+**Kind**: static method of [<code>Transactions</code>](#module_api.Transactions)  
+**Returns**: <code>Promise</code> \| <code>null</code> - If no callback supplied, returns a Promise that resolves with a plain object or array of plain objects.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| query | <code>object</code> | query object of the form `{ assetManagerIds: number, fields: string[] }`. Any Transaction properties can be passed to `fields`. Note that you may include additional properties in this object corresponding to the available search keys as defined in the `search` function. e.g.`{ assetManagerIds: [1, 2], fields: ['assetId', 'references', 'comments']}` |
+| callback | <code>function</code> | Called with two arguments (error, result) on completion. `result` is a plain object or array of plain objects. Omit to return Promise |
 
 <a name="module_api.Transactions.cancel"></a>
 
