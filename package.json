@@ -43,7 +43,7 @@
     "babel-preset-env": "^1.6.1",
     "esdoc": "^0.5.2",
     "jest": "19.0.2",
-    "jsdoc-to-markdown": "^3.0.3",
+    "jsdoc-to-markdown": "^4.0.1",
     "nock": "^9.1.5"
   },
   "dependencies": {
