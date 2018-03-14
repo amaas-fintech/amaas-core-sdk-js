@@ -12,7 +12,9 @@ api.config({
 
 describe('retrieve', () => {
   beforeAll(() => {
-    network.retrieveData.mockImplementation(() => Promise.resolve([{}]))
+    network.retrieveData.mockImplementation(() =>
+      Promise.resolve({ items: [] })
+    )
   })
   test('with promise', () => {
     let promise = api.TransactionPNL.retrieve({})
@@ -23,9 +25,9 @@ describe('retrieve', () => {
       { AMId: 88, query: { key: 'value' } },
       (error, result) => {
         expect(network.retrieveData).toHaveBeenCalledWith({
-          AMaaSClass: 'transactionpnl',
+          AMaaSClass: 'pnls',
           AMId: 88,
-          query: { combinePeriods: true, key: 'value' }
+          query: { combinePeriods: true, pnlType: 'Transaction', key: 'value' }
         })
         expect(error).toBeNull()
         done()
