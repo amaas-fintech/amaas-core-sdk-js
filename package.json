@@ -1,6 +1,6 @@
 {
   "name": "@amaas/amaas-core-sdk-js",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "Asset Management as a Service (AMaaS) Software Development Kit (SDK) for JavaScript",
   "main": "dist/index",
   "scripts": {
@@ -9,8 +9,7 @@
     "test:watch": "jest --verbose --watch",
     "build": "babel src --out-dir dist --ignore '**.test.js'",
     "prepare": "npm run build",
-    "docs": "jsdoc2md --template ./docs/template.hbs --files './src/**/*.js' > ./docs/index.md",
-    "esdoc": "esdoc"
+    "docs": "jsdoc2md --template ./docs/template.hbs --files './src/**/*.js' > ./docs/index.md"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.js",
@@ -41,9 +40,8 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "esdoc": "^0.5.2",
     "jest": "19.0.2",
-    "jsdoc-to-markdown": "^3.0.3",
+    "jsdoc-to-markdown": "^4.0.1",
     "nock": "^9.1.5"
   },
   "dependencies": {

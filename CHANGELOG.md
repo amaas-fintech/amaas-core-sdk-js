@@ -1,6 +1,14 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## v6.0.2 - 2018-03-14
+### Changed
+- Removed some dodgy dependencies
+
+## v6.0.1 - 2018-03-12
+### Added
+- Added a deactivate curve function
+
 ## v6.0.0 - 2018-02-28
 ### Changed
 - Changed the structure of AggregatePNL and AggregateMTM
