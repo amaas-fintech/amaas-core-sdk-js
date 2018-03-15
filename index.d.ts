@@ -495,6 +495,11 @@ declare module '@amaas/amaas-core-sdk-js' {
   }
 
   // PNL (Profit & Loss)
+  export interface IPNLObject<T = IPositionPNL | ITransactionPNL> {
+    nextHashKey: string
+    nextRangeKey: string
+    items: T[]
+  }
   export interface IPositionPNL {
     assetManagerId: string
     bookId: string
@@ -1503,10 +1508,14 @@ declare module '@amaas/amaas-core-sdk-js' {
             businessDate: string
             periods?: string | string[]
             assetIds?: string | string[]
+            transactionIds?: string | string[]
+            pageSize?: number
+            nextHashKey?: string
+            nextRangeKey?: string
           }
         },
         callback?: Function
-      ): Promise<transactions.PositionPNL[]>
+      ): Promise<IPNLObject<transactions.PositionPNL[]>>
       function insert(
         {
           AMId,
@@ -1546,10 +1555,13 @@ declare module '@amaas/amaas-core-sdk-js' {
             assetIds: string | string[]
             pageNo?: number
             pageSize?: number
+            transactionIds?: string | string[]
+            nextHashKey?: string
+            nextRangeKey?: string
           }
         },
         callback?: Function
-      ): Promise<transactions.TransactionPNL[]>
+      ): Promise<IPNLObject<transactions.TransactionPNL[]>>
       function insert(
         {
           AMId,

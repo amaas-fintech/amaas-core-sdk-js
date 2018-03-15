@@ -18,17 +18,20 @@ import TransactionPNL from '../../transactions/TransactionPNL/TransactionPNL'
  */
 export function retrieve({ AMId, query = {} }, callback) {
   const params = {
-    AMaaSClass: 'transactionpnl',
+    AMaaSClass: 'pnls',
     AMId,
-    query: { combinePeriods: true, ...query }
+    query: { combinePeriods: true, pnlType: 'Transaction', ...query }
   }
   let promise = retrieveData(params).then(result => {
     // if combinePeriods is not supplied, or supplied as true,
     // parse to class (otherwise just pass json as-is for now)
     if (!('combinePeriods' in query) || query.combinePeriods === true) {
-      result = result.map(transactionPNL =>
-        _parseTransactionPNL(transactionPNL)
-      )
+      result = {
+        ...result,
+        items: result.items.map(transactionPNL =>
+          _parseTransactionPNL(transactionPNL)
+        )
+      }
     }
     if (typeof callback === 'function') {
       callback(null, result)
