@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+#v7.0.0 - 2018-03-15
+### Changed
+- Updated the PnL interfaces
+
 ## v6.0.2 - 2018-03-14
 ### Changed
 - Removed some dodgy dependencies
